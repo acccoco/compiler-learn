@@ -5,7 +5,7 @@ using namespace std;
 shared_ptr<LexicalDFA> LexicalDFA::_instance = NULL;
 
 
-TokenErrorType LexicalDFA::Parse(string rawStr, int& curIndex) {
+TokenErrorType LexicalDFA::Parse(const string rawStr, int& curIndex) {
     // Çå¿ÕÐÅÏ¢
     _token = NULL;
     _errStr = "";

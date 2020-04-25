@@ -57,7 +57,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_IntegerLiteral(list<shared_p
     /******************
      IntegerLiteral
      ********************/
-    tempTreeNode = _MatchIntegetLiteral();
+    tempTreeNode = _MatchIntegerLiteral();
     SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "识别IntegerLiteral失败");
 
     return root;
@@ -70,7 +70,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_this(list<shared_ptr<SyntaxE
     /******************
      "this"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::IDENTIFIER, "this", curTreeType, "识别this失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "this", curTreeType, "识别this失败");
 
     return root;
 }
@@ -82,7 +82,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_true(list<shared_ptr<SyntaxE
     /******************
      "true"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::IDENTIFIER, "true", curTreeType, "识别true失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "true", curTreeType, "识别true失败");
 
     return root;
 }
@@ -94,7 +94,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_false(list<shared_ptr<Syntax
     /******************
      "false"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::IDENTIFIER, "false", curTreeType, "识别false失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "false", curTreeType, "识别false失败");
 
     return root;
 }
@@ -201,7 +201,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_arrayExpression(shared_ptr<S
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root, curTreeType, "识别Expression失败");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Expression失败");
     /******************
      "]"
      ********************/
@@ -234,7 +234,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_operate(shared_ptr<SyntaxTre
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root, curTreeType, "识别Expression失败");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Expression失败");
 
     return root;
 }
@@ -259,7 +259,49 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_length(shared_ptr<SyntaxTree
  Expression "." Identifier "(" [ Expression { "," Expression } ] ")"
 */
 shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_functionCall(shared_ptr<SyntaxTreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
-    // TODO: 
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_FunctionCall);
+    /******************
+     Expression
+     ********************/
+    root->SetChild(firstNode);
+    /******************
+     "."
+     ********************/
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ".", curTreeType, "识别.失败");
+    /******************
+     Identifier
+     ********************/
+    tempTreeNode = _MatchIdentifier();
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Identifier失败");
+    /******************
+     "("
+     ********************/
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "识别(失败");
+
+    /******************
+     [ Expression { "," Expression } ]
+     ********************/
+    if (tempTreeNode = Expression(tempErrorList)) {
+        SyntaxTreeNodePtr paramSequence(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, tempTreeNode->GetLineNum(), tempTreeNode));
+        root->GetChild()->GetSubling()->SetSubling(paramSequence);
+        SyntaxTreeNodePtr pre = tempTreeNode;
+        while (true) {
+            const int curIndex2 = _reader->GetIndex();
+            if (_MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, ",") == false) break;
+            if ((tempTreeNode = Expression(tempErrorList)) == NULL) {
+                _reader->SetIndex(curIndex2);       // 这一小节识别失败，指针需要回退
+                break;
+            }
+            pre->SetSubling(tempTreeNode);
+            pre = tempTreeNode;
+        }
+    }
+    /******************
+     ")"
+     ********************/
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "识别)失败");
+
+    return root;
 }
 
 #pragma endregion

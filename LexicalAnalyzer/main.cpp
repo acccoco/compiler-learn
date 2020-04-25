@@ -2,6 +2,8 @@
 #include <fstream>
 using namespace std;
 #include "LexicalAnalyzer.h"
+#include "fileReader.h"
+#include "TokenWriter.h"
 
 
 /**
@@ -35,8 +37,16 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
+	// 读取文件
+	auto rawStrs = FileReader().readFile(fileIn);
 	// 进行词法分析
-	LexialAnalyzer().LexicalAnlyze(fileIn, fileOut);
+	LexialAnalyzer analyzer;
+	analyzer.LexicalAnlyze(rawStrs);
+	// 获得结果
+	auto tokens = analyzer.GetResultTokens();
+	auto tokenErrors = analyzer.GetResultErrors();
+	// 结果写入文件
+	TokenWriter().Write2File(tokens, tokenErrors, fileOut);
 
 	// 关闭文件
 	fileIn.close();

@@ -138,10 +138,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="fileReader.h" />
     <ClInclude Include="LexicalAnalyzer.h" />
     <ClInclude Include="LexicalDFA.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="TokenError.h" />
+    <ClInclude Include="TokenWriter.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>

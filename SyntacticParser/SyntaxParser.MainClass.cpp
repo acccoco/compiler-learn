@@ -4,117 +4,52 @@ using namespace std;
 
 
 /*
- 递归下降
- MainClass
+ MainClass -> "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" Statement "}" "}"
 */
 shared_ptr<SyntaxTreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>& errorList) {
 
-    errorList.clear();                                      // 清空错误列表    
-    const int curIndex = _reader->GetIndex();               // reader当前的位置    
-    SyntaxTreeNodePtr tempTreeNode;                         // 收集结果的临时节点          
-    list<shared_ptr<SyntaxError>> tempErrorList;            // 收集错误的临时链表
-    auto curTreeType = TreeNodeMainTypeEnum::MainClass;     // 当前树节点类型              
-
-
-    // 判断第一个Token是否存在
-    ETokenPtr firstToken = _reader->SeekToken();
-    if (firstToken == NULL) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别第一个token失败", curTreeType));
-        return NULL;
-    }
-    // 建立根节点
-    SyntaxTreeNodePtr root(new SyntaxTreeNode(curTreeType, firstToken->GetLineNum()));
-    
-
-
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::MainClass);
     /******************
      "class"
      ********************/
-    if (_MatchTokenSequence({ {TokenTypeEnum::KEYWORD, "class"} }) == false) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别关键字class失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "class", curTreeType, "识别class失败");
     /******************
-     类名
-     Identifier
-     ********************/
-    if (tempTreeNode = _MatchIdentifier()) {
-        root->SetChild(tempTreeNode);
-    }
-    else {
-        errorList.emplace_back(new SyntaxError(_reader, "识别类名失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
-    /******************
-     "{ public static void main ( String [ ]"
-     ********************/
-    vector<pair<TokenTypeEnum, string>> tokenSequence_1 = {
-        {TokenTypeEnum::SYMBOL, "{"},
-        {TokenTypeEnum::KEYWORD, "public"},
-        {TokenTypeEnum::KEYWORD, "static"},
-        {TokenTypeEnum::KEYWORD, "void"},
-        {TokenTypeEnum::KEYWORD, "main"},
-        {TokenTypeEnum::SYMBOL, "("},
-        {TokenTypeEnum::KEYWORD, "String"},
-        {TokenTypeEnum::SYMBOL, "["},
-        {TokenTypeEnum::SYMBOL, "]"},
-    };
-    if (_MatchTokenSequence(tokenSequence_1) == false) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别{public static void main(String[]失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
-    /******************
-     参数名
      Identifier
      ********************/
     tempTreeNode = _MatchIdentifier();
-    if (tempTreeNode = _MatchIdentifier()) {
-        root->GetChild()->SetSubling(tempTreeNode);
-    }
-    else {
-        errorList.emplace_back(new SyntaxError(_reader, "识别主方法参数名失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
+    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "识别类名Identifier失败");
     /******************
-     ") {"
+     "{" "public" "static" "void" "main" "(" "String" "[" "]"
      ********************/
-    vector<pair<TokenTypeEnum, string>> tokenSequence_2 = {
-        {TokenTypeEnum::SYMBOL, ")"},
-        {TokenTypeEnum::SYMBOL, "{"},
-    };
-    if (_MatchTokenSequence(tokenSequence_1) == false) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别){失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "{", curTreeType, "识别{失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "public", curTreeType, "识别public失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "static", curTreeType, "识别static失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "void", curTreeType, "识别void失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "main", curTreeType, "识别main失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "识别(失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "String", curTreeType, "识别String失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "识别[失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "识别]失败");
     /******************
-     识别Statement
+     Identifier
      ********************/
-    if (tempTreeNode = Statement(tempErrorList)) {
-        root->GetChild()->GetSubling()->SetSubling(tempTreeNode);
-    }
-    else {
-        errorList.emplace_back(new SyntaxError(_reader, "识别Statement失败", curTreeType));
-        errorList.insert(errorList.end(), tempErrorList.begin(), tempErrorList.end());
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
+    tempTreeNode = _MatchIdentifier();
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别参数名Identifier失败");
     /******************
-     "} }"
+     ")" "{"
      ********************/
-    vector<pair<TokenTypeEnum, string>> tokenSequence_3 = {
-        {TokenTypeEnum::SYMBOL, "}"},
-        {TokenTypeEnum::SYMBOL, "}"},
-    };
-    if (_MatchTokenSequence(tokenSequence_1) == false) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别}}失败", curTreeType));
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "识别)失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "{", curTreeType, "识别{失败");
+    /******************
+     Statement
+     ********************/
+    tempTreeNode = Statement(tempErrorList);
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild()->GetSubling(), curTreeType, "识别Statement失败");
+    /******************
+     "}" "}"
+     ********************/
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "}", curTreeType, "识别}失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "}", curTreeType, "识别}失败");
 
     return root;
 }

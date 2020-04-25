@@ -49,7 +49,7 @@ enum class TreeNodeSubTypeEnum_Statement {
     Statement_if,
     Statement_while,
     Statement_println,
-    Statement_asign,
+    Statement_assign,
     Statement_arrayAssign,
 };
 /*

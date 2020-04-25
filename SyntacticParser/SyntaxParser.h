@@ -14,9 +14,12 @@
 */
 class SyntaxParser
 {
-private:
+protected:
     typedef SyntaxTreeNode::Ptr SyntaxTreeNodePtr;
+    friend class ParserTest;                            // 用于测试的友元类
     shared_ptr<TokenReader> _reader;                    // token的读取器
+    SyntaxTreeNodePtr _root;                            // 分析结果，树根
+    list<shared_ptr<SyntaxError>> _errorList;          // 分析结果，错误链表
 
     /*
      识别关键字或者符号
@@ -38,40 +41,7 @@ private:
         }
     }
 
-    /*
-     识别一串Token
-     只允许识别keywords，symbol类型的，不允许识别Identifier或者IntegerLiteral
-     如果不匹配，_reader会回退
-    */
-    bool _MatchTokenSequence(vector<pair<TokenTypeEnum, string>> tokens) {
-        int step = 0;       // 已经识别了的步数，用于回退
-        int tokensCount = tokens.size();
 
-        // 尝试进行匹配
-        ETokenPtr curToken;
-        for (int i = 0; i < tokensCount; ++i) {
-            if (tokens[i].first != TokenTypeEnum::KEYWORD && tokens[i].first != TokenTypeEnum::SYMBOL)
-                break;
-            curToken = _reader->GetToken();
-            if (curToken
-                && curToken->GetTokenType() == tokens[i].first
-                && curToken->GetStrValue() == tokens[i].second) {
-                ++step;
-            }
-            else {
-                break;
-            }
-        }
-
-        // 是否完全匹配，不完全匹配就回退
-        if (step == tokensCount) {
-            return true;
-        }
-        else {
-            _reader->GoBack(step);
-            return false;
-        }
-    }
     /*
      识别Identifier
      如果失败，会回退，并且返回NULL
@@ -92,9 +62,9 @@ private:
      如果失败，会回退，并且返回NULL
      成功返回树节点
     */
-    SyntaxTreeNodePtr _MatchIntegetLiteral() {
+    SyntaxTreeNodePtr _MatchIntegerLiteral() {
         ETokenPtr token;
-        if ((token = _reader->GetToken()) && token->GetTokenType() == TokenTypeEnum::INTEGER) {
+        if ((token = _reader->SeekToken()) && token->GetTokenType() == TokenTypeEnum::INTEGER) {
             token = _reader->GetToken();
             return SyntaxTreeNodePtr(new SyntaxTreeNode(token->GetNumValue(), token->GetLineNum()));
         }
@@ -127,9 +97,32 @@ public:
     }
 #pragma endregion
 
+    /*
+     语法分析主函数
+    */
+    void Parse() {
+        // 清空结果
+        _root = NULL;
+        _errorList.clear();
+
+        // 调用递归下降算法
+        _root = Goal(_errorList);
+    }
+    /*
+     获得语法分析树的树根
+    */
+    SyntaxTreeNodePtr GetRoot() {
+        return _root;
+    }
+    /*
+     获得错误链表
+    */
+    list<shared_ptr<SyntaxError>> GetErrorList() {
+        return _errorList;
+    }
 
 
-
+protected:
     SyntaxTreeNodePtr Goal(list<shared_ptr<SyntaxError>>& errorList);
     SyntaxTreeNodePtr MainClass(list<shared_ptr<SyntaxError>>& errorList);
     SyntaxTreeNodePtr ClassDeclaration(list<shared_ptr<SyntaxError>>& errorList);
@@ -138,6 +131,24 @@ public:
     SyntaxTreeNodePtr Type(list<shared_ptr<SyntaxError>>& errorList);
     SyntaxTreeNodePtr Statement(list<shared_ptr<SyntaxError>>& errorList);
     SyntaxTreeNodePtr Expression(list<shared_ptr<SyntaxError>>& errorList);
+
+#pragma region 识别Type的子过程
+    shared_ptr<SyntaxTreeNode> Type_Identifier(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Type_boolean(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Type_Int(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Type_IntArray(list<shared_ptr<SyntaxError>>& errorList);
+#pragma endregion
+
+#pragma region 识别Statement的子过程
+    shared_ptr<SyntaxTreeNode> Statement_Sequence(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Statement_while(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Statement_If(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Statement_Println(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Statement_Assign(list<shared_ptr<SyntaxError>>& errorList);
+    shared_ptr<SyntaxTreeNode> Statement_ArrayAssign(list<shared_ptr<SyntaxError>>& errorList);
+#pragma endregion
+
+
 
 #pragma region 识别Expression的子过程
     shared_ptr<SyntaxTreeNode> Expression_Identifier(list<shared_ptr<SyntaxError>>& errorList);

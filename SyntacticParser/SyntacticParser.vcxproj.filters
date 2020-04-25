@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="词法分析">
+      <UniqueIdentifier>{19c13f8f-fe78-4e78-afb3-32480c41917f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EToken.h">
@@ -27,6 +30,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SyntaxError.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -51,6 +57,21 @@
     </ClCompile>
     <ClCompile Include="SyntaxParser.Statement.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.VarDeclaration.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.MethodDeclaration.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserTest.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp">
+      <Filter>词法分析</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LexicalAnalyzer\utils.cpp">
+      <Filter>词法分析</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

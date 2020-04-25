@@ -2,64 +2,68 @@
 using namespace std;
 
 /*
- 递归下降
- Type
+ Type -> ...
 */
 shared_ptr<SyntaxTreeNode> SyntaxParser::Type(list<shared_ptr<SyntaxError>>& errorList) {
 
-    errorList.clear();
-    // 判断第一个单词是否存在
-    ETokenPtr firstToken = _reader->SeekToken();
-    if (firstToken == NULL) {
-        return NULL;
-    }
-    // 建立根节点
-    SyntaxTreeNodePtr root(new SyntaxTreeNode(TreeNodeMainTypeEnum::Type, firstToken->GetLineNum()));
-    SyntaxTreeNodePtr temp;
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Type);
 
+    if (!(tempTreeNode = Type_Identifier(errorList))
+        && !(tempTreeNode = Type_boolean(errorList))
+        && !(tempTreeNode = Type_Int(errorList))
+        && !(tempTreeNode = Type_IntArray(errorList))) {
 
-    if (_MatchTokenSequence({ {TokenTypeEnum::KEYWORD, "int"} })) {
-        /**********************************
-         分支1
-         "int[]"
-        ************************************/
-        if (_MatchTokenSequence({ {TokenTypeEnum::SYMBOL, "["}, {TokenTypeEnum::SYMBOL, "]"} })) {
-            root->SetSubType(TreeNodeSubTypeEnum_Type::Type_IntArray);
-            return root;
-        }
-        /**********************************
-         分支2
-         "int"
-        ************************************/
-        else {
-            root->SetSubType(TreeNodeSubTypeEnum_Type::Type_Int);
-            return root;
-        }
-    }
-    /**********************************
-     分支3
-     "boolean"
-    ************************************/
-    else if (_MatchTokenSequence({ {TokenTypeEnum::KEYWORD, "boolean"} })) {
-        root->SetSubType(TreeNodeSubTypeEnum_Type::Type_boolean);
+        errorList.emplace_back(new SyntaxError(_reader, "识别Type失败", curTreeType));
         return root;
     }
+    return tempTreeNode;
+}
+
+/*
+ Type -> Identifier
+*/
+shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Identifier(list<shared_ptr<SyntaxError>>& errorList) {
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_Identifier);
     /**********************************
-     分支4
-     自定义类型
      Identifier
     ************************************/
-    else if (temp = _MatchIdentifier()) {
-        root->SetSubType(TreeNodeSubTypeEnum_Type::Type_Identifier);
-        if (temp = _MatchIdentifier()) {
-            root->SetChild(temp);
-            return root;
-        }
-        else {
-            return NULL;
-        }
-    }
-    else {
-        return NULL;
-    }
+    tempTreeNode = _MatchIdentifier();
+    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "识别Identifier失败");
+    return root;
+}
+/*
+ Type -> "boolean"
+*/
+shared_ptr<SyntaxTreeNode> SyntaxParser::Type_boolean(list<shared_ptr<SyntaxError>>& errorList) {
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_boolean);
+    /**********************************
+     "boolean"
+    ************************************/
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "boolean", curTreeType, "识别boolean失败");
+    return root;
+}
+/*
+ Type -> "int"
+*/
+shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Int(list<shared_ptr<SyntaxError>>& errorList) {
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_Int);
+    /**********************************
+     "int"
+    ************************************/
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "int", curTreeType, "识别int失败");
+    return root;
+}
+/*
+ Type -> "int" "[" "]"
+*/
+shared_ptr<SyntaxTreeNode> SyntaxParser::Type_IntArray(list<shared_ptr<SyntaxError>>& errorList) {
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_IntArray);
+    /**********************************
+     "int" "[" "]"
+    ************************************/
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "int", curTreeType, "识别int失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "识别[失败");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "识别]失败");
+    return root;
+
 }

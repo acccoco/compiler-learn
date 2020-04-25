@@ -82,6 +82,24 @@ public:
     SyntaxTreeNode(TreeNodeMainTypeEnum mainKind, int lineNum, Ptr child = NULL, Ptr subling = NULL) {
         _InitAssist(mainKind, lineNum, child, subling, 0, "");
     }
+    /*
+     获得节点的值
+    */
+    string GetStrValue() {
+        return _strValue;
+    }
+    /*
+     获得节点的值
+    */
+    int GetNumValue() {
+        return _numValue;
+    }
+    /*
+     获得节点的行号
+    */
+    int GetLineNum() {
+        return _lineNum;
+    }
 
     /*
      设置孩子节点

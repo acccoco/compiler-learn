@@ -6,6 +6,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <iostream>
 using namespace std;
 
 
@@ -21,6 +22,7 @@ enum class TokenTypeEnum {
     IDENTIFIER,
     INTEGER,
 };
+
 /*
  Token∂‘œÛ
  */

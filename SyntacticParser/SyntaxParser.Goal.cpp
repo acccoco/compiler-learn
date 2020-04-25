@@ -2,53 +2,27 @@
 using namespace std;
 
 /*
- 递归下降：Goal
- 如果识别失败，reader的指针会回退
+ Goal -> MainClass { ClassDeclaration } EOF
 */
 shared_ptr<SyntaxTreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& errorList) {
 
-    errorList.clear();                              // 清空错误列表
-    const int curIndex = _reader->GetIndex();       // reader当前的位置
-    SyntaxTreeNodePtr tempTreeNode;                 // 收集结果的临时节点
-    list<shared_ptr<SyntaxError>> tempErrorList;    // 收集错误的临时链表
-    auto curTreeType = TreeNodeMainTypeEnum::Goal;  // 当前树节点类型
+    RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Goal);
 
     /**********************************
-     建立根节点
-     判断第一个token是否存在
+     MainClass
     ************************************/
-    ETokenPtr firstToken = _reader->SeekToken();
-    if (firstToken == NULL) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别开始token失败", curTreeType));
-        return NULL;
-    }
-    SyntaxTreeNodePtr root(new SyntaxTreeNode(curTreeType, firstToken->GetLineNum()));
-
-
+    tempTreeNode = MainClass(tempErrorList);
+    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "识别MainClass失败");
     /**********************************
-     读取MainClass：必须有一个
+     { ClassDeclaration }
     ************************************/
-    SyntaxTreeNodePtr mainClass = MainClass(tempErrorList);
-    if (mainClass == NULL) {
-        errorList.emplace_back(new SyntaxError(_reader, "识别MainClass失败", curTreeType));
-        errorList.insert(errorList.end(), tempErrorList.begin(), tempErrorList.end());
-        _reader->SetIndex(curIndex);
-        return NULL;
-    }
-    else {
-        root->SetChild(mainClass);
+    SyntaxTreeNodePtr preNode = tempTreeNode;
+    while (tempTreeNode = ClassDeclaration(tempErrorList)) {
+        preNode->SetSubling(tempTreeNode);
+        preNode = tempTreeNode;
     }
     /**********************************
-     读取类定义ClassDeclaration：0个或多个
-    ************************************/
-    SyntaxTreeNodePtr preNode = mainClass;
-    SyntaxTreeNodePtr classDeclaration;
-    while (classDeclaration = ClassDeclaration(tempErrorList)) {
-        preNode->SetSubling(classDeclaration);
-        preNode = classDeclaration;
-    }
-    /**********************************
-     以EOF结束
+     EOF
     ************************************/
     if (_reader->IsEnd() == false) {
         errorList.emplace_back(new SyntaxError(_reader, "本该到达文件结尾", curTreeType));
