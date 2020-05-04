@@ -11,10 +11,10 @@ public:
     /*
      前序遍历树
     */
-    list<pair<int, string>> PreOrderTraval(shared_ptr<SyntaxTreeNode> root, const int intendLevel) {
+    list<pair<int, string>> PreOrderTraval(shared_ptr<TreeNode> root, const int intendLevel) {
         list<pair<int, string>> rawData;            // 包含缩进级别的节点信息
         list<pair<int, string>> tempResultList;     // 用于存放子节点的结果
-        shared_ptr<SyntaxTreeNode> tempTreeNode;
+        shared_ptr<TreeNode> tempTreeNode;
         switch (root->MainType.Get()) {
 
             /********************

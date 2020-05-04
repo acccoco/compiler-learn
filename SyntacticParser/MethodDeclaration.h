@@ -12,7 +12,8 @@ class RDCase_MethodDeclaration : public RDCase {
 public:
     RDCase_MethodDeclaration(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
         
 
         return _root;

@@ -6,7 +6,7 @@ using namespace std;
 /*
  Type -> ...
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Type(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Type(list<shared_ptr<SyntaxError>>& errorList) {
 
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Type);
 
@@ -24,7 +24,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Type(list<shared_ptr<SyntaxError>>& err
 /*
  Type -> Identifier
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Identifier(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Type_Identifier(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_Identifier);
     /**********************************
      Identifier
@@ -36,7 +36,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Identifier(list<shared_ptr<SyntaxE
 /*
  Type -> "boolean"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Type_boolean(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Type_boolean(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_boolean);
     /**********************************
      "boolean"
@@ -47,7 +47,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Type_boolean(list<shared_ptr<SyntaxErro
 /*
  Type -> "int"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Int(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Type_Int(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_Int);
     /**********************************
      "int"
@@ -58,7 +58,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Type_Int(list<shared_ptr<SyntaxError>>&
 /*
  Type -> "int" "[" "]"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Type_IntArray(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Type_IntArray(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Type::Type_IntArray);
     /**********************************
      "int" "[" "]"

@@ -6,7 +6,7 @@ using namespace std;
 /*
  VarDeclaration -> Type Identifier ";"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::VarDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::VarDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::VarDeclaration);
     /**********************************
      Type

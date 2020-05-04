@@ -150,8 +150,8 @@
     <ClInclude Include="SyntaxParser.h" />
     <ClInclude Include="SyntaxWriter.h" />
     <ClInclude Include="TokenReader.h" />
-    <ClInclude Include="SyntaxTreeType.h" />
-    <ClInclude Include="SyntaxTreeNode.h" />
+    <ClInclude Include="TreeType.h" />
+    <ClInclude Include="TreeNode.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>
   <ItemGroup>

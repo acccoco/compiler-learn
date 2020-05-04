@@ -23,12 +23,6 @@
     <ClInclude Include="EToken.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTreeType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxTreeNode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="SyntaxParser.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -64,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="Statement.h">
       <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNode.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

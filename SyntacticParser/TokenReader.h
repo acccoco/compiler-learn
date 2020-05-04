@@ -11,7 +11,7 @@ using namespace std;
 
 
 /*
- 用于读取tokens的类
+ 用于读取词法分析tokens的类
  这个类只是用来读取token的，不应该插手错误处理
 */
 class TokenReader {
@@ -20,6 +20,7 @@ private:
     int _tokenCount;                    // tokens的总个数
     int _curIndex;                      // 当前token的数组下标，即将被识别。GetToken()和SeekToken()方法获得的就是这个token
 public:
+
     /*
      构造函数：
      通过Token*[][]构造Reader
@@ -36,22 +37,24 @@ public:
         }
     }
 
-    Property<int> Index = Property<int>(_curIndex);
-    Property<int> TokenCount = Property<int>(_tokenCount);
+    Property<int> Index = Property<int>(_curIndex);     // reader当前的指针位置
+    Property<int> TokenCount = Property<int>(_tokenCount);      // reader里面token的总数
 
     /*
      判断是否读完了
-     当前下标是否越界
+     如果读完了，那么指针值应该是tokenCount
+     异常：无
     */
-    bool IsEnd() const {
+    bool IsEnd() const noexcept {
         return _curIndex == _tokenCount;
     }
 
     /*
-     读取一个token，然后指针后移
-     如果越界，则返回NULL
+     读取当前指针指向的token，，然后指针后移
+     如果指针越界，就返回null
+     异常：无
     */
-    ETokenPtr GetToken() {
+    ETokenPtr GetToken() noexcept {
         if (_curIndex >= _tokenCount) {
             return NULL;
         }
@@ -59,18 +62,20 @@ public:
     }
 
     /*
-     看一眼当前的Token
+     读取当前指针指向的Token，不会改变指针的值
      如果没有可读的，就返回空指针
+     异常：无
     */
-    ETokenPtr SeekToken() const {
+    ETokenPtr SeekToken() const noexcept {
         return _curIndex < _tokenCount ? _tokens[_curIndex] : NULL;
     }
 
     /*
-     正要读取的token的行号
+     当前指针指向的tokne的行号
      如果没有，就返回-1
+     异常：无
     */
-    int GetCurLineNum() const {
+    int GetCurLineNum() const noexcept {
         if (_curIndex < _tokenCount) {
             return _tokens[_curIndex]->LineNum.Get();
         }
@@ -79,10 +84,11 @@ public:
         }
     }
     /*
-     上一个读取完的token的行号
+     上一个指针指向的tokne的行号
      如果没有，就返回-1
+     异常：无
     */
-    int GetLastLineNum() const {
+    int GetLastLineNum() const  noexcept {
         auto lastIndex = _curIndex - 1;
         if (0 <= lastIndex && lastIndex < _tokenCount) {
             return _tokens[lastIndex]->LineNum.Get();
@@ -93,6 +99,6 @@ public:
     }
 };
 /*
- Reader类的指针类型
+ 用于读取词法分析tokens的类
 */
 typedef std::shared_ptr<TokenReader> ReaderPtr;

@@ -14,11 +14,11 @@ shared_ptr<RDCase_Expression> ConstructRDCase(string str) {
     return expression;
 }
 /* 获得一个节点的expression子类型 */
-TreeSubType_Expression GetSubTypeExp(shared_ptr<SyntaxTreeNode> root) {
+TreeSubType_Expression GetSubTypeExp(shared_ptr<TreeNode> root) {
     return root->Type.Get().GetSubType_Expression();
 }
 /* 获得一个节点的主类型 */
-TreeMainType GetMainType(SyntaxTreeNodePtr root) {
+TreeMainType GetMainType(TreeNodePtr root) {
     return root->Type.Get().GetMainType();
 }
 

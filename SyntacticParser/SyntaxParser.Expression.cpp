@@ -6,7 +6,7 @@ using namespace std;
 /*
  Expression -> ...
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Expression);
     // 首先尝试以终结符开头的产生式
     if (!(tempTreeNode = Expression_this(tempErrorList))
@@ -24,7 +24,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>
         return NULL;
     }
     // 尝试以非终结符开头的产生式，识别不成功，并不报错
-    SyntaxTreeNodePtr newRoot;
+    TreeNodePtr newRoot;
     if ((newRoot = Expression_operate(root, tempErrorList))
         || (newRoot = Expression_arrayExpression(root, tempErrorList))
         || (newRoot = Expression_length(root, tempErrorList))
@@ -39,7 +39,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>
 /*
  Expression -> Identifier
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_Identifier(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_Identifier(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_Identifier);
     /******************
      Identifier
@@ -52,7 +52,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_Identifier(list<shared_ptr<S
 /*
  Expression -> IntegerLiteral
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_IntegerLiteral(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_IntegerLiteral(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_IntegerLiteral);
     /******************
      IntegerLiteral
@@ -65,7 +65,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_IntegerLiteral(list<shared_p
 /*
  Expression -> "this"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_this(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_this(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_This);
     /******************
      "this"
@@ -77,7 +77,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_this(list<shared_ptr<SyntaxE
 /*
  Expression -> "true"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_true(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_true(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_True);
     /******************
      "true"
@@ -89,7 +89,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_true(list<shared_ptr<SyntaxE
 /*
  Expression -> "false"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_false(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_false(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_False);
     /******************
      "false"
@@ -101,7 +101,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_false(list<shared_ptr<Syntax
 /*
  Expression -> "!" Expression
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_not(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_not(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_Not);
     /******************
      "!"
@@ -118,7 +118,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_not(list<shared_ptr<SyntaxEr
 /*
  Expression -> "(" Expression ")"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_bracket(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_bracket(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_Bracket);
     /******************
      "("
@@ -139,7 +139,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_bracket(list<shared_ptr<Synt
 /*
  Expression -> "new" "int" "[" Expression "]"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIntArray(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_newIntArray(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_NewIntArray);
     /******************
      "new" "int" "["
@@ -162,7 +162,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIntArray(list<shared_ptr<
 /*
  Expression -> "new" Identifier "(" ")"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIdentifier(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_newIdentifier(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_NewIdentifier);
     /******************
      "new"
@@ -187,7 +187,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIdentifier(list<shared_pt
 /*
  Expression -> Expression "[" Expression "]"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_arrayExpression(shared_ptr<SyntaxTreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_arrayExpression(shared_ptr<TreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_ArrayExpression);
     /******************
      Expression
@@ -212,7 +212,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_arrayExpression(shared_ptr<S
 /*
  Expression ->  Expression ( "&&" | "<" | "+" | "-" | "*" ) Expression
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_operate(shared_ptr<SyntaxTreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_operate(shared_ptr<TreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_Operate);
     /******************
      Expression
@@ -241,7 +241,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_operate(shared_ptr<SyntaxTre
 /*
  Expression -> Expression "." "length"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_length(shared_ptr<SyntaxTreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_length(shared_ptr<TreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_Length);
     /******************
      Expression
@@ -258,7 +258,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_length(shared_ptr<SyntaxTree
 /*
  Expression "." Identifier "(" [ Expression { "," Expression } ] ")"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_functionCall(shared_ptr<SyntaxTreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Expression_functionCall(shared_ptr<TreeNode> firstNode, list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Expression::Exp_FunctionCall);
     /******************
      Expression
@@ -282,9 +282,9 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_functionCall(shared_ptr<Synt
      [ Expression { "," Expression } ]
      ********************/
     if (tempTreeNode = Expression(tempErrorList)) {
-        SyntaxTreeNodePtr paramSequence(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, tempTreeNode->LineNum.Get(), tempTreeNode));
+        TreeNodePtr paramSequence(new TreeNode(TreeNodeMainTypeEnum::Default, tempTreeNode->LineNum.Get(), tempTreeNode));
         root->Child.Get()->Subling.Get()->Subling.Set(paramSequence);
-        SyntaxTreeNodePtr pre = tempTreeNode;
+        TreeNodePtr pre = tempTreeNode;
         while (true) {
             const int curIndex2 = _reader->Index.Get();
             if (_MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, ",") == false) break;

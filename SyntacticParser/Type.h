@@ -9,8 +9,9 @@ class RDCase_Type_Identifier : public RDCase {
 public:
     RDCase_Type_Identifier(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
-        _InitT(TreeSybType_Type::Type_Identifier);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
+        _Init(TreeSybType_Type::Type_Identifier);
         /**********************************
          Identifier
         ************************************/
@@ -27,8 +28,9 @@ class RDCase_Type_Boolean : public RDCase {
 public:
     RDCase_Type_Boolean(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
-        _InitT(TreeSybType_Type::Type_boolean);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
+        _Init(TreeSybType_Type::Type_boolean);
         /**********************************
          "boolean"
         ************************************/
@@ -44,8 +46,9 @@ class RDCase_Type_Int : public RDCase {
 public:
     RDCase_Type_Int(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
-        _InitT(TreeSybType_Type::Type_Int);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
+        _Init(TreeSybType_Type::Type_Int);
         /**********************************
          "int"
         ************************************/
@@ -61,8 +64,9 @@ class RDCase_Type_IntArray : public RDCase {
 public:
     RDCase_Type_IntArray(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
-        _InitT(TreeSybType_Type::Type_IntArray);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
+        _Init(TreeSybType_Type::Type_IntArray);
         /**********************************
          "int" "[" "]"
         ************************************/
@@ -83,8 +87,9 @@ class RDCase_Type : public RDCase {
 public:
     RDCase_Type(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr) override {
-        _InitT(TreeMainType::Type);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr) override {
+        _Init(TreeMainType::Type);
 
         auto type_identifier = RDCase_Type_Identifier(_reader);
         auto type_boolean = RDCase_Type_Boolean(_reader);
@@ -94,7 +99,7 @@ public:
             && !(_root = type_boolean.Run())
             && !(_root = type_int.Run())
             && !(_root = type_intArray.Run())) {
-
+            /** bulie */
             string msg = "识别Type失败";
             // _errors
             // 使用异常处理这个错误

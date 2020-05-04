@@ -11,8 +11,9 @@ class RDCase_Goal : public RDCase {
 public:
     RDCase_Goal(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstNode = nullptr)override {
-        _InitT(TreeMainType::Goal);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr)override {
+        _Init(TreeMainType::Goal);
         /**********************************
          MainClass
         ************************************/
@@ -23,7 +24,7 @@ public:
         /**********************************
          { ClassDeclaration }
         ************************************/
-        SyntaxTreeNodePtr preNode = _root->Child.Get();
+        TreeNodePtr preNode = _root->Child.Get();
         while (true) {
             auto classDeclaration = RDCase_ClassDeclaration(_reader);
             classDeclaration.Run();

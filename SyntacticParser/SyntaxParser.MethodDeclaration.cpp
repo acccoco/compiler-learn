@@ -8,10 +8,10 @@ using namespace std;
  "(" [ Type Identifier { "," Type Identifier } ] ")" "{" { VarDeclaration } { Statement }
  "return" Expression ";" "}"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::MethodDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::MethodDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::MethodDeclaration);
-    SyntaxTreeNodePtr preNode;          // subling很长，需要这个辅助
-    SyntaxTreeNodePtr tempTypeNode;     // 由于type是identifier的子节点，所以用这个来缓存
+    TreeNodePtr preNode;          // subling很长，需要这个辅助
+    TreeNodePtr tempTypeNode;     // 由于type是identifier的子节点，所以用这个来缓存
     /**********************************
      "public"
     ************************************/
@@ -39,7 +39,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MethodDeclaration(list<shared_ptr<Synta
     /**********************************
      [ Type Identifier { "," Type Identifier } ]
     ************************************/
-    SyntaxTreeNodePtr paramSequence(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
+    TreeNodePtr paramSequence(new TreeNode(TreeNodeMainTypeEnum::Default, 0));
     (root->Child).Get()->Subling.Set(paramSequence);
     const int curIndex1 = _reader->Index.Get();
     tempTypeNode = Type(tempErrorList);
@@ -75,7 +75,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MethodDeclaration(list<shared_ptr<Synta
     /**********************************
      { VarDeclaration }
     ************************************/
-    SyntaxTreeNodePtr varDeclarSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
+    TreeNodePtr varDeclarSeq(new TreeNode(TreeNodeMainTypeEnum::Default, 0));
     paramSequence->Subling.Set(varDeclarSeq);
     if (tempTreeNode = VarDeclaration(tempErrorList)) {
         varDeclarSeq->Child.Set(tempTreeNode);
@@ -88,7 +88,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MethodDeclaration(list<shared_ptr<Synta
     /**********************************
      { Statement }
     ************************************/
-    SyntaxTreeNodePtr statementSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
+    TreeNodePtr statementSeq(new TreeNode(TreeNodeMainTypeEnum::Default, 0));
     varDeclarSeq->Subling.Set(statementSeq);
     if (tempTreeNode = Statement(tempErrorList)) {
         statementSeq->Child.Set(tempTreeNode);

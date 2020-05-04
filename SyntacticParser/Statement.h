@@ -5,8 +5,9 @@ class RDCase_Statement :public RDCase {
 public:
     RDCase_Statement(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstRoot = nullptr)override {
-        _InitT(TreeMainType::Statement);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+        _Init(TreeMainType::Statement);
 
 
         return _root;

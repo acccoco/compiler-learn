@@ -6,7 +6,7 @@ using namespace std;
 /*
  Statement -> ...
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Statement);
     if (!(tempTreeNode = Statement_Sequence(tempErrorList))
         && !(tempTreeNode = Statement_If(tempErrorList))
@@ -23,7 +23,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement(list<shared_ptr<SyntaxError>>
 /*
  Statement -> "{" { Statement } "}"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Sequence(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_Sequence(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_Sequence);
     /******************
      "{"
@@ -34,7 +34,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Sequence(list<shared_ptr<Synt
      ********************/
     if (tempTreeNode = Statement(tempErrorList)) {
         root->Child.Set(tempTreeNode);
-        SyntaxTreeNodePtr preNode = tempTreeNode;
+        TreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = Statement(tempErrorList)) {
             preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
@@ -49,7 +49,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Sequence(list<shared_ptr<Synt
 /*
  Statement -> "while" "(" Expression ")" Statement
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_while(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_while(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_while);
     /******************
      "while" "("
@@ -75,7 +75,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_while(list<shared_ptr<SyntaxE
 /*
  Statement -> "if" "(" Expression ")" Statement "else" Statement
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_If(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_If(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_if);
     /******************
      "if" "("
@@ -110,7 +110,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_If(list<shared_ptr<SyntaxErro
 /*
  Statement -> "System.out.println" "(" Expression ")" ";"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Println(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_Println(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_println);
     /******************
      "System.out.println" "("
@@ -132,7 +132,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Println(list<shared_ptr<Synta
 /*
  Statement -> Identifier "=" Expression ";"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Assign(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_Assign(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_assign);
     /******************
      Identifier
@@ -157,7 +157,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Assign(list<shared_ptr<Syntax
 /*
  Statement -> Identifier "[" Expression "]" "=" Expression ";"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_ArrayAssign(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Statement_ArrayAssign(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeSubTypeEnum_Statement::Statement_arrayAssign);
     /******************
      Identifier

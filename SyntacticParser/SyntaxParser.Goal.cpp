@@ -6,7 +6,7 @@ using namespace std;
 /*
  Goal -> MainClass { ClassDeclaration } EOF
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& errorList) {
 
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Goal);
 
@@ -18,7 +18,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& err
     /**********************************
      { ClassDeclaration }
     ************************************/
-    SyntaxTreeNodePtr preNode = tempTreeNode;
+    TreeNodePtr preNode = tempTreeNode;
     while (tempTreeNode = ClassDeclaration(tempErrorList)) {
         preNode->Subling.Set(tempTreeNode);
         preNode = tempTreeNode;

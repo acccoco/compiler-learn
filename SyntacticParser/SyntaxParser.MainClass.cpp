@@ -6,7 +6,7 @@ using namespace std;
 /*
  MainClass -> "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" Statement "}" "}"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>& errorList) {
 
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::MainClass);
     /******************

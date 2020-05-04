@@ -12,8 +12,9 @@ class RDCase_MainClass : public RDCase {
 public:
     RDCase_MainClass(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
-    SyntaxTreeNodePtr RunException(SyntaxTreeNodePtr firstRoot = nullptr)override {
-        _InitT(TreeMainType::MainClass);
+protected:
+    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+        _Init(TreeMainType::MainClass);
         /******************
          "class"
          ********************/

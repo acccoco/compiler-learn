@@ -5,7 +5,7 @@ using namespace std;
 /*
  ClassDeclaration -> "class" Identifier [ "extends" Identifier ] "{" { VarDeclaration } { MethodDeclaration } "}"
 */
-shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
+shared_ptr<TreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<SyntaxError>>& errorList) {
     
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::ClassDeclaration);
     /**********************************
@@ -36,11 +36,11 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
     /**********************************
      { VarDeclaration }
     ************************************/
-    SyntaxTreeNodePtr varDeclarSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
+    TreeNodePtr varDeclarSeq(new TreeNode(TreeNodeMainTypeEnum::Default, 0));
     root->Child.Get()->Subling.Set(varDeclarSeq);
     if (tempTreeNode = VarDeclaration(tempErrorList)) {
         varDeclarSeq->Child.Set(tempTreeNode);
-        SyntaxTreeNodePtr preNode = tempTreeNode;
+        TreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = VarDeclaration(tempErrorList)) {
             preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
@@ -49,11 +49,11 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
     /**********************************
      { MethodDeclaration }
     ************************************/
-    SyntaxTreeNodePtr methodDeclarSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
+    TreeNodePtr methodDeclarSeq(new TreeNode(TreeNodeMainTypeEnum::Default, 0));
     root->Child.Get()->Subling.Get()->Subling.Set(methodDeclarSeq);
     if (tempTreeNode = MethodDeclaration(tempErrorList)) {
         methodDeclarSeq->Child.Set(tempTreeNode);
-        SyntaxTreeNodePtr preNode = tempTreeNode;
+        TreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = MethodDeclaration(tempErrorList)) {
             preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
