@@ -42,7 +42,6 @@ int main(int argc, char** argv) {
 	// 进行词法分析
 	LexialAnalyzer analyzer;
 	analyzer.LexicalAnlyze(rawStrs);
-	// 获得结果
 	auto tokens = analyzer.GetResultTokens();
 	auto tokenErrors = analyzer.GetResultErrors();
 	// 结果写入文件

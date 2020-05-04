@@ -138,18 +138,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ClassDeclaration.h" />
     <ClInclude Include="EToken.h" />
+    <ClInclude Include="Expression.h" />
+    <ClInclude Include="Goal.h" />
+    <ClInclude Include="MainClass.h" />
+    <ClInclude Include="Property.h" />
+    <ClInclude Include="RDCase.h" />
+    <ClInclude Include="Statement.h" />
     <ClInclude Include="SyntaxError.h" />
     <ClInclude Include="SyntaxParser.h" />
     <ClInclude Include="SyntaxWriter.h" />
     <ClInclude Include="TokenReader.h" />
     <ClInclude Include="SyntaxTreeType.h" />
     <ClInclude Include="SyntaxTreeNode.h" />
+    <ClInclude Include="Type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp" />
     <ClCompile Include="..\LexicalAnalyzer\utils.cpp" />
-    <ClCompile Include="ParserTest.h" />
+    <ClCompile Include="MethodDeclaration.h" />
     <ClCompile Include="SyntaxParser.ClassDeclaration.cpp" />
     <ClCompile Include="SyntaxParser.Expression.cpp" />
     <ClCompile Include="main.cpp" />
@@ -159,6 +167,10 @@
     <ClCompile Include="SyntaxParser.Statement.cpp" />
     <ClCompile Include="SyntaxParser.Type.cpp" />
     <ClCompile Include="SyntaxParser.VarDeclaration.cpp" />
+    <ClCompile Include="test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

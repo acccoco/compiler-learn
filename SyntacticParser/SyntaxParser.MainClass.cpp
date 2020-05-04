@@ -1,7 +1,7 @@
 #include "SyntaxParser.h"
 using namespace std;
 
-
+#if false
 
 /*
  MainClass -> "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" Statement "}" "}"
@@ -34,7 +34,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>
      Identifier
      ********************/
     tempTreeNode = _MatchIdentifier();
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别参数名Identifier失败");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别参数名Identifier失败");
     /******************
      ")" "{"
      ********************/
@@ -44,7 +44,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>
      Statement
      ********************/
     tempTreeNode = Statement(tempErrorList);
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild()->GetSubling(), curTreeType, "识别Statement失败");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->Child.Get()->Subling.Get(), curTreeType, "识别Statement失败");
     /******************
      "}" "}"
      ********************/
@@ -53,3 +53,5 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::MainClass(list<shared_ptr<SyntaxError>>
 
     return root;
 }
+
+#endif

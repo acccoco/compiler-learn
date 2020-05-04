@@ -1,4 +1,7 @@
+#pragma once
 #include "SyntaxParser.h"
+
+#if false
 
 /*
  将语法分析的结果序列化，然后写入文件
@@ -12,20 +15,20 @@ public:
         list<pair<int, string>> rawData;            // 包含缩进级别的节点信息
         list<pair<int, string>> tempResultList;     // 用于存放子节点的结果
         shared_ptr<SyntaxTreeNode> tempTreeNode;
-        switch (root->GetMainType()) {
+        switch (root->MainType.Get()) {
 
             /********************
              Goal
             ********************/
         case TreeNodeMainTypeEnum::Goal:
             rawData.push_back({ intendLevel, "Goal" });
-            tempResultList = PreOrderTraval(root->GetChild(), intendLevel + 1);
+            tempResultList = PreOrderTraval(root->Child.Get(), intendLevel + 1);
             rawData.insert(rawData.end(), tempResultList.begin(), tempResultList.end());
-            tempTreeNode = root->GetChild();
-            while (tempTreeNode->GetSubling()) {
-                tempResultList = PreOrderTraval(tempTreeNode->GetSubling(), intendLevel + 1);
+            tempTreeNode = root->Child.Get();
+            while (tempTreeNode->Subling.Get()) {
+                tempResultList = PreOrderTraval(tempTreeNode->Subling.Get(), intendLevel + 1);
                 rawData.insert(rawData.end(), tempResultList.begin(), tempResultList.end());
-                tempTreeNode = tempTreeNode->GetSubling();
+                tempTreeNode = tempTreeNode->Subling.Get();
             }
             break;
             /********************
@@ -33,11 +36,11 @@ public:
             ********************/
         case TreeNodeMainTypeEnum::MainClass:
             rawData.push_back({ intendLevel, "MainClass" });
-            tempTreeNode = root->GetChild();
-            rawData.push_back({ intendLevel + 1, string("className: ") + tempTreeNode->GetStrValue() });
-            tempTreeNode = tempTreeNode->GetSubling();
-            rawData.push_back({ intendLevel + 1, string("paramName: ") + tempTreeNode->GetStrValue() });
-            tempTreeNode = tempTreeNode->GetSubling();
+            tempTreeNode = root->Child.Get();
+            rawData.push_back({ intendLevel + 1, string("className: ") + tempTreeNode->StrValue.Get() });
+            tempTreeNode = tempTreeNode->Subling.Get();
+            rawData.push_back({ intendLevel + 1, string("paramName: ") + tempTreeNode->StrValue.Get() });
+            tempTreeNode = tempTreeNode->Subling.Get();
             tempResultList = PreOrderTraval(tempTreeNode, intendLevel + 1);
             rawData.insert(rawData.end(), tempResultList.begin(), tempResultList.end());
             break;
@@ -72,7 +75,7 @@ public:
                 break;
             case TreeNodeSubTypeEnum_Statement::Statement_println:
                 rawData.push_back({ intendLevel, "Statement-println" });
-                tempResultList = PreOrderTraval(root->GetChild(), intendLevel + 1);
+                tempResultList = PreOrderTraval(root->Child.Get(), intendLevel + 1);
                 rawData.insert(rawData.end(), tempResultList.begin(), tempResultList.end());
                 break;
             case TreeNodeSubTypeEnum_Statement::Statement_Sequence:
@@ -146,3 +149,5 @@ public:
 
 
 };
+
+#endif

@@ -1,6 +1,7 @@
 #include "SyntaxParser.h"
 using namespace std;
 
+#if false
 
 /*
  Statement -> ...
@@ -32,10 +33,10 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Sequence(list<shared_ptr<Synt
      { Statement }
      ********************/
     if (tempTreeNode = Statement(tempErrorList)) {
-        root->SetChild(tempTreeNode);
+        root->Child.Set(tempTreeNode);
         SyntaxTreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = Statement(tempErrorList)) {
-            preNode->SetSubling(tempTreeNode);
+            preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
         }
     }
@@ -68,7 +69,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_while(list<shared_ptr<SyntaxE
       Statement
       ********************/
     tempTreeNode = Statement(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Statement失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别Statement失败");
     return root;
 }
 /*
@@ -94,7 +95,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_If(list<shared_ptr<SyntaxErro
       Statement
       ********************/
     tempTreeNode = Statement(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Statement失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别Statement失败");
     /******************
      "else"
      ********************/
@@ -103,7 +104,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_If(list<shared_ptr<SyntaxErro
       Statement
       ********************/
     tempTreeNode = Statement(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild()->GetSubling(), curTreeType, "识别Statement失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get()->Subling.Get(), curTreeType, "识别Statement失败");
     return root;
 }
 /*
@@ -146,7 +147,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_Assign(list<shared_ptr<Syntax
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Expression失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别Expression失败");
     /******************
      ";"
      ********************/
@@ -171,7 +172,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_ArrayAssign(list<shared_ptr<S
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Expression失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别Expression失败");
     /******************
      "]" "="
      ********************/
@@ -181,9 +182,13 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Statement_ArrayAssign(list<shared_ptr<S
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild()->GetSubling(), curTreeType, "识别Expression失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get()->Subling.Get(), curTreeType, "识别Expression失败");
     /******************
      ";"
      ********************/
     PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ";", curTreeType, "识别;失败");
+
+    return root;
 }
+
+#endif

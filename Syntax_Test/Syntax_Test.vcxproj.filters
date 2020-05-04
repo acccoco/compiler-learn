@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Property.Test.cpp" />
+    <ClCompile Include="TokenReader.test.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp">
+      <Filter>依赖源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LexicalAnalyzer\utils.cpp">
+      <Filter>依赖源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="依赖源文件">
+      <UniqueIdentifier>{6960240e-fabf-4fde-bab9-ad0d9fa5604d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

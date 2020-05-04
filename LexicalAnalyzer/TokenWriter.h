@@ -4,16 +4,17 @@
 #include <fstream>
 #include <memory>
 using namespace std;
+
 /*
  将词法分析得到的一系列token写入文件
 */
-
 class TokenWriter {
 public:
     /*
      将token和错误写入指定文件中
     */
-    void Write2File(const vector<vector<shared_ptr<Token>>>& tokens, const vector<shared_ptr<TokenError>> tokenErrors, ofstream& fileOut) {
+    void Write2File(const vector<vector<shared_ptr<Token>>>& tokens,
+        const vector<shared_ptr<TokenError>> tokenErrors, ofstream& fileOut) {
         /*
          写入错误
          #Errors: 1

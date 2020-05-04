@@ -1,6 +1,8 @@
 #include "SyntaxParser.h"
 using namespace std;
 
+#if false
+
 /*
  Type -> ...
 */
@@ -67,3 +69,5 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Type_IntArray(list<shared_ptr<SyntaxErr
     return root;
 
 }
+
+#endif

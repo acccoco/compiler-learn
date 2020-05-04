@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 using namespace std;
+#include "Property.h"
 #include "../LexicalAnalyzer/Token.h"
 #include "EToken.h"
 
@@ -22,9 +23,10 @@ public:
     /*
      构造函数：
      通过Token*[][]构造Reader
+     通过数组下标推断行号
     */
-    TokenReader(const vector<vector<TokenPtr>>& tokens) {
-        _curIndex = 0;
+    TokenReader(const vector<vector<TokenPtr>>& tokens):
+        _curIndex(0) {
         _tokenCount = 0;
         for (int i = 0; i < tokens.size(); ++i) {
             for (int j = 0; j < tokens[i].size(); ++j) {
@@ -34,6 +36,9 @@ public:
         }
     }
 
+    Property<int> Index = Property<int>(_curIndex);
+    Property<int> TokenCount = Property<int>(_tokenCount);
+
     /*
      判断是否读完了
      当前下标是否越界
@@ -41,19 +46,7 @@ public:
     bool IsEnd() const {
         return _curIndex == _tokenCount;
     }
-    /*
-     指针回退多步
-     如果无法回退，则返回false
-    */
-    bool GoBack(int step) {
-        if (_curIndex >= step) {
-            return false;
-        }
-        else {
-            _curIndex -= step;
-            return true;
-        }
-    }
+
     /*
      读取一个token，然后指针后移
      如果越界，则返回NULL
@@ -79,7 +72,7 @@ public:
     */
     int GetCurLineNum() const {
         if (_curIndex < _tokenCount) {
-            return _tokens[_curIndex]->GetLineNum();
+            return _tokens[_curIndex]->LineNum.Get();
         }
         else {
             return -1;
@@ -92,25 +85,11 @@ public:
     int GetLastLineNum() const {
         auto lastIndex = _curIndex - 1;
         if (0 <= lastIndex && lastIndex < _tokenCount) {
-            return _tokens[lastIndex]->GetLineNum();
+            return _tokens[lastIndex]->LineNum.Get();
         }
         else {
             return -1;
         }
-    }
-
-    /*
-     获取当前的Index，用于回退
-    */
-    int GetIndex() const {
-        return _curIndex;
-    }
-
-    /*
-     设置Index，用于回退
-    */
-    void SetIndex(int index) {
-        _curIndex = index;
     }
 };
 /*

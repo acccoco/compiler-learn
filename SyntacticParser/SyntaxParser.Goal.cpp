@@ -1,6 +1,8 @@
 #include "SyntaxParser.h"
 using namespace std;
 
+
+#if false
 /*
  Goal -> MainClass { ClassDeclaration } EOF
 */
@@ -18,7 +20,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& err
     ************************************/
     SyntaxTreeNodePtr preNode = tempTreeNode;
     while (tempTreeNode = ClassDeclaration(tempErrorList)) {
-        preNode->SetSubling(tempTreeNode);
+        preNode->Subling.Set(tempTreeNode);
         preNode = tempTreeNode;
     }
     /**********************************
@@ -26,9 +28,11 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Goal(list<shared_ptr<SyntaxError>>& err
     ************************************/
     if (_reader->IsEnd() == false) {
         errorList.emplace_back(new SyntaxError(_reader, "本该到达文件结尾", curTreeType));
-        _reader->SetIndex(curIndex);
+        _reader->Index.Set(curIndex);
         return NULL;
     }
 
     return root;
 }
+
+#endif

@@ -1,6 +1,7 @@
 #include "SyntaxParser.h"
 using namespace std;
 
+#if false
 /*
  ClassDeclaration -> "class" Identifier [ "extends" Identifier ] "{" { VarDeclaration } { MethodDeclaration } "}"
 */
@@ -19,13 +20,13 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
     /**********************************
      ["extends" Identifier]
     ************************************/
-    const int curIndex2 = _reader->GetIndex();
+    const int curIndex2 = _reader->Index.Get();
     if (_MatchKeywordOrSymbol(TokenTypeEnum::KEYWORD, "extends")) {
         if (tempTreeNode = _MatchIdentifier()) {
-            root->GetChild()->SetChild(tempTreeNode);
+            root->Child.Get()->Child.Set(tempTreeNode);
         }
         else {
-            _reader->SetIndex(curIndex2);   // 小节指针回退
+            _reader->Index.Set(curIndex2);  // 小节指针回退
         }
     }
     /**********************************
@@ -36,12 +37,12 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
      { VarDeclaration }
     ************************************/
     SyntaxTreeNodePtr varDeclarSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
-    root->GetChild()->SetSubling(varDeclarSeq);
+    root->Child.Get()->Subling.Set(varDeclarSeq);
     if (tempTreeNode = VarDeclaration(tempErrorList)) {
-        varDeclarSeq->SetChild(tempTreeNode);
+        varDeclarSeq->Child.Set(tempTreeNode);
         SyntaxTreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = VarDeclaration(tempErrorList)) {
-            preNode->SetSubling(tempTreeNode);
+            preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
         }
     }
@@ -49,12 +50,12 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
      { MethodDeclaration }
     ************************************/
     SyntaxTreeNodePtr methodDeclarSeq(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, 0));
-    root->GetChild()->GetSubling()->SetSubling(methodDeclarSeq);
+    root->Child.Get()->Subling.Get()->Subling.Set(methodDeclarSeq);
     if (tempTreeNode = MethodDeclaration(tempErrorList)) {
-        methodDeclarSeq->SetChild(tempTreeNode);
+        methodDeclarSeq->Child.Set(tempTreeNode);
         SyntaxTreeNodePtr preNode = tempTreeNode;
         while (tempTreeNode = MethodDeclaration(tempErrorList)) {
-            preNode->SetSubling(tempTreeNode);
+            preNode->Subling.Set(tempTreeNode);
             preNode = tempTreeNode;
         }
     }
@@ -64,3 +65,4 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::ClassDeclaration(list<shared_ptr<Syntax
     PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "}", curTreeType, "识别}失败");
     return root;
 }
+#endif

@@ -9,6 +9,9 @@
 #include "utils.h"
 #include "LexicalDFA.h"
 
+/*
+ 词法分析器
+*/
 class LexialAnalyzer {
 private:
     vector<vector<shared_ptr<Token>>> _tokens;          // 词法分析的结果
@@ -17,7 +20,8 @@ private:
 public:
     /**
      词法分析
-     对输入文件流的内容进行词法分析，将Token和错误信息写入输出文件流
+     对输入文件流的内容进行词法分析
+     将结果存在对象的属性中
     */
     void LexicalAnlyze(const vector<string> rawStrs) {
 
@@ -37,13 +41,15 @@ public:
     }
 
     /*
-     返回词法分析的结果
+     取得词法分析的结果：Token
+     外层数组每个元素对应源文件的一行
+     内层数组的一个元素表示一个Token
     */
     vector<vector<shared_ptr<Token>>> GetResultTokens() {
         return _tokens;
     }
     /*
-     返回词法分析的错误
+     取得词法分析的结果：错误信息
     */
     vector<shared_ptr<TokenError>> GetResultErrors() {
         return _tokenErrors;
@@ -53,7 +59,7 @@ public:
 
     /**
      对一行字符串进行词法分析
-     返回token和错误信息
+     将结果存在对象的属性中
     */
     void lexicalAnlyzeOneLine(shared_ptr<LexicalDFA> DFA, vector<shared_ptr<Token>>& tokens,
         vector<shared_ptr<TokenError>>& tokenErrors, const string rawStr, int lineNum) {

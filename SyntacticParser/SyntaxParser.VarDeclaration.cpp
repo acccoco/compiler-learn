@@ -1,6 +1,8 @@
 #include "SyntaxParser.h"
 using namespace std;
 
+#if false
+
 /*
  VarDeclaration -> Type Identifier ";"
 */
@@ -15,10 +17,12 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::VarDeclaration(list<shared_ptr<SyntaxEr
      Identifier
     ************************************/
     tempTreeNode = _MatchIdentifier();
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "识别Identifier失败");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "识别Identifier失败");
     /**********************************
      ";"
     ************************************/
     PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ";", curTreeType, "识别;失败");
     return root;
 }
+
+#endif

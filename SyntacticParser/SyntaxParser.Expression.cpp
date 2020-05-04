@@ -1,14 +1,14 @@
-#include "SyntaxParser.h"
+ï»¿#include "SyntaxParser.h"
 using namespace std;
 
-
+#if false
 
 /*
  Expression -> ...
 */
 shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>>& errorList) {
     RECURSIVE_DESCENT_INIT_RETURN(TreeNodeMainTypeEnum::Expression);
-    // Ê×ÏÈ³¢ÊÔÒÔÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½
+    // é¦–å…ˆå°è¯•ä»¥ç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼
     if (!(tempTreeNode = Expression_this(tempErrorList))
         && !(tempTreeNode = Expression_true(tempErrorList))
         && !(tempTreeNode = Expression_false(tempErrorList))
@@ -19,11 +19,11 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>
         && !(tempTreeNode = Expression_Identifier(tempErrorList))
         && !(tempTreeNode = Expression_IntegerLiteral(tempErrorList))) {
 
-        errorList.emplace_back(new SyntaxError(_reader, "Ê¶±ğExpression´íÎó", curTreeType));
-        _reader->SetIndex(curIndex);
+        errorList.emplace_back(new SyntaxError(_reader, "è¯†åˆ«Expressioné”™è¯¯", curTreeType));
+        _reader->Index.Set(curIndex);
         return NULL;
     }
-    // ³¢ÊÔÒÔ·ÇÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½£¬Ê¶±ğ²»³É¹¦£¬²¢²»±¨´í
+    // å°è¯•ä»¥éç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼ï¼Œè¯†åˆ«ä¸æˆåŠŸï¼Œå¹¶ä¸æŠ¥é”™
     SyntaxTreeNodePtr newRoot;
     if ((newRoot = Expression_operate(root, tempErrorList))
         || (newRoot = Expression_arrayExpression(root, tempErrorList))
@@ -35,7 +35,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression(list<shared_ptr<SyntaxError>
         return root;
     }
 }
-#pragma region ÒÔÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½
+#pragma region ä»¥ç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼
 /*
  Expression -> Identifier
 */
@@ -45,7 +45,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_Identifier(list<shared_ptr<S
      Identifier
      ********************/
     tempTreeNode = _MatchIdentifier();
-    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğIdentifierÊ§°Ü");
+    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«Identifierå¤±è´¥");
 
     return root;
 }
@@ -58,7 +58,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_IntegerLiteral(list<shared_p
      IntegerLiteral
      ********************/
     tempTreeNode = _MatchIntegerLiteral();
-    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğIntegerLiteralÊ§°Ü");
+    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«IntegerLiteralå¤±è´¥");
 
     return root;
 }
@@ -70,7 +70,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_this(list<shared_ptr<SyntaxE
     /******************
      "this"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "this", curTreeType, "Ê¶±ğthisÊ§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "this", curTreeType, "è¯†åˆ«thiså¤±è´¥");
 
     return root;
 }
@@ -82,7 +82,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_true(list<shared_ptr<SyntaxE
     /******************
      "true"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "true", curTreeType, "Ê¶±ğtrueÊ§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "true", curTreeType, "è¯†åˆ«trueå¤±è´¥");
 
     return root;
 }
@@ -94,7 +94,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_false(list<shared_ptr<Syntax
     /******************
      "false"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "false", curTreeType, "Ê¶±ğfalseÊ§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "false", curTreeType, "è¯†åˆ«falseå¤±è´¥");
 
     return root;
 }
@@ -106,12 +106,12 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_not(list<shared_ptr<SyntaxEr
     /******************
      "!"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "!", curTreeType, "Ê¶±ğ!Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "!", curTreeType, "è¯†åˆ«!å¤±è´¥");
     /******************
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğExpressionÊ§°Ü");
+    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«Expressionå¤±è´¥");
 
     return root;
 }
@@ -123,16 +123,16 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_bracket(list<shared_ptr<Synt
     /******************
      "("
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "Ê¶±ğ(Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "è¯†åˆ«(å¤±è´¥");
     /******************
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğExpressionÊ§°Ü");
+    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«Expressionå¤±è´¥");
     /******************
      ")"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "Ê¶±ğ)Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "è¯†åˆ«)å¤±è´¥");
 
     return root;
 }
@@ -144,18 +144,18 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIntArray(list<shared_ptr<
     /******************
      "new" "int" "["
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "new", curTreeType, "Ê¶±ğnewÊ§°Ü");
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "int", curTreeType, "Ê¶±ğintÊ§°Ü");
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "Ê¶±ğ[Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "new", curTreeType, "è¯†åˆ«newå¤±è´¥");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "int", curTreeType, "è¯†åˆ«intå¤±è´¥");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "è¯†åˆ«[å¤±è´¥");
     /******************
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğExpressionÊ§°Ü");
+    SET_SUBTREE_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«Expressionå¤±è´¥");
     /******************
      "]"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "Ê¶±ğ]Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "è¯†åˆ«]å¤±è´¥");
 
     return root;
 }
@@ -167,23 +167,23 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_newIdentifier(list<shared_pt
     /******************
      "new"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "new", curTreeType, "Ê¶±ğnewÊ§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "new", curTreeType, "è¯†åˆ«newå¤±è´¥");
     /******************
      Identifier
      ********************/
     tempTreeNode = _MatchIdentifier();
-    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "Ê¶±ğIdentifierÊ§°Ü");
+    SET_IDEN_OR_INT_CHILD_RETURN(tempTreeNode, root, curTreeType, "è¯†åˆ«Identifierå¤±è´¥");
     /******************
      "(" ")"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "Ê¶±ğ(Ê§°Ü");
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "Ê¶±ğ)Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "è¯†åˆ«(å¤±è´¥");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "è¯†åˆ«)å¤±è´¥");
 
     return root;
 }
 #pragma endregion
 
-#pragma region ÒÔ·ÇÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½
+#pragma region ä»¥éç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼
 /*
  Expression -> Expression "[" Expression "]"
 */
@@ -192,20 +192,20 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_arrayExpression(shared_ptr<S
     /******************
      Expression
      ********************/
-    root->SetChild(firstNode);
+    root->Child.Set(firstNode);
     /******************
      "["
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "Ê¶±ğ[Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "[", curTreeType, "è¯†åˆ«[å¤±è´¥");
     /******************
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "Ê¶±ğExpressionÊ§°Ü");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "è¯†åˆ«Expressionå¤±è´¥");
     /******************
      "]"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "Ê¶±ğ]Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "]", curTreeType, "è¯†åˆ«]å¤±è´¥");
 
     return root;
 }
@@ -217,7 +217,7 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_operate(shared_ptr<SyntaxTre
     /******************
      Expression
      ********************/
-    root->SetChild(firstNode);
+    root->Child.Set(firstNode);
     /******************
      ( "&&" | "<" | "+" | "-" | "*" )
      ********************/
@@ -226,15 +226,15 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_operate(shared_ptr<SyntaxTre
         && _MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, "+") == false
         && _MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, "-") == false
         && _MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, "*") == false) {
-        errorList.emplace_back(new SyntaxError(_reader, "Ê¶±ğ&&/</+/-/*¾ùÊ§°Ü", curTreeType));
-        _reader->SetIndex(curIndex);
+        errorList.emplace_back(new SyntaxError(_reader, "è¯†åˆ«&&/</+/-/*å‡å¤±è´¥", curTreeType));
+        _reader->Index.Set(curIndex);
         return NULL;
     }
     /******************
      Expression
      ********************/
     tempTreeNode = Expression(tempErrorList);
-    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "Ê¶±ğExpressionÊ§°Ü");
+    SET_SUBTREE_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "è¯†åˆ«Expressionå¤±è´¥");
 
     return root;
 }
@@ -246,12 +246,12 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_length(shared_ptr<SyntaxTree
     /******************
      Expression
      ********************/
-    root->SetChild(firstNode);
+    root->Child.Set(firstNode);
     /******************
      "." "length"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ".", curTreeType, "Ê¶±ğ.Ê§°Ü");
-    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "length", curTreeType, "Ê¶±ğlengthÊ§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ".", curTreeType, "è¯†åˆ«.å¤±è´¥");
+    PROCESS_STR_RETURN(TokenTypeEnum::KEYWORD, "length", curTreeType, "è¯†åˆ«lengthå¤±è´¥");
 
     return root;
 }
@@ -263,46 +263,47 @@ shared_ptr<SyntaxTreeNode> SyntaxParser::Expression_functionCall(shared_ptr<Synt
     /******************
      Expression
      ********************/
-    root->SetChild(firstNode);
+    root->Child.Set(firstNode);
     /******************
      "."
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ".", curTreeType, "Ê¶±ğ.Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ".", curTreeType, "è¯†åˆ«.å¤±è´¥");
     /******************
      Identifier
      ********************/
     tempTreeNode = _MatchIdentifier();
-    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->GetChild(), curTreeType, "Ê¶±ğIdentifierÊ§°Ü");
+    SET_IDEN_OR_INT_SUBLING_RETURN(tempTreeNode, root->Child.Get(), curTreeType, "è¯†åˆ«Identifierå¤±è´¥");
     /******************
      "("
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "Ê¶±ğ(Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, "(", curTreeType, "è¯†åˆ«(å¤±è´¥");
 
     /******************
      [ Expression { "," Expression } ]
      ********************/
     if (tempTreeNode = Expression(tempErrorList)) {
-        SyntaxTreeNodePtr paramSequence(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, tempTreeNode->GetLineNum(), tempTreeNode));
-        root->GetChild()->GetSubling()->SetSubling(paramSequence);
+        SyntaxTreeNodePtr paramSequence(new SyntaxTreeNode(TreeNodeMainTypeEnum::Default, tempTreeNode->LineNum.Get(), tempTreeNode));
+        root->Child.Get()->Subling.Get()->Subling.Set(paramSequence);
         SyntaxTreeNodePtr pre = tempTreeNode;
         while (true) {
-            const int curIndex2 = _reader->GetIndex();
+            const int curIndex2 = _reader->Index.Get();
             if (_MatchKeywordOrSymbol(TokenTypeEnum::SYMBOL, ",") == false) break;
             if ((tempTreeNode = Expression(tempErrorList)) == NULL) {
-                _reader->SetIndex(curIndex2);       // ÕâÒ»Ğ¡½ÚÊ¶±ğÊ§°Ü£¬Ö¸ÕëĞèÒª»ØÍË
+                _reader->Index.Set(curIndex2);  // è¿™ä¸€å°èŠ‚è¯†åˆ«å¤±è´¥ï¼ŒæŒ‡é’ˆéœ€è¦å›é€€
                 break;
             }
-            pre->SetSubling(tempTreeNode);
+            pre->Subling.Set(tempTreeNode);
             pre = tempTreeNode;
         }
     }
     /******************
      ")"
      ********************/
-    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "Ê¶±ğ)Ê§°Ü");
+    PROCESS_STR_RETURN(TokenTypeEnum::SYMBOL, ")", curTreeType, "è¯†åˆ«)å¤±è´¥");
 
     return root;
 }
 
 #pragma endregion
 
+#endif

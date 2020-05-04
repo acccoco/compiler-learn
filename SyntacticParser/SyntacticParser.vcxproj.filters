@@ -12,6 +12,12 @@
     <Filter Include="词法分析">
       <UniqueIdentifier>{19c13f8f-fe78-4e78-afb3-32480c41917f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\RDCase">
+      <UniqueIdentifier>{2f025ff7-8502-4198-9af1-e07c6ef9481f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="废弃">
+      <UniqueIdentifier>{94ca7022-570f-452d-a91f-7e935abd9b8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EToken.h">
@@ -35,37 +41,34 @@
     <ClInclude Include="SyntaxWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Property.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="Expression.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="MainClass.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="Statement.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.MainClass.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Expression.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Goal.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.ClassDeclaration.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Type.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Statement.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.VarDeclaration.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.MethodDeclaration.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ParserTest.h">
-      <Filter>头文件</Filter>
     </ClCompile>
     <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp">
       <Filter>词法分析</Filter>
@@ -73,5 +76,38 @@
     <ClCompile Include="..\LexicalAnalyzer\utils.cpp">
       <Filter>词法分析</Filter>
     </ClCompile>
+    <ClCompile Include="MethodDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.VarDeclaration.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.ClassDeclaration.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.Expression.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.Goal.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.MainClass.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.MethodDeclaration.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.Statement.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxParser.Type.cpp">
+      <Filter>废弃</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

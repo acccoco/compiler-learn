@@ -5,12 +5,13 @@
 using namespace std;
 
 /*
- 读取文件为字符串数组
+ 处理文件输入的类
 */
-
 class FileReader {
 public:
-    /* 一次性读取文件 */
+    /*
+     读取指定文件，返回一个字符串数组，每一个元素代表一行字符串
+    */
     vector<string> readFile(ifstream& ifs) {
         vector<string> rawStrs;
         string lineStr;
