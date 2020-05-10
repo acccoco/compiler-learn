@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <fstream>
 using namespace std;
 #include "LexicalAnalyzer.h"
@@ -7,47 +7,47 @@ using namespace std;
 
 
 /**
- ´Ê·¨·ÖÎöµÄÖ÷³ÌĞò¡£ÃüÁîĞĞ²ÎÊı£º
-   ²ÎÊı1£ºÊäÈëÎÄ¼ş
-   ²ÎÊı2£ºÊä³öÎÄ¼ş
+ è¯æ³•åˆ†æçš„ä¸»ç¨‹åºã€‚å‘½ä»¤è¡Œå‚æ•°ï¼š
+   å‚æ•°1ï¼šè¾“å…¥æ–‡ä»¶
+   å‚æ•°2ï¼šè¾“å‡ºæ–‡ä»¶
 */
 int main(int argc, char** argv) {
-	// ÅĞ¶Ï²ÎÊıÊÇ·ñºÏ·¨
+	// åˆ¤æ–­å‚æ•°æ˜¯å¦åˆæ³•
 	if (argc != 3) {
-		cout << "ÃüÁî²ÎÊı´íÎó" << endl;
+		cout << "å‘½ä»¤å‚æ•°é”™è¯¯" << endl;
 		return 0;
 	}
 
-	// ¶ÁÈ¡²ÎÊı
+	// è¯»å–å‚æ•°
 	string fileInPath, fileOutPath;
 	fileInPath = argv[1];
 	fileOutPath = argv[2];
 
-	// ´ò¿ªÎÄ¼ş
+	// æ‰“å¼€æ–‡ä»¶
 	ifstream fileIn;
 	ofstream fileOut;
 	fileIn.open(fileInPath, ios::in);
 	fileOut.open(fileOutPath, ios::out | ios::trunc);
 	if (!fileIn.is_open()) {
-		cout << "´ò¿ªÊäÈëÎÄ¼şÊ§°Ü" << endl;
+		cout << "æ‰“å¼€è¾“å…¥æ–‡ä»¶å¤±è´¥" << endl;
 		return 0;
 	}
 	if (!fileOut.is_open()) {
-		cout << "´ò¿ªÊä³öÎÄ¼şÊ§°Ü" << endl;
+		cout << "æ‰“å¼€è¾“å‡ºæ–‡ä»¶å¤±è´¥" << endl;
 		return 0;
 	}
 
-	// ¶ÁÈ¡ÎÄ¼ş
+	// è¯»å–æ–‡ä»¶
 	auto rawStrs = FileReader().readFile(fileIn);
-	// ½øĞĞ´Ê·¨·ÖÎö
+	// è¿›è¡Œè¯æ³•åˆ†æ
 	LexialAnalyzer analyzer;
 	analyzer.LexicalAnlyze(rawStrs);
 	auto tokens = analyzer.GetResultTokens();
 	auto tokenErrors = analyzer.GetResultErrors();
-	// ½á¹ûĞ´ÈëÎÄ¼ş
+	// ç»“æœå†™å…¥æ–‡ä»¶
 	TokenWriter().Write2File(tokens, tokenErrors, fileOut);
 
-	// ¹Ø±ÕÎÄ¼ş
+	// å…³é—­æ–‡ä»¶
 	fileIn.close();
 	fileOut.close();
 	return 0;

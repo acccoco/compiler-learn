@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 #include "../SyntacticParser/TokenReader.h"
 #include "../LexicalAnalyzer/LexicalAnalyzer.h"
-#include "../SyntacticParser/Expression.h"
+#include "../SyntacticParser/RDCase/Expression.h"
 
 
 

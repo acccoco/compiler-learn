@@ -138,27 +138,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ClassDeclaration.h" />
     <ClInclude Include="EToken.h" />
-    <ClInclude Include="Expression.h" />
-    <ClInclude Include="Goal.h" />
-    <ClInclude Include="MainClass.h" />
     <ClInclude Include="Property.h" />
-    <ClInclude Include="RDCase.h" />
-    <ClInclude Include="Statement.h" />
+    <ClInclude Include="RDCase\ClassDeclaration.h" />
+    <ClInclude Include="RDCase\Expression.h" />
+    <ClInclude Include="RDCase\Goal.h" />
+    <ClInclude Include="RDCase\MainClass.h" />
+    <ClInclude Include="RDCase\MethodDeclaration.h" />
+    <ClInclude Include="RDCase\RDCase.h" />
+    <ClInclude Include="RDCase\Statement.h" />
+    <ClInclude Include="RDCase\Type.h" />
+    <ClInclude Include="RDCase\VarDeclaration.h" />
     <ClInclude Include="SyntaxError.h" />
     <ClInclude Include="SyntaxParser.h" />
     <ClInclude Include="TokenReader.h" />
     <ClInclude Include="TreeSerialize.h" />
     <ClInclude Include="TreeType.h" />
     <ClInclude Include="TreeNode.h" />
-    <ClInclude Include="Type.h" />
-    <ClInclude Include="VarDeclaration.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp" />
     <ClCompile Include="..\LexicalAnalyzer\utils.cpp" />
-    <ClCompile Include="MethodDeclaration.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

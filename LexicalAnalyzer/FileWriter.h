@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <fstream>
 #include <vector>
@@ -7,18 +7,18 @@ using namespace std;
 
 
 
-/* ½«Êı¾İĞ´ÈëÎÄ¼şµÄ¸¨ÖúÀà */
+/* å°†æ•°æ®å†™å…¥æ–‡ä»¶çš„è¾…åŠ©ç±» */
 class FileWriter {
 public:
 
-    /* ÏòÊä³öÎÄ¼şÁ÷ÖĞĞ´Èë×Ö·û´®Êı×é */
+    /* å‘è¾“å‡ºæ–‡ä»¶æµä¸­å†™å…¥å­—ç¬¦ä¸²æ•°ç»„ */
     void write2File(ofstream& of, vector<string> strs) {
         for (string str : strs) {
             of << str << endl;
         }
     }
 
-    /* ÏòÊä³öÎÄ¼şÁ÷ÖĞĞ´Èë×Ö·û´®Êı×é */
+    /* å‘è¾“å‡ºæ–‡ä»¶æµä¸­å†™å…¥å­—ç¬¦ä¸²æ•°ç»„ */
     void write2File(ofstream& of, list<string> strs) {
         for (string str : strs) {
             of << str << endl;

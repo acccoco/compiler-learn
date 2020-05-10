@@ -32,38 +32,41 @@
     <ClInclude Include="Property.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RDCase.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="Expression.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="Type.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="Goal.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="MainClass.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="ClassDeclaration.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
-    <ClInclude Include="Statement.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
     <ClInclude Include="TreeType.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="TreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VarDeclaration.h">
-      <Filter>头文件\RDCase</Filter>
-    </ClInclude>
     <ClInclude Include="TreeSerialize.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\ClassDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\Expression.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\Goal.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\MainClass.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\MethodDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\RDCase.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\Statement.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\Type.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="RDCase\VarDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +78,6 @@
     </ClCompile>
     <ClCompile Include="..\LexicalAnalyzer\utils.cpp">
       <Filter>词法分析</Filter>
-    </ClCompile>
-    <ClCompile Include="MethodDeclaration.h">
-      <Filter>头文件\RDCase</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>

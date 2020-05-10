@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "RDCase.h"
 #include "VarDeclaration.h"
 #include "MethodDeclaration.h"

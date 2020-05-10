@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include <map>
 #include <string>
 using namespace std;
 
-#pragma region Ê÷½ÚµãÀàĞÍµÄÃ¶¾Ù
+#pragma region æ ‘èŠ‚ç‚¹ç±»å‹çš„æšä¸¾
 
-/* Óï·¨·ÖÎöÊ÷½ÚµãµÄÖ÷ÀàĞÍ */
+/* è¯­æ³•åˆ†ææ ‘èŠ‚ç‚¹çš„ä¸»ç±»å‹ */
 enum class TreeMainType {
 
-    /*--------Óï·¨½Úµã-------*/
+    /*--------è¯­æ³•èŠ‚ç‚¹-------*/
     Goal,
     MainClass,
     ClassDeclaration,
@@ -18,41 +18,41 @@ enum class TreeMainType {
     Statement,
     Expression,
 
-    /*----------´Ê·¨½Úµã----------*/
-    Identifier,         // ±êÊ¶·û£¬±ÈÈç±äÁ¿Ãû³Æ
-    IntegerLeterial,    // Êı×Ö
+    /*----------è¯æ³•èŠ‚ç‚¹----------*/
+    Identifier,         // æ ‡è¯†ç¬¦ï¼Œæ¯”å¦‚å˜é‡åç§°
+    IntegerLeterial,    // æ•°å­—
 
-    /*-----------ÌØÊâ½Úµã--------------*/
-    Default,        // ÓÃÓÚ×éºÏ¶à¸ö½Úµã
+    /*-----------ç‰¹æ®ŠèŠ‚ç‚¹--------------*/
+    Default,        // ç”¨äºç»„åˆå¤šä¸ªèŠ‚ç‚¹
 };
 
-/* ExpressionÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ */
+/* Expressionä¸»ç±»å‹é…å¥—çš„å­ç±»å‹ */
 enum class TreeSubType_Expression {
-    Default,        // Ã»ÓĞ×ÓÀàĞÍ£¬Ö»ÓĞÖ÷ÀàĞÍ
+    Default,        // æ²¡æœ‰å­ç±»å‹ï¼Œåªæœ‰ä¸»ç±»å‹
 
-    /*------¶ÔÓ¦ÒÔÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½-----*/
-    Exp_Bracket,    // Expression -> "(" Expression ")"
-    Exp_Not,    // Expression -> "!" Expression
-    Exp_NewIdentifier,  // Expression -> "new" Identifier "(" ")"
-    Exp_NewIntArray,    // Expression -> "new" "int" "[" Expression "]"
-    Exp_True,   // Expression -> "true"
-    Exp_False,  // Expression -> "false"
-    Exp_This,   // Expression -> "this"
-    Exp_Identifier, // Expression -> Identifier
-    Exp_IntegerLiteral, // Expression -> IntegerLiteral
+    /*------å¯¹åº”ä»¥ç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼-----*/
+    Exp_Bracket,
+    Exp_Not,
+    Exp_NewIdentifier,
+    Exp_NewIntArray,
+    Exp_True,
+    Exp_False,
+    Exp_This,
+    Exp_Identifier,
+    Exp_IntegerLiteral,
 
-    /*------¶ÔÓ¦ÒÔ·ÇÖÕ½á·û¿ªÍ·µÄ²úÉúÊ½-----*/
-    Exp_ArrayExpression,    // Expression -> Expression "[" Expression "]"
-    Exp_Length, // Expression -> Expression "." "length"
-    Exp_FunctionCall,   // Expression "." Identifier "(" [ Expression { "," Expression } ] ")"
-    Exp_Operate,    // Expression ->  Expression ( "&&" | "<" | "+" | "-" | "*" ) Expression
+    /*------å¯¹åº”ä»¥éç»ˆç»“ç¬¦å¼€å¤´çš„äº§ç”Ÿå¼-----*/
+    Exp_ArrayExpression,
+    Exp_Length,
+    Exp_FunctionCall,
+    Exp_Operate,
 };
 
-/* StatementÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ */
+/* Statementä¸»ç±»å‹é…å¥—çš„å­ç±»å‹ */
 enum class TreeSubType_Statement {
-    Default,    // Ã»ÓĞ×ÓÀàĞÍ£¬Ö»ÓĞÖ÷ÀàĞÍ
+    Default,    // æ²¡æœ‰å­ç±»å‹ï¼Œåªæœ‰ä¸»ç±»å‹
 
-    /*------¶ÔÓ¦ÏàÓ¦µÄ²úÉúÊ½-----*/
+    /*------å¯¹åº”ç›¸åº”çš„äº§ç”Ÿå¼-----*/
     Statement_Sequence,
     Statement_if,
     Statement_while,
@@ -61,10 +61,10 @@ enum class TreeSubType_Statement {
     Statement_arrayAssign,
 };
 
-/* TypeÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ */
+/* Typeä¸»ç±»å‹é…å¥—çš„å­ç±»å‹ */
 enum class TreeSubType_Type {
-    Default,        // Ã»ÓĞ×ÓÀàĞÍ£¬Ö»ÓĞÖ÷ÀàĞÍ
-    /*------¶ÔÓ¦ÏàÓ¦µÄ²úÉúÊ½-----*/
+    Default,        // æ²¡æœ‰å­ç±»å‹ï¼Œåªæœ‰ä¸»ç±»å‹
+    /*------å¯¹åº”ç›¸åº”çš„äº§ç”Ÿå¼-----*/
     Type_boolean,
     Type_Int,
     Type_IntArray,
@@ -75,12 +75,12 @@ enum class TreeSubType_Type {
 
 
 /*
- Ê÷ÀàĞÍµÄÃ¶¾Ù³£Á¿ËµÃ÷×Ö·û´®
+ æ ‘ç±»å‹çš„æšä¸¾å¸¸é‡è¯´æ˜å­—ç¬¦ä¸²
 */
 class TreeTypeConst {
 public:
 
-    /* MainTypeµÄ³£Á¿×Ö·û´®Á¿£¬²»Ìí¼ÓÈÎºÎĞŞÊÎ */
+    /* MainTypeçš„å¸¸é‡å­—ç¬¦ä¸²é‡ï¼Œä¸æ·»åŠ ä»»ä½•ä¿®é¥° */
     const map<TreeMainType, string> mainTypeStr = {
         {TreeMainType::Goal, "Goal"},
         {TreeMainType::MainClass, "MainClass"},
@@ -97,7 +97,7 @@ public:
         {TreeMainType::Default, "Default"},
     };
 
-    /* subType_ExpressionµÄ³£Á¿×Ö·û´®Á¿£¬²»Ìí¼ÓÈÎºÎĞŞÊÎ */
+    /* subType_Expressionçš„å¸¸é‡å­—ç¬¦ä¸²é‡ï¼Œä¸æ·»åŠ ä»»ä½•ä¿®é¥° */
     const map<TreeSubType_Expression, string> subType_ExpressionStr = {
         {TreeSubType_Expression::Default, "Expression-Default"},
 
@@ -117,7 +117,7 @@ public:
         {TreeSubType_Expression::Exp_Operate, "Expression-Operate"},
     };
 
-    /* subType_StatementµÄ³£Á¿×Ö·û´®Á¿£¬²»Ìí¼ÓÈÎºÎĞŞÊÎ */
+    /* subType_Statementçš„å¸¸é‡å­—ç¬¦ä¸²é‡ï¼Œä¸æ·»åŠ ä»»ä½•ä¿®é¥° */
     const map<TreeSubType_Statement, string> subType_StatementStr{
         {TreeSubType_Statement::Default, "Statement-Default"},
 
@@ -129,7 +129,7 @@ public:
         {TreeSubType_Statement::Statement_arrayAssign, "Statement-arrayAssign"},
     };
 
-    /* SubType_TypeµÄ³£Á¿×Ö·û´®Á¿£¬²»Ìí¼ÓÈÎºÎĞŞÊÎ */
+    /* SubType_Typeçš„å¸¸é‡å­—ç¬¦ä¸²é‡ï¼Œä¸æ·»åŠ ä»»ä½•ä¿®é¥° */
     const map<TreeSubType_Type, string> subType_TypeStr = {
         {TreeSubType_Type::Default, "Type-Default"},
 
@@ -141,15 +141,15 @@ public:
 };
 
 /*
- Ê÷½ÚµãµÄÀàĞÍ
- ¶ÔÓÚExpresison£¬Statement£¬TypeÕâÈıÖÖÀàĞÍ£¬ĞèÒª¿´ÏàÓ¦µÄ×ÓÀàĞÍ²ÅÍêÕû
+ æ ‘èŠ‚ç‚¹çš„ç±»å‹
+ å¯¹äºExpresisonï¼ŒStatementï¼ŒTypeè¿™ä¸‰ç§ç±»å‹ï¼Œéœ€è¦çœ‹ç›¸åº”çš„å­ç±»å‹æ‰å®Œæ•´
 */
 class TreeType {
 public:
 
     /*
-     ½«¸Ã¶ÔÏóµÄĞÅÏ¢ÒÔ×Ö·û´®µÄĞÎÊ½±íÏÖ³öÀ´
-     Òì³££ºÎŞ
+     å°†è¯¥å¯¹è±¡çš„ä¿¡æ¯ä»¥å­—ç¬¦ä¸²çš„å½¢å¼è¡¨ç°å‡ºæ¥
+     å¼‚å¸¸ï¼šæ— 
     */
     string toString() noexcept {
 
@@ -171,49 +171,49 @@ public:
         }
     }
 
-#pragma region ¶ÁÈ¡½ÚµãĞÅÏ¢µÄ·½·¨
+#pragma region è¯»å–èŠ‚ç‚¹ä¿¡æ¯çš„æ–¹æ³•
 
-    /* »ñµÃ½ÚµãµÄÖ÷ÒªÀàĞÍ  */
+    /* è·å¾—èŠ‚ç‚¹çš„ä¸»è¦ç±»å‹  */
     TreeMainType GetMainType() const { return _mainType; }
 
-    /* ¶ÔÓÚExpressionÀàĞÍµÄ½Úµã£¬»ñµÃÆä×ÓÀàĞÍ */
+    /* å¯¹äºExpressionç±»å‹çš„èŠ‚ç‚¹ï¼Œè·å¾—å…¶å­ç±»å‹ */
     TreeSubType_Expression GetSubType_Expression() const { return _subType_Expression; }
 
-    /* ¶ÔÓÚStatementÀàĞÍµÄ½Úµã£¬»ñµÃÆä×ÓÀàĞÍ */
+    /* å¯¹äºStatementç±»å‹çš„èŠ‚ç‚¹ï¼Œè·å¾—å…¶å­ç±»å‹ */
     TreeSubType_Statement GetSubType_Statement() const { return _subType_Statement; }
 
-    /* ¶ÔÓÚTypeÀàĞÍµÄ½Úµã£¬»ñµÃÆä×ÓÀàĞÍ */
+    /* å¯¹äºTypeç±»å‹çš„èŠ‚ç‚¹ï¼Œè·å¾—å…¶å­ç±»å‹ */
     TreeSubType_Type GetSubType_Type() const { return _subType_Type; }
 
 #pragma endregion
 
-#pragma region ¹¹Ôìº¯Êı
+#pragma region æ„é€ å‡½æ•°
 
-    /* Ö÷ÀàĞÍÎªÄ¬ÈÏÀàĞÍ(Default)µÄÀàĞÍ¶ÔÏó£¬×ÓÀàĞÍÈ«Ä¬ÈÏ */
+    /* ä¸»ç±»å‹ä¸ºé»˜è®¤ç±»å‹(Default)çš„ç±»å‹å¯¹è±¡ï¼Œå­ç±»å‹å…¨é»˜è®¤ */
     TreeType()
         : _mainType(TreeMainType::Default) {}
 
-    /* Ö÷ÀàĞÍÎªÖ¸¶¨ÀàĞÍµÄÀàĞÍ¶ÔÏó£¬×ÓÀàĞÍÈ«Ä¬ÈÏ */
+    /* ä¸»ç±»å‹ä¸ºæŒ‡å®šç±»å‹çš„ç±»å‹å¯¹è±¡ï¼Œå­ç±»å‹å…¨é»˜è®¤ */
     TreeType(TreeMainType mainType)
         :_mainType(mainType) {}
 
-    /* Ö÷ÀàĞÍÎª Expression ÀàĞÍ£¬×ÓÀàĞÍÖ¸¶¨ */
+    /* ä¸»ç±»å‹ä¸º Expression ç±»å‹ï¼Œå­ç±»å‹æŒ‡å®š */
     TreeType(TreeSubType_Expression subType)
         : _mainType(TreeMainType::Expression), _subType_Expression(subType) {}
 
-    /* Ö÷ÀàĞÍÎª Statement ÀàĞÍ£¬×ÓÀàĞÍÖ¸¶¨ */
+    /* ä¸»ç±»å‹ä¸º Statement ç±»å‹ï¼Œå­ç±»å‹æŒ‡å®š */
     TreeType(TreeSubType_Statement subType)
         : _mainType(TreeMainType::Statement), _subType_Statement(subType) {}
 
-    /* Ö÷ÀàĞÍÎª Type ÀàĞÍ£¬×ÓÀàĞÍÖ¸¶¨ */
+    /* ä¸»ç±»å‹ä¸º Type ç±»å‹ï¼Œå­ç±»å‹æŒ‡å®š */
     TreeType(TreeSubType_Type subType)
         : _mainType(TreeMainType::Type), _subType_Type(subType) {}
 
 #pragma endregion
 
 protected:
-    TreeMainType _mainType = TreeMainType::Default;                         // ½ÚµãµÄÖ÷ÀàĞÍ
-    TreeSubType_Expression _subType_Expression = TreeSubType_Expression::Default;   // ExpressionÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ
-    TreeSubType_Type _subType_Type = TreeSubType_Type::Default;         // TypeÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ
-    TreeSubType_Statement _subType_Statement = TreeSubType_Statement::Default;      // StatementÖ÷ÀàĞÍÅäÌ×µÄ×ÓÀàĞÍ
+    TreeMainType _mainType = TreeMainType::Default;                         // èŠ‚ç‚¹çš„ä¸»ç±»å‹
+    TreeSubType_Expression _subType_Expression = TreeSubType_Expression::Default;   // Expressionä¸»ç±»å‹é…å¥—çš„å­ç±»å‹
+    TreeSubType_Type _subType_Type = TreeSubType_Type::Default;         // Typeä¸»ç±»å‹é…å¥—çš„å­ç±»å‹
+    TreeSubType_Statement _subType_Statement = TreeSubType_Statement::Default;      // Statementä¸»ç±»å‹é…å¥—çš„å­ç±»å‹
 };

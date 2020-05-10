@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "TokenReader.h"
-#include "TreeType.h"
-#include "TreeNode.h"
-#include "SyntaxError.h"
+#include "../TokenReader.h"
+#include "../TreeType.h"
+#include "../TreeNode.h"
+#include "../SyntaxError.h"
 #include <list>
 
 

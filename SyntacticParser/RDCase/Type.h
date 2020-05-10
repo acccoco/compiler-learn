@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "RDCase.h"
 using namespace std;
 
@@ -91,7 +91,7 @@ protected:
     void _RunException(TreeNodePtr firstNode = nullptr) override {
         _Init(TreeMainType::Type);
 
-        /* Ã¿Ò»ÖÖ²úÉúÊ½¶¼³¢ÊÔÒ»ÏÂ */
+        /* æ¯ä¸€ç§äº§ç”Ÿå¼éƒ½å°è¯•ä¸€ä¸‹ */
         auto type_identifier = RDCase_Type_Identifier(_reader);
         auto type_boolean = RDCase_Type_Boolean(_reader);
         auto type_int = RDCase_Type_Int(_reader);
@@ -100,20 +100,20 @@ protected:
             if (_root = type_identifier.Run()) break;
             if (_root = type_boolean.Run()) break;
 
-            /* int[] Ó¦¸ÃÏÈÓÚ intÆ¥Åä */
+            /* int[] åº”è¯¥å…ˆäº intåŒ¹é… */
             if (_root = type_intArray.Run()) break;
             if (_root = type_int.Run()) break;
         }
 
-        /* Ê¶±ğ¶¼Ê§°ÜÁË£¬Å×³öÒì³£ */
+        /* è¯†åˆ«éƒ½å¤±è´¥äº†ï¼ŒæŠ›å‡ºå¼‚å¸¸ */
         if (_root == nullptr) {
-            string msg = "Ê¶±ğTypeÊ§°Ü";
+            string msg = "è¯†åˆ«Typeå¤±è´¥";
             auto error = SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
             _reader->RecoveryIndex(_curIndex);
             throw error;
         }
 
-        /* Ê¶±ğ³É¹¦ÁË */
+        /* è¯†åˆ«æˆåŠŸäº† */
         return;
     }
 };

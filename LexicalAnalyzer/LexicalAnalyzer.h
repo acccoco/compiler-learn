@@ -1,7 +1,7 @@
-/**********************************
- ´Ê·¨·ÖÎöÆ÷
-   - ¹¦ÄÜ1£º¶ÔÒ»ĞĞ×Ö·û´®½øĞĞ´Ê·¨·ÖÎö£¬Êä³ö´íÎó Token ºÍ ´íÎóĞÅÏ¢
-   - ¹¦ÄÜ2£º¶ÔÒ»¸öÎÄ¼ş½øĞĞ´Ê·¨·ÖÎö£¬½« ´íÎóĞÅÏ¢ ºÍ TokenĞÅÏ¢Êä³öµ½Ö¸¶¨ÎÄ¼ş
+ï»¿/**********************************
+ è¯æ³•åˆ†æå™¨
+   - åŠŸèƒ½1ï¼šå¯¹ä¸€è¡Œå­—ç¬¦ä¸²è¿›è¡Œè¯æ³•åˆ†æï¼Œè¾“å‡ºé”™è¯¯ Token å’Œ é”™è¯¯ä¿¡æ¯
+   - åŠŸèƒ½2ï¼šå¯¹ä¸€ä¸ªæ–‡ä»¶è¿›è¡Œè¯æ³•åˆ†æï¼Œå°† é”™è¯¯ä¿¡æ¯ å’Œ Tokenä¿¡æ¯è¾“å‡ºåˆ°æŒ‡å®šæ–‡ä»¶
 ***********************************/
 #pragma once
 #include <fstream>
@@ -10,18 +10,18 @@
 #include "LexicalDFA.h"
 
 /*
- ´Ê·¨·ÖÎöÆ÷
+ è¯æ³•åˆ†æå™¨
 */
 class LexialAnalyzer {
 private:
-    vector<vector<shared_ptr<Token>>> _tokens;          // ´Ê·¨·ÖÎöµÄ½á¹û
-    vector<shared_ptr<TokenError>> _tokenErrors;                    // ´íÎó½á¹û
+    vector<vector<shared_ptr<Token>>> _tokens;          // è¯æ³•åˆ†æçš„ç»“æœ
+    vector<shared_ptr<TokenError>> _tokenErrors;                    // é”™è¯¯ç»“æœ
 
 public:
     /**
-     ´Ê·¨·ÖÎö
-     ¶ÔÊäÈëÎÄ¼şÁ÷µÄÄÚÈİ½øĞĞ´Ê·¨·ÖÎö
-     ½«½á¹û´æÔÚ¶ÔÏóµÄÊôĞÔÖĞ
+     è¯æ³•åˆ†æ
+     å¯¹è¾“å…¥æ–‡ä»¶æµçš„å†…å®¹è¿›è¡Œè¯æ³•åˆ†æ
+     å°†ç»“æœå­˜åœ¨å¯¹è±¡çš„å±æ€§ä¸­
     */
     void LexicalAnlyze(const vector<string> rawStrs) {
 
@@ -29,27 +29,27 @@ public:
         _tokenErrors.clear();
         shared_ptr<LexicalDFA> DFA = LexicalDFA::GetInstance();
 
-        // Ò»ĞĞÒ»ĞĞµØ½øĞĞ´Ê·¨·ÖÎö
+        // ä¸€è¡Œä¸€è¡Œåœ°è¿›è¡Œè¯æ³•åˆ†æ
         for (size_t lineNum = 1; lineNum <= rawStrs.size(); ++lineNum) {
             vector<shared_ptr<Token>> lineTokens;
             lexicalAnlyzeOneLine(DFA, lineTokens, _tokenErrors, rawStrs[lineNum - 1], lineNum);
             _tokens.push_back(lineTokens);
         }
 
-        // ÊÍ·Å×ÊÔ´
+        // é‡Šæ”¾èµ„æº
         LexicalDFA::DestroyInstance();
     }
 
     /*
-     È¡µÃ´Ê·¨·ÖÎöµÄ½á¹û£ºToken
-     Íâ²ãÊı×éÃ¿¸öÔªËØ¶ÔÓ¦Ô´ÎÄ¼şµÄÒ»ĞĞ
-     ÄÚ²ãÊı×éµÄÒ»¸öÔªËØ±íÊ¾Ò»¸öToken
+     å–å¾—è¯æ³•åˆ†æçš„ç»“æœï¼šToken
+     å¤–å±‚æ•°ç»„æ¯ä¸ªå…ƒç´ å¯¹åº”æºæ–‡ä»¶çš„ä¸€è¡Œ
+     å†…å±‚æ•°ç»„çš„ä¸€ä¸ªå…ƒç´ è¡¨ç¤ºä¸€ä¸ªToken
     */
     vector<vector<shared_ptr<Token>>> GetResultTokens() {
         return _tokens;
     }
     /*
-     È¡µÃ´Ê·¨·ÖÎöµÄ½á¹û£º´íÎóĞÅÏ¢
+     å–å¾—è¯æ³•åˆ†æçš„ç»“æœï¼šé”™è¯¯ä¿¡æ¯
     */
     vector<shared_ptr<TokenError>> GetResultErrors() {
         return _tokenErrors;
@@ -58,8 +58,8 @@ public:
 
 
     /**
-     ¶ÔÒ»ĞĞ×Ö·û´®½øĞĞ´Ê·¨·ÖÎö
-     ½«½á¹û´æÔÚ¶ÔÏóµÄÊôĞÔÖĞ
+     å¯¹ä¸€è¡Œå­—ç¬¦ä¸²è¿›è¡Œè¯æ³•åˆ†æ
+     å°†ç»“æœå­˜åœ¨å¯¹è±¡çš„å±æ€§ä¸­
     */
     void lexicalAnlyzeOneLine(shared_ptr<LexicalDFA> DFA, vector<shared_ptr<Token>>& tokens,
         vector<shared_ptr<TokenError>>& tokenErrors, const string rawStr, int lineNum) {
@@ -71,20 +71,20 @@ public:
             shared_ptr<Token> token = DFA->GetToken();
             string errStr = DFA->GetError();
 
-            // Õı³£Ê¶±ğÒÔ¼°´íÎó´¦Àí
+            // æ­£å¸¸è¯†åˆ«ä»¥åŠé”™è¯¯å¤„ç†
             errorHandling(lineNum, rawStr, index, DFA, tokenError, tokens, tokenErrors);
         }
     }
 private:
 
     /*
-     ´ÓidentifierÖĞÕÒ³ökeyword
-     ĞèÒªÊÇIDENTIFIERÀàĞÍ
+     ä»identifierä¸­æ‰¾å‡ºkeyword
+     éœ€è¦æ˜¯IDENTIFIERç±»å‹
      */
     void findKeyword(string rawStr, size_t& index, shared_ptr<Token> token) {
         if (token->type != TokenTypeEnum::IDENTIFIER)
             return;
-        if (IsKeyword(token->strValue)) {   // Ê¶±ğÒ»°ã¹Ø¼ü×Ö
+        if (IsKeyword(token->strValue)) {   // è¯†åˆ«ä¸€èˆ¬å…³é”®å­—
             token->type = TokenTypeEnum::KEYWORD;
             return;
         }
@@ -92,7 +92,7 @@ private:
          System.out.println
                |index      |index+12
          */
-        if (token->strValue == "System" 			// ´¦ÀíSystem.out.println£¬ĞèÒª¿¼ÂÇprintlnÖ®ºóµÄ×Ö·û
+        if (token->strValue == "System" 			// å¤„ç†System.out.printlnï¼Œéœ€è¦è€ƒè™‘printlnä¹‹åçš„å­—ç¬¦
             && index + 11 < rawStr.length()
             && rawStr.substr(index, 12) == ".out.println") {
             if (index + 12 < rawStr.length()
@@ -110,23 +110,23 @@ private:
     }
 
     /*
-     ´íÎó´¦Àí
-     ÒÆ¶¯indexÖ¸Õë
-     ²¢ÇÒ½«ÕâÖ®¼äµÄ×Ö·û¼ÓÈëµ½´íÎóĞÅÏ¢ÖĞ
+     é”™è¯¯å¤„ç†
+     ç§»åŠ¨indexæŒ‡é’ˆ
+     å¹¶ä¸”å°†è¿™ä¹‹é—´çš„å­—ç¬¦åŠ å…¥åˆ°é”™è¯¯ä¿¡æ¯ä¸­
      */
     void errorHandling(int lineNum, string rawStr, size_t& index, shared_ptr<LexicalDFA> dfa, TokenErrorType tokenError,
         vector<shared_ptr<Token>>& tokens, vector<shared_ptr<TokenError>>& tokenErrors) {
 
-        // lambda£º×ßµ½ÏÂÒ»¸öspace»òsymbolµÄµØ·½
+        // lambdaï¼šèµ°åˆ°ä¸‹ä¸€ä¸ªspaceæˆ–symbolçš„åœ°æ–¹
         auto toNextSplit = [&index, &rawStr]() {
-            string addedErrStr = "";    // Ö®ºó¸½¼ÓµÄ´íÎóĞÅÏ¢
-            // Ê×ÏÈĞèÒªÅĞ¶ÏµÚÒ»¸ö´íÎó×Ö·ûÊÇ·ñÓĞ×Å·Ö¸îµÄ×÷ÓÃ
+            string addedErrStr = "";    // ä¹‹åé™„åŠ çš„é”™è¯¯ä¿¡æ¯
+            // é¦–å…ˆéœ€è¦åˆ¤æ–­ç¬¬ä¸€ä¸ªé”™è¯¯å­—ç¬¦æ˜¯å¦æœ‰ç€åˆ†å‰²çš„ä½œç”¨
             CharTypeEnum curCharType = JudgeCharType(rawStr[index]);
             if (curCharType == CharTypeEnum::SPACE || curCharType == CharTypeEnum::SYMBOL) {
                 ++index;
                 return addedErrStr;
             }
-            // µÚÒ»¸ö´íÎó×Ö·û²»¾ßÓĞ·Ö¸î×÷ÓÃ£¬¿ÉÒÔÔÙÍùÏÂ×ßÁË
+            // ç¬¬ä¸€ä¸ªé”™è¯¯å­—ç¬¦ä¸å…·æœ‰åˆ†å‰²ä½œç”¨ï¼Œå¯ä»¥å†å¾€ä¸‹èµ°äº†
             ++index;
             while (index < rawStr.size()) {
                 curCharType = JudgeCharType(rawStr[index]);
@@ -144,18 +144,18 @@ private:
         shared_ptr<Token> token = dfa->GetToken();
         string errStr = dfa->GetError();
 
-        // ´íÎó´¦Àí
-        if (tokenError == TokenErrorType::OK) {     // Ã»ÓĞ´íÎó
+        // é”™è¯¯å¤„ç†
+        if (tokenError == TokenErrorType::OK) {     // æ²¡æœ‰é”™è¯¯
             if (token->type == TokenTypeEnum::IDENTIFIER)
                 findKeyword(rawStr, index, token);
             tokens.push_back(token);
             return;
         }
-        else if (tokenError == TokenErrorType::SPACE) { // È«ÊÇ¿Õ¸ñ
+        else if (tokenError == TokenErrorType::SPACE) { // å…¨æ˜¯ç©ºæ ¼
             return;
         }
-        else {      // ÓĞ´íÎó
-            // ÒÆ¶¯index£¬Ö±µ½ÏÂÒ»¸öspace»òsymbol£¬²¢ÇÒ½«ÄÚÈİ¼Óµ½´íÎóĞÅÏ¢ÖĞ
+        else {      // æœ‰é”™è¯¯
+            // ç§»åŠ¨indexï¼Œç›´åˆ°ä¸‹ä¸€ä¸ªspaceæˆ–symbolï¼Œå¹¶ä¸”å°†å†…å®¹åŠ åˆ°é”™è¯¯ä¿¡æ¯ä¸­
             errStr += toNextSplit();
             tokenErrors.emplace_back(new TokenError(lineNum, index + 1, tokenError, errStr));
             return;

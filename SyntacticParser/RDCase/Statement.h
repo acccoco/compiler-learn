@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "RDCase.h"
 #include "Expression.h"
 
 
 /*
  Statement -> ...
- Ç°ÖÃÉùÃ÷
+ å‰ç½®å£°æ˜
 */
 class RDCase_Statement :public RDCase {
 public:
@@ -209,7 +209,7 @@ inline void RDCase_Statement::_RunException(TreeNodePtr firstRoot) {
 
     _Init(TreeMainType::Statement);
 
-    /* Ê¶±ğÃ¿Ò»ÖÖ²úÉúÊ½ */
+    /* è¯†åˆ«æ¯ä¸€ç§äº§ç”Ÿå¼ */
     auto statement_Sequence = RDCase_Statement_Sequence(_reader);
     auto statement_If = RDCase_Statement_If(_reader);
     auto statement_While = RDCase_Statement_While(_reader);
@@ -225,14 +225,14 @@ inline void RDCase_Statement::_RunException(TreeNodePtr firstRoot) {
         if (_root = statement_Println.Run()) break;
     }
 
-    /* Ê¶±ğÊ§°ÜÁË */
+    /* è¯†åˆ«å¤±è´¥äº† */
     if (_root == nullptr) {
-        string msg = "Ê¶±ğStatementÊ§°Ü";
+        string msg = "è¯†åˆ«Statementå¤±è´¥";
         auto error = SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
         _reader->RecoveryIndex(_curIndex);
         throw error;
     }
 
-    /* Ê¶±ğ³É¹¦ÁË */
+    /* è¯†åˆ«æˆåŠŸäº† */
     return;
 }

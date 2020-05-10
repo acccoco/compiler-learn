@@ -1,38 +1,38 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include "TreeType.h"
 #include "TokenReader.h"
 #include <sstream>
 
 /*
- Óï·¨´íÎóµÄ¶¨Òå
+ è¯­æ³•é”™è¯¯çš„å®šä¹‰
 */
 class SyntaxError {
 protected:
-    size_t _curLineNum;     // ´íÎó·¢ÉúÊ±µÄÉÏÒ»ĞĞ
-    size_t _preLineNum;     // ´íÎó·¢ÉúÊ±µÄµ±Ç°ĞĞ
-    size_t _curIndex;       // ´íÎó·¢ÉúÊ±readerµÄÖ¸ÕëÎ»ÖÃ
-    size_t _columnNum;      // ´íÎó·¢ÉúÓëĞĞÄÚµÄµÚ¼¸¸ötoken
-    string _tokenValue;    // ´íÎó·¢ÉúÊ± tokenµÄÄÚÈİ
-    string _message;             // ´íÎóµÄÌáÊ¾ĞÅÏ¢
-    TreeType _treeType;         // ·¢Éú´íÎóÊ±µÄÊ÷½ÚµãÀàĞÍ
+    size_t _curLineNum;     // é”™è¯¯å‘ç”Ÿæ—¶çš„ä¸Šä¸€è¡Œ
+    size_t _preLineNum;     // é”™è¯¯å‘ç”Ÿæ—¶çš„å½“å‰è¡Œ
+    size_t _curIndex;       // é”™è¯¯å‘ç”Ÿæ—¶readerçš„æŒ‡é’ˆä½ç½®
+    size_t _columnNum;      // é”™è¯¯å‘ç”Ÿä¸è¡Œå†…çš„ç¬¬å‡ ä¸ªtoken
+    string _tokenValue;    // é”™è¯¯å‘ç”Ÿæ—¶ tokençš„å†…å®¹
+    string _message;             // é”™è¯¯çš„æç¤ºä¿¡æ¯
+    TreeType _treeType;         // å‘ç”Ÿé”™è¯¯æ—¶çš„æ ‘èŠ‚ç‚¹ç±»å‹
 
 
 public:
 
-    ROProperty<size_t> curLineNum = ROProperty<size_t>(_curLineNum);         // ´íÎó·¢ÉúÊ±µÄÉÏÒ»ĞĞ
-    ROProperty<size_t> preLineNum = ROProperty<size_t>(_preLineNum);         // ´íÎó·¢ÉúÊ±µÄµ±Ç°ĞĞ
-    ROProperty<size_t> columnNum = ROProperty<size_t>(_columnNum);          // ´íÎó·¢ÉúÊ±tokenÔÚĞĞÄÚµÄÎ»ÖÃ
-    ROProperty<size_t> curIndex = ROProperty<size_t>(_curIndex);        // ´íÎó·¢ÉúÊ±readerµÄÖ¸ÕëÎ»ÖÃ
-    ROProperty<string> tokenValue = ROProperty<string>(_tokenValue);        // ´íÎó·¢ÉúÊ± tokenµÄÄÚÈİ
-    ROProperty<string> message = ROProperty<string>(_message);                    // ´íÎóµÄÌáÊ¾ĞÅÏ¢
-    ROProperty<TreeType> treeType = ROProperty<TreeType>(_treeType);             // ·¢Éú´íÎóÊ±µÄÊ÷½ÚµãÀàĞÍ
+    ROProperty<size_t> curLineNum = ROProperty<size_t>(_curLineNum);         // é”™è¯¯å‘ç”Ÿæ—¶çš„ä¸Šä¸€è¡Œ
+    ROProperty<size_t> preLineNum = ROProperty<size_t>(_preLineNum);         // é”™è¯¯å‘ç”Ÿæ—¶çš„å½“å‰è¡Œ
+    ROProperty<size_t> columnNum = ROProperty<size_t>(_columnNum);          // é”™è¯¯å‘ç”Ÿæ—¶tokenåœ¨è¡Œå†…çš„ä½ç½®
+    ROProperty<size_t> curIndex = ROProperty<size_t>(_curIndex);        // é”™è¯¯å‘ç”Ÿæ—¶readerçš„æŒ‡é’ˆä½ç½®
+    ROProperty<string> tokenValue = ROProperty<string>(_tokenValue);        // é”™è¯¯å‘ç”Ÿæ—¶ tokençš„å†…å®¹
+    ROProperty<string> message = ROProperty<string>(_message);                    // é”™è¯¯çš„æç¤ºä¿¡æ¯
+    ROProperty<TreeType> treeType = ROProperty<TreeType>(_treeType);             // å‘ç”Ÿé”™è¯¯æ—¶çš„æ ‘èŠ‚ç‚¹ç±»å‹
 
     /*
-     ¹¹ÔìÒ»¸öÓï·¨´íÎó¶ÔÏó
-     ²ÎÊı£ºreader£ºÓÃÓÚµÃµ½´íÎóÉÏÏÂÎÄĞÅÏ¢£¬±ÈÈç³ö´íµÄĞĞºÅµÈ
-     ²ÎÊı£ºmessage£º´íÎóµÄÌáÊ¾ĞÅÏ¢
-     ²ÎÊı£ºtreeType£º´íÎó·¢ÉúµÄÓï·¨Ê÷Î»ÖÃ
+     æ„é€ ä¸€ä¸ªè¯­æ³•é”™è¯¯å¯¹è±¡
+     å‚æ•°ï¼šreaderï¼šç”¨äºå¾—åˆ°é”™è¯¯ä¸Šä¸‹æ–‡ä¿¡æ¯ï¼Œæ¯”å¦‚å‡ºé”™çš„è¡Œå·ç­‰
+     å‚æ•°ï¼šmessageï¼šé”™è¯¯çš„æç¤ºä¿¡æ¯
+     å‚æ•°ï¼štreeTypeï¼šé”™è¯¯å‘ç”Ÿçš„è¯­æ³•æ ‘ä½ç½®
     */
     SyntaxError(shared_ptr<const TokenReader> reader, std::string message, TreeType treeType)
         : _curLineNum(reader->GetCurLineNum()),
@@ -41,7 +41,7 @@ public:
         _message(message), 
         _treeType(treeType) {
     
-        /* ÌáÈ¡tokenÄÚÈİ */
+        /* æå–tokenå†…å®¹ */
         auto token = reader->SeekToken();
         if (token) {
             if (token->TokenType.Get() == TokenTypeEnum::INTEGER) {
@@ -58,7 +58,7 @@ public:
         }
         
 
-        /* ÌáÈ¡ÁĞºÅÄÚÈİ */
+        /* æå–åˆ—å·å†…å®¹ */
         if (token) {
             _columnNum = token->ColumnNum.Get();
         }
@@ -68,8 +68,8 @@ public:
     }
 
     /* 
-     ½«Óï·¨·ÖÎöµÄ´íÎó¶ÔÏó×ª»¯Îª×Ö·û´®
-     Òì³££ºÎŞ
+     å°†è¯­æ³•åˆ†æçš„é”™è¯¯å¯¹è±¡è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
+     å¼‚å¸¸ï¼šæ— 
     */
     string toString() noexcept {
         
@@ -84,7 +84,7 @@ public:
 
         stringstream strBuilder;
 
-        /* AST(Expression), at line(1, 2), token(static): Ê¶±ğxx´íÎó */
+        /* AST(Expression), at line(1, 2), token(static): è¯†åˆ«xxé”™è¯¯ */
         strBuilder << "AST(" << _treeType.toString() << "), ";
         strBuilder << "at line(" << lineNumStr << ", " << columnNumStr << "), ";
         strBuilder << "token(" << _tokenValue << "): ";
@@ -95,5 +95,5 @@ public:
 
 };
 
-/* Óï·¨´íÎó¶ÔÏó */
+/* è¯­æ³•é”™è¯¯å¯¹è±¡ */
 typedef shared_ptr<SyntaxError> SyntaxErrorPtr;

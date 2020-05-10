@@ -1,22 +1,22 @@
-#pragma once
+ï»¿#pragma once
 #include "../LexicalAnalyzer/Token.h"
 
 /*
- ´Ê·¨tokenÀàĞÍ£¬¶ÔÔ­ Token Àà½øĞĞÀ©Õ¹£¬Ìí¼ÓÁËĞĞºÅºÍÁĞºÅµÄ×Ö¶Î
+ è¯æ³•tokenç±»å‹ï¼Œå¯¹åŸ Token ç±»è¿›è¡Œæ‰©å±•ï¼Œæ·»åŠ äº†è¡Œå·å’Œåˆ—å·çš„å­—æ®µ
 */
 class EToken {
 private:
 
-    TokenTypeEnum _type;    // Token µÄÀàĞÍ
-    int _numValue;          // Token µÄÊı×ÖÖµ£¬Óë×Ö·û´®Öµ¶şÑ¡Ò»
-    string _strValue;       // Token µÄ×Ö·û´®Öµ£¬ÓëÊı×ÖÖµ¶şÑ¡Ò»
+    TokenTypeEnum _type;    // Token çš„ç±»å‹
+    int _numValue;          // Token çš„æ•°å­—å€¼ï¼Œä¸å­—ç¬¦ä¸²å€¼äºŒé€‰ä¸€
+    string _strValue;       // Token çš„å­—ç¬¦ä¸²å€¼ï¼Œä¸æ•°å­—å€¼äºŒé€‰ä¸€
 
-    size_t _lineNum;      // TokenµÄĞĞºÅ
-    size_t _column;        // TokenÔÚĞĞÖĞËù´¦µÄÎ»ÖÃ
+    size_t _lineNum;      // Tokençš„è¡Œå·
+    size_t _column;        // Tokenåœ¨è¡Œä¸­æ‰€å¤„çš„ä½ç½®
 
 public:
 
-    /* Í¨¹ıÒ»¸ötoken¶ÔÏóÀ´¹¹½¨Etoken¶ÔÏó£¬ĞèÒªÌá¹©ĞĞºÅºÍÁĞºÅ */
+    /* é€šè¿‡ä¸€ä¸ªtokenå¯¹è±¡æ¥æ„å»ºEtokenå¯¹è±¡ï¼Œéœ€è¦æä¾›è¡Œå·å’Œåˆ—å· */
     EToken(TokenPtr token, size_t line, size_t column):
         _lineNum(line),
         _column(column),
@@ -24,12 +24,12 @@ public:
         _numValue(token->numValue),
         _strValue(token->strValue) {}
 
-    Property<size_t> LineNum = Property<size_t>(_lineNum);    // TokenµÄĞĞºÅ
-    Property<size_t> ColumnNum = Property<size_t>(_column);     // tokenµÄÁĞºÅ
-    ROProperty<int> NumValue = ROProperty<int>(_numValue);  // tokenµÄÊı×ÖÖµ£¬Óë×Ö·û³ö´®Öµ¶şÑ¡Ò»
-    ROProperty<string> StrValue = ROProperty<string>(_strValue);    // tokenµÄ×Ö·û´®Öµ£¬ÓëÊı×ÖÖµ¶şÑ¡Ò»
-    ROProperty<TokenTypeEnum> TokenType = ROProperty<TokenTypeEnum>(_type); // tokenµÄÀàĞÍ
+    Property<size_t> LineNum = Property<size_t>(_lineNum);    // Tokençš„è¡Œå·
+    Property<size_t> ColumnNum = Property<size_t>(_column);     // tokençš„åˆ—å·
+    ROProperty<int> NumValue = ROProperty<int>(_numValue);  // tokençš„æ•°å­—å€¼ï¼Œä¸å­—ç¬¦å‡ºä¸²å€¼äºŒé€‰ä¸€
+    ROProperty<string> StrValue = ROProperty<string>(_strValue);    // tokençš„å­—ç¬¦ä¸²å€¼ï¼Œä¸æ•°å­—å€¼äºŒé€‰ä¸€
+    ROProperty<TokenTypeEnum> TokenType = ROProperty<TokenTypeEnum>(_type); // tokençš„ç±»å‹
 };
 
-/* À©Õ¹µÄ´Ê·¨tokenÀàĞÍ */
+/* æ‰©å±•çš„è¯æ³•tokenç±»å‹ */
 typedef std::shared_ptr<EToken> ETokenPtr;

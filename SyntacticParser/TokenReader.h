@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -11,20 +11,20 @@ using namespace std;
 
 
 /*
- ÓÃÓÚ¶ÁÈ¡´Ê·¨·ÖÎötokensµÄÀà
- Õâ¸öÀàÖ»ÊÇÓÃÀ´¶ÁÈ¡tokenµÄ£¬²»Ó¦¸Ã²åÊÖ´íÎó´¦Àí
+ ç”¨äºè¯»å–è¯æ³•åˆ†ætokensçš„ç±»
+ è¿™ä¸ªç±»åªæ˜¯ç”¨æ¥è¯»å–tokençš„ï¼Œä¸åº”è¯¥æ’æ‰‹é”™è¯¯å¤„ç†
 */
 class TokenReader {
 private:
-    vector<ETokenPtr> _tokens;          // tokens×ÜÌå
-    int _tokenCount;                    // tokensµÄ×Ü¸öÊı
-    int _curIndex;                      // µ±Ç°tokenµÄÊı×éÏÂ±ê£¬¼´½«±»Ê¶±ğ¡£GetToken()ºÍSeekToken()·½·¨»ñµÃµÄ¾ÍÊÇÕâ¸ötoken
+    vector<ETokenPtr> _tokens;          // tokensæ€»ä½“
+    int _tokenCount;                    // tokensçš„æ€»ä¸ªæ•°
+    int _curIndex;                      // å½“å‰tokençš„æ•°ç»„ä¸‹æ ‡ï¼Œå³å°†è¢«è¯†åˆ«ã€‚GetToken()å’ŒSeekToken()æ–¹æ³•è·å¾—çš„å°±æ˜¯è¿™ä¸ªtoken
 public:
 
     /*
-     ¹¹Ôìº¯Êı£º
-     Í¨¹ıToken*[][]¹¹ÔìReader
-     Í¨¹ıÊı×éÏÂ±êÍÆ¶ÏĞĞºÅ
+     æ„é€ å‡½æ•°ï¼š
+     é€šè¿‡Token*[][]æ„é€ Reader
+     é€šè¿‡æ•°ç»„ä¸‹æ ‡æ¨æ–­è¡Œå·
     */
     TokenReader(const vector<vector<TokenPtr>>& tokens):
         _curIndex(0) {
@@ -37,22 +37,22 @@ public:
         }
     }
 
-    ROProperty<int> Index = ROProperty<int>(_curIndex);     // readerµ±Ç°µÄÖ¸ÕëÎ»ÖÃ
-    Property<int> TokenCount = Property<int>(_tokenCount);      // readerÀïÃætokenµÄ×ÜÊı
+    ROProperty<int> Index = ROProperty<int>(_curIndex);     // readerå½“å‰çš„æŒ‡é’ˆä½ç½®
+    Property<int> TokenCount = Property<int>(_tokenCount);      // readeré‡Œé¢tokençš„æ€»æ•°
 
     /*
-     ÅĞ¶ÏÊÇ·ñ¶ÁÍêÁË
-     Èç¹û¶ÁÍêÁË£¬ÄÇÃ´Ö¸ÕëÖµÓ¦¸ÃÊÇtokenCount
-     Òì³££ºÎŞ
+     åˆ¤æ–­æ˜¯å¦è¯»å®Œäº†
+     å¦‚æœè¯»å®Œäº†ï¼Œé‚£ä¹ˆæŒ‡é’ˆå€¼åº”è¯¥æ˜¯tokenCount
+     å¼‚å¸¸ï¼šæ— 
     */
     bool IsEnd() const noexcept {
         return _curIndex == _tokenCount;
     }
 
     /*
-     ¶ÁÈ¡µ±Ç°Ö¸ÕëÖ¸ÏòµÄtoken£¬£¬È»ºóÖ¸ÕëºóÒÆ
-     Èç¹ûÖ¸ÕëÔ½½ç£¬¾Í·µ»Ønull
-     Òì³££ºÎŞ
+     è¯»å–å½“å‰æŒ‡é’ˆæŒ‡å‘çš„tokenï¼Œï¼Œç„¶åæŒ‡é’ˆåç§»
+     å¦‚æœæŒ‡é’ˆè¶Šç•Œï¼Œå°±è¿”å›null
+     å¼‚å¸¸ï¼šæ— 
     */
     ETokenPtr GetToken() noexcept {
         if (_curIndex >= _tokenCount) {
@@ -62,18 +62,18 @@ public:
     }
 
     /*
-     ¶ÁÈ¡µ±Ç°Ö¸ÕëÖ¸ÏòµÄToken£¬²»»á¸Ä±äÖ¸ÕëµÄÖµ
-     Èç¹ûÃ»ÓĞ¿É¶ÁµÄ£¬¾Í·µ»Ø¿ÕÖ¸Õë
-     Òì³££ºÎŞ
+     è¯»å–å½“å‰æŒ‡é’ˆæŒ‡å‘çš„Tokenï¼Œä¸ä¼šæ”¹å˜æŒ‡é’ˆçš„å€¼
+     å¦‚æœæ²¡æœ‰å¯è¯»çš„ï¼Œå°±è¿”å›ç©ºæŒ‡é’ˆ
+     å¼‚å¸¸ï¼šæ— 
     */
     ETokenPtr SeekToken() const noexcept {
         return _curIndex < _tokenCount ? _tokens[_curIndex] : NULL;
     }
 
     /*
-     µ±Ç°Ö¸ÕëÖ¸ÏòµÄtokneµÄĞĞºÅ
-     Èç¹ûÃ»ÓĞ£¬¾Í·µ»Ø0
-     Òì³££ºÎŞ
+     å½“å‰æŒ‡é’ˆæŒ‡å‘çš„tokneçš„è¡Œå·
+     å¦‚æœæ²¡æœ‰ï¼Œå°±è¿”å›0
+     å¼‚å¸¸ï¼šæ— 
     */
     size_t GetCurLineNum() const noexcept {
         if (_curIndex < _tokenCount) {
@@ -84,9 +84,9 @@ public:
         }
     }
     /*
-     ÉÏÒ»¸öÖ¸ÕëÖ¸ÏòµÄtokneµÄĞĞºÅ
-     Èç¹ûÃ»ÓĞ£¬¾Í·µ»Ø0
-     Òì³££ºÎŞ
+     ä¸Šä¸€ä¸ªæŒ‡é’ˆæŒ‡å‘çš„tokneçš„è¡Œå·
+     å¦‚æœæ²¡æœ‰ï¼Œå°±è¿”å›0
+     å¼‚å¸¸ï¼šæ— 
     */
     size_t GetLastLineNum() const  noexcept {
         auto lastIndex = _curIndex - 1;
@@ -99,15 +99,15 @@ public:
     }
 
     /*
-     »Ö¸´IndexÖ¸Õë
-     Ò»°ãÓÃÓÚ³öÏÖ´íÎóºó£¬½«reader»ØÍËµ½´íÎó·¢ÉúÇ°
-     Òì³££º²»»áÅ×³öÒì³£
+     æ¢å¤IndexæŒ‡é’ˆ
+     ä¸€èˆ¬ç”¨äºå‡ºç°é”™è¯¯åï¼Œå°†readerå›é€€åˆ°é”™è¯¯å‘ç”Ÿå‰
+     å¼‚å¸¸ï¼šä¸ä¼šæŠ›å‡ºå¼‚å¸¸
     */
     void RecoveryIndex(int index) {
         _curIndex = index;
     }
 };
 /*
- ÓÃÓÚ¶ÁÈ¡´Ê·¨·ÖÎötokensµÄÀà
+ ç”¨äºè¯»å–è¯æ³•åˆ†ætokensçš„ç±»
 */
 typedef std::shared_ptr<TokenReader> ReaderPtr;

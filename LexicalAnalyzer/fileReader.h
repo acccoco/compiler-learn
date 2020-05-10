@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include <fstream>
 #include <string>
@@ -6,13 +6,13 @@
 using namespace std;
 
 /*
- ´ÓÎÄ¼ş¶Á³öÊı¾İ
+ ä»æ–‡ä»¶è¯»å‡ºæ•°æ®
 */
 class FileReader {
 public:
     /*
-     ¶ÁÈ¡Ò»¸öÎÄ¼ş
-     ·µ»Ø£º×Ö·û´®Êı×é£¬Ò»¸öÔªËØ±íÊ¾Ò»ĞĞ
+     è¯»å–ä¸€ä¸ªæ–‡ä»¶
+     è¿”å›ï¼šå­—ç¬¦ä¸²æ•°ç»„ï¼Œä¸€ä¸ªå…ƒç´ è¡¨ç¤ºä¸€è¡Œ
     */
     vector<string> readFile(ifstream& ifs) {
         vector<string> rawStrs;

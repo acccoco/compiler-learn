@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include <string>
 #include <memory>
@@ -6,25 +6,25 @@
 #include "TokenError.h"
 
 /*
- ´Ê·¨·ÖÎöÓĞÇî×Ô¶¯»úÀà
+ è¯æ³•åˆ†ææœ‰ç©·è‡ªåŠ¨æœºç±»
 */
 class LexicalDFA
 {
     /*
-     ×´Ì¬»úµÄÀàĞÍÃ¶¾Ù
+     çŠ¶æ€æœºçš„ç±»å‹æšä¸¾
     */
     enum class StateEnum {
-        START,                  // ³õÊ¼×´Ì¬
-        END,                    // ÖÕÖ¹×´Ì¬
+        START,                  // åˆå§‹çŠ¶æ€
+        END,                    // ç»ˆæ­¢çŠ¶æ€
 
-        SYMBOL_1,               // Ê¶±ğsymbolµÄsymbol_1³öÏÖÁË´íÎó
-        SYMBOL_2,               // Ê¶±ğsymbolµÄsymbol_2³öÏÖÁË´íÎó
-        SYMBOL_3,               // Ê¶±ğsymbolµÄsymbol_3³öÏÖÁË´íÎó
+        SYMBOL_1,               // è¯†åˆ«symbolçš„symbol_1å‡ºç°äº†é”™è¯¯
+        SYMBOL_2,               // è¯†åˆ«symbolçš„symbol_2å‡ºç°äº†é”™è¯¯
+        SYMBOL_3,               // è¯†åˆ«symbolçš„symbol_3å‡ºç°äº†é”™è¯¯
 
-        IDENTIFIER_1,           // Ê¶±ğidentifierµÄidentifier_1³öÏÖÁË´íÎó
-        IDENTIFIER_2,           // Ê¶±ğidentifierµÄidentifier_2³öÏÖÁË´íÎó
+        IDENTIFIER_1,           // è¯†åˆ«identifierçš„identifier_1å‡ºç°äº†é”™è¯¯
+        IDENTIFIER_2,           // è¯†åˆ«identifierçš„identifier_2å‡ºç°äº†é”™è¯¯
 
-        NUMBER_1,               // Ê¶±ğintegerLiteralµÄ×´Ì¬³öÏÖÁË´íÎó
+        NUMBER_1,               // è¯†åˆ«integerLiteralçš„çŠ¶æ€å‡ºç°äº†é”™è¯¯
     };
 
 public:
@@ -32,13 +32,13 @@ public:
         return _token;
     }
     /*
-     ·µ»ØµÄ´íÎóĞÅÏ¢°üÀ¨indexÖ¸ÏòµÄÄÇ¸ö×Ö·û
+     è¿”å›çš„é”™è¯¯ä¿¡æ¯åŒ…æ‹¬indexæŒ‡å‘çš„é‚£ä¸ªå­—ç¬¦
      */
     std::string GetError() {
         return _errStr;
     }
     /*
-     »ñµÃµ¥ÀıÊµÀı
+     è·å¾—å•ä¾‹å®ä¾‹
      */
     static shared_ptr<LexicalDFA> GetInstance() {
         if (_instance == NULL)
@@ -46,25 +46,25 @@ public:
         return _instance;
     }
     /*
-     Ïú»Ùµ¥ÀıÊµÀı
+     é”€æ¯å•ä¾‹å®ä¾‹
      */
     static void DestroyInstance() {
         if (_instance != NULL) _instance = NULL;
     }
     /*
-     ÊäÈëÒ»ĞĞ×Ö·û´®£¬´ÓcurIndex´¦¿ªÊ¼½âÎö
-     ½âÎö³öÒ»¸ö¾Í·µ»Ø
-     ÒıÓÃ²ÎÊı£ºÈç¹ûÓĞ´í£¬curIndexÖ¸Ïò´íÎóÎ»ÖÃ£»Èç¹ûÃ»ÓĞ´íÎó£¬curIndexÖ¸ÏòÏÂÒ»¸ö½«±»´¦ÀíµÄÎ»ÖÃ
-     ·µ»Ø£º·µ»Ø¾ßÌåµÄ´íÎó´úÂë
+     è¾“å…¥ä¸€è¡Œå­—ç¬¦ä¸²ï¼Œä»curIndexå¤„å¼€å§‹è§£æ
+     è§£æå‡ºä¸€ä¸ªå°±è¿”å›
+     å¼•ç”¨å‚æ•°ï¼šå¦‚æœæœ‰é”™ï¼ŒcurIndexæŒ‡å‘é”™è¯¯ä½ç½®ï¼›å¦‚æœæ²¡æœ‰é”™è¯¯ï¼ŒcurIndexæŒ‡å‘ä¸‹ä¸€ä¸ªå°†è¢«å¤„ç†çš„ä½ç½®
+     è¿”å›ï¼šè¿”å›å…·ä½“çš„é”™è¯¯ä»£ç 
     */
     TokenErrorType Parse(std::string rawStr, size_t& curIndex);
 
 private:
-    static shared_ptr<LexicalDFA> _instance;       // µ¥ÀıÊµÀı
-    shared_ptr<Token> _token;           // Ê¶±ğ³öµÄ Token
-    std::string _errStr;                // ´íÎóµÄÉÏÏÂÎÄ
+    static shared_ptr<LexicalDFA> _instance;       // å•ä¾‹å®ä¾‹
+    shared_ptr<Token> _token;           // è¯†åˆ«å‡ºçš„ Token
+    std::string _errStr;                // é”™è¯¯çš„ä¸Šä¸‹æ–‡
 
 protected:
-    LexicalDFA(): _token(NULL), _errStr("") {}  // ²»ÔÊĞíµ÷ÓÃ¹¹Ôìº¯Êı
+    LexicalDFA(): _token(NULL), _errStr("") {}  // ä¸å…è®¸è°ƒç”¨æ„é€ å‡½æ•°
 };
 

@@ -1,32 +1,32 @@
-#pragma once
+ï»¿#pragma once
 
 /*
- ÊôĞÔ×°ÊÎÆ÷
- °ó¶¨ÊôĞÔÖµ£¬ÉèÖÃ·ÃÎÊ¹ıÂË£ºget£¬set
+ å±æ€§è£…é¥°å™¨
+ ç»‘å®šå±æ€§å€¼ï¼Œè®¾ç½®è®¿é—®è¿‡æ»¤ï¼šgetï¼Œset
 */
 template<class T>
 class Property {
 public:
 
-    /* ÊôĞÔgetter·ÃÎÊÆ÷µÄÀàĞÍ */
+    /* å±æ€§getterè®¿é—®å™¨çš„ç±»å‹ */
     typedef T(*Getter)(const T&);
 
-    /* ÊôĞÔsetter·ÃÎÊÆ÷µÄÀàĞÍ */
+    /* å±æ€§setterè®¿é—®å™¨çš„ç±»å‹ */
     typedef void (*Setter)(T&);
 
-#pragma region ¹¹Ôìº¯Êı
+#pragma region æ„é€ å‡½æ•°
 
     /*
-     °ó¶¨ÊôĞÔÖµ£¬ÉèÖÃget·½·¨ºÍset·½·¨
-     Èç¹û²»Ìá¹©£¬Ôò²»¶Ô·ÃÎÊ½øĞĞ¹ıÂË
+     ç»‘å®šå±æ€§å€¼ï¼Œè®¾ç½®getæ–¹æ³•å’Œsetæ–¹æ³•
+     å¦‚æœä¸æä¾›ï¼Œåˆ™ä¸å¯¹è®¿é—®è¿›è¡Œè¿‡æ»¤
     */
     Property(T& value, Getter getter = nullptr, Setter setter = nullptr)
         : _value(value), _getter(getter), _setter(setter) {}
 
     /*
-     °ó¶¨ÊôĞÔÖµ£¬ÉèÖÃset·½·¨
-     Èç¹û²»Ìá¹©£¬Ôò²»¶Ô·ÃÎÊ½øĞĞ¹ıÂË
-     get·ÃÎÊÆ÷²»½øĞĞ¹ıÂË
+     ç»‘å®šå±æ€§å€¼ï¼Œè®¾ç½®setæ–¹æ³•
+     å¦‚æœä¸æä¾›ï¼Œåˆ™ä¸å¯¹è®¿é—®è¿›è¡Œè¿‡æ»¤
+     getè®¿é—®å™¨ä¸è¿›è¡Œè¿‡æ»¤
     */
     Property(T& value, Setter setter)
         : _value(value), _getter(nullptr), _setter(setter) {}
@@ -34,7 +34,7 @@ public:
 #pragma endregion
     
     /*
-     ÊôĞÔµÄGet·ÃÎÊÆ÷
+     å±æ€§çš„Getè®¿é—®å™¨
     */
     T Get() const {
         if (_getter)
@@ -43,7 +43,7 @@ public:
             return _value;
     }
     /*
-     ÊôĞÔµÄSet·ÃÎÊÆ÷
+     å±æ€§çš„Setè®¿é—®å™¨
     */
     void Set(T value) {
         if (_setter)
@@ -54,34 +54,34 @@ public:
 
 private:
 
-    T& _value;          // °ó¶¨µÄÊôĞÔÖµ
-    Getter _getter;     // getµÄ·½·¨
-    Setter _setter;     // setµÄ·½·¨
+    T& _value;          // ç»‘å®šçš„å±æ€§å€¼
+    Getter _getter;     // getçš„æ–¹æ³•
+    Setter _setter;     // setçš„æ–¹æ³•
 };
 
 /*
- Ö»¶ÁÊôĞÔµÄ×°ÊÎÆ÷
- °ó¶¨ÊôĞÔÖµ£¬ÉèÖÃ·ÃÎÊ¹ıÂË£ºget
+ åªè¯»å±æ€§çš„è£…é¥°å™¨
+ ç»‘å®šå±æ€§å€¼ï¼Œè®¾ç½®è®¿é—®è¿‡æ»¤ï¼šget
 */
 template<class T>
 class ROProperty {
 
 public:
 
-    /* ÊôĞÔgetter·ÃÎÊÆ÷µÄÀàĞÍ */
+    /* å±æ€§getterè®¿é—®å™¨çš„ç±»å‹ */
     typedef T(*Getter)(const T&);
 
-    /* ÊôĞÔsetter·ÃÎÊÆ÷µÄÀàĞÍ */
+    /* å±æ€§setterè®¿é—®å™¨çš„ç±»å‹ */
     typedef void (*Setter)(T&);
 
     /*
-     °ó¶¨ÊôĞÔÖµ£¬ÉèÖÃget·ÃÎÊÆ÷
-     Èç¹û²»Ìá¹©£¬Ôò²»¶Ô·ÃÎÊ½øĞĞ¹ıÂË
+     ç»‘å®šå±æ€§å€¼ï¼Œè®¾ç½®getè®¿é—®å™¨
+     å¦‚æœä¸æä¾›ï¼Œåˆ™ä¸å¯¹è®¿é—®è¿›è¡Œè¿‡æ»¤
     */
     ROProperty(T& value, Getter getter = nullptr)
         : _value(value), _getter(getter) {}
     /*
-     ÊôĞÔµÄGet·½·¨
+     å±æ€§çš„Getæ–¹æ³•
     */
     T Get() const {
         if (_getter)
@@ -91,6 +91,6 @@ public:
     }
 private:
 
-    T& _value;          // °ó¶¨µÄÊôĞÔÖµ
-    Getter _getter;     // getµÄ·½·¨
+    T& _value;          // ç»‘å®šçš„å±æ€§å€¼
+    Getter _getter;     // getçš„æ–¹æ³•
 };

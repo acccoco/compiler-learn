@@ -1,18 +1,18 @@
-#include "../LexicalAnalyzer/Token.h"
+ï»¿#include "../LexicalAnalyzer/Token.h"
 #include "../LexicalAnalyzer/LexicalAnalyzer.h"
 #include "../LexicalAnalyzer/fileReader.h"
 #include "SyntaxWriter.h"
-#include "Expression.h"
+#include "./RDCase/Expression.h"
 #include "TreeSerialize.h"
 #include <vector>
 #include <iostream>
 using namespace std;
 
 
-/* ²âÊÔTreeSerialize */
+/* æµ‹è¯•TreeSerialize */
 void TreeSerializeTest() {
 
-    /* Ê×ÏÈ¹¹ÔìÓï·¨Ê÷ */
+    /* é¦–å…ˆæ„é€ è¯­æ³•æ ‘ */
     /*
      root
       |
@@ -36,19 +36,19 @@ void TreeSerializeTest() {
     node5->Child.Set(node6);
     node6->Subling.Set(node7);
 
-    /* ĞòÁĞ»¯ */
+    /* åºåˆ—åŒ– */
     auto strs = TreeSerialize::Serialize(root);
 
-    /* ´òÓ¡ */
+    /* æ‰“å° */
     for (auto str : strs) {
         cout << str << endl;
     }
 }
 
-/* ²âÊÔÓï·¨·ÖÎö */
+/* æµ‹è¯•è¯­æ³•åˆ†æ */
 void SyntaxTest() {
 
-    /* ¶¨ÒåÒ»×éÔ´´úÂë */
+    /* å®šä¹‰ä¸€ç»„æºä»£ç  */
     vector<string> code;
     code.emplace_back(
 "class Main{\
@@ -60,19 +60,19 @@ boolean isTrue;\
 public int foo(){return true;}\
 }");
 
-    /* ´Ê·¨·ÖÎö */
+    /* è¯æ³•åˆ†æ */
     auto lexicalAnalyzer = LexialAnalyzer();
     lexicalAnalyzer.LexicalAnlyze(code);
     auto tokens = lexicalAnalyzer.GetResultTokens();
 
-    /* Óï·¨·ÖÎö */
+    /* è¯­æ³•åˆ†æ */
     shared_ptr<TokenReader> reader(new TokenReader(tokens));
     auto syntaxAnalyzer = SyntaxParser(reader);
     syntaxAnalyzer.Parse();
     auto root = syntaxAnalyzer.Root.Get();
     auto errors = syntaxAnalyzer.ErrorList.Get();
 
-    /* Óï·¨·ÖÎö½á¹ûĞòÁĞ»¯ */
+    /* è¯­æ³•åˆ†æç»“æœåºåˆ—åŒ– */
     auto serialTree = TreeSerialize::Serialize(root);
     for (string str : serialTree)
         cout << str << endl;

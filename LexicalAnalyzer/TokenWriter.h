@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Token.h"
 #include "TokenError.h"
 #include <vector>
@@ -7,17 +7,17 @@
 using namespace std;
 
 /*
- ½«´Ê·¨·ÖÎöµÃµ½µÄÒ»ÏµÁĞtokenĞ´ÈëÎÄ¼ş
+ å°†è¯æ³•åˆ†æå¾—åˆ°çš„ä¸€ç³»åˆ—tokenå†™å…¥æ–‡ä»¶
 */
 class TokenWriter {
 public:
     /*
-     ½«tokenºÍ´íÎóĞ´ÈëÖ¸¶¨ÎÄ¼şÖĞ
+     å°†tokenå’Œé”™è¯¯å†™å…¥æŒ‡å®šæ–‡ä»¶ä¸­
     */
     void Write2File(const vector<vector<shared_ptr<Token>>>& tokens,
         const vector<shared_ptr<TokenError>> tokenErrors, ofstream& fileOut) {
         /*
-         Ğ´Èë´íÎó
+         å†™å…¥é”™è¯¯
          #Errors: 1
          xxxxx
         */
@@ -26,7 +26,7 @@ public:
             fileOut << tokenError->errMsg << endl;
         }
         /*
-         Ğ´ÈëToken
+         å†™å…¥Token
          #Token:
          #line 1
          KEYWORD int

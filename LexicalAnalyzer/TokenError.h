@@ -1,34 +1,34 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <sstream>
 using namespace std;
 
 
 /*
- ´Ê·¨·ÖÎö´íÎóÀàÐÍ¶¨Òå
+ è¯æ³•åˆ†æžé”™è¯¯ç±»åž‹å®šä¹‰
 */
 enum class TokenErrorType {
-	OK,							// Õý³£Íê³É
-	SPACE,						// È«ÊÇ¿Õ¸ñ
+	OK,							// æ­£å¸¸å®Œæˆ
+	SPACE,						// å…¨æ˜¯ç©ºæ ¼
 
-	INVILID_CHAR,				// ·Ç·¨×Ö·û
-	FLOAT_ERROR_SYMB_3,			// ¸¡µã´íÎó   .23
-	UNEXPECTED_CHAR_SYMB_1,		// ·ûºÅ´íÎó   &x
-	UNEXPECTED_CHAR_IDEN_2,		// ±êÊ¶·û´íÎó acc_x
-	FLOAT_ERROR_NUM1,			// ¸¡µã´íÎó  23.
-	UNEXPECTED_CHAR_NUM1,		// Êý×Ö´íÎó  23x
-	UNEXPECTED_CHAR_BEGIN,		// ¿ªÊ¼´íÎó  _
+	INVILID_CHAR,				// éžæ³•å­—ç¬¦
+	FLOAT_ERROR_SYMB_3,			// æµ®ç‚¹é”™è¯¯   .23
+	UNEXPECTED_CHAR_SYMB_1,		// ç¬¦å·é”™è¯¯   &x
+	UNEXPECTED_CHAR_IDEN_2,		// æ ‡è¯†ç¬¦é”™è¯¯ acc_x
+	FLOAT_ERROR_NUM1,			// æµ®ç‚¹é”™è¯¯  23.
+	UNEXPECTED_CHAR_NUM1,		// æ•°å­—é”™è¯¯  23x
+	UNEXPECTED_CHAR_BEGIN,		// å¼€å§‹é”™è¯¯  _
 };
 
 
 /*
- ´Ê·¨·ÖÎö´íÎó¶ÔÏó
+ è¯æ³•åˆ†æžé”™è¯¯å¯¹è±¡
 */
 struct TokenError {
-	int lineNum;				// ´íÎó³öÏÖµÄÐÐºÅ
-	int column;					// ´íÎó³öÏÖµÄÎ»ÖÃ
-	TokenErrorType tokenType;	// ´íÎóÀàÐÍ
-	string errMsg;				// ´íÎóÐÅÏ¢
+	int lineNum;				// é”™è¯¯å‡ºçŽ°çš„è¡Œå·
+	int column;					// é”™è¯¯å‡ºçŽ°çš„ä½ç½®
+	TokenErrorType tokenType;	// é”™è¯¯ç±»åž‹
+	string errMsg;				// é”™è¯¯ä¿¡æ¯
 
 	TokenError(int lineNum, int column, TokenErrorType errType, string errContex) {
 		this->lineNum = lineNum;
@@ -37,7 +37,7 @@ struct TokenError {
 
 
 		/*
-		 ¹¹½¨´íÎó¶ÔÏó
+		 æž„å»ºé”™è¯¯å¯¹è±¡
 		 at line 23, column : xxx.
 		 */
 		ostringstream oss;
@@ -45,23 +45,23 @@ struct TokenError {
 		switch (errType)
 		{
 		case TokenErrorType::INVILID_CHAR:
-			oss << "·Ç·¨×Ö·û ";
+			oss << "éžæ³•å­—ç¬¦ ";
 			break;
 		case TokenErrorType::FLOAT_ERROR_NUM1:
 		case TokenErrorType::FLOAT_ERROR_SYMB_3:
-			oss << "²»Ö§³Ö¸¡µãÊý ";
+			oss << "ä¸æ”¯æŒæµ®ç‚¹æ•° ";
 			break;
 		case TokenErrorType::UNEXPECTED_CHAR_SYMB_1:
-			oss << "´íÎóµÄ·ûºÅ ";
+			oss << "é”™è¯¯çš„ç¬¦å· ";
 			break;
 		case TokenErrorType::UNEXPECTED_CHAR_IDEN_2:
-			oss << "´íÎóµÄ±êÊ¶·û ";
+			oss << "é”™è¯¯çš„æ ‡è¯†ç¬¦ ";
 			break;
 		case TokenErrorType::UNEXPECTED_CHAR_NUM1:
-			oss << "´íÎóµÄÕûÐÍ ";
+			oss << "é”™è¯¯çš„æ•´åž‹ ";
 			break;
 		case TokenErrorType::UNEXPECTED_CHAR_BEGIN:
-			oss << "´íÎóµÄ¿ªÊ¼×Ö·û ";
+			oss << "é”™è¯¯çš„å¼€å§‹å­—ç¬¦ ";
 			break;
 		}
 		oss << "\"" << errContex << "\"";

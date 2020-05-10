@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "TreeNode.h"
 #include "TreeType.h"
 #include <list>
@@ -7,18 +7,18 @@
 using namespace std;
 
 /*
- ½«Ê÷ĞòÁĞ»¯£¬Êä³öÎª×Ö·û´®Êı×é
+ å°†æ ‘åºåˆ—åŒ–ï¼Œè¾“å‡ºä¸ºå­—ç¬¦ä¸²æ•°ç»„
 */
 class TreeSerialize {
 public:
 
     /*
-     ½«ASTĞòÁĞ»¯
-     Òì³££º²»»áÅ×³öÒì³£
+     å°†ASTåºåˆ—åŒ–
+     å¼‚å¸¸ï¼šä¸ä¼šæŠ›å‡ºå¼‚å¸¸
     */
     static list<string> Serialize(TreeNodePtr root)noexcept {
         
-        const string rootPrefix = "    ";       // ¸ù½ÚµãµÄÇ°×ºÊÇ¿Õ¸ñ
+        const string rootPrefix = "    ";       // æ ¹èŠ‚ç‚¹çš„å‰ç¼€æ˜¯ç©ºæ ¼
 
         return _PreTravelSerialize(rootPrefix, root);
 
@@ -27,30 +27,30 @@ public:
 protected:
 
     /*
-     ¶ÔASTÇ°Ğò±éÀú£¬µÃµ½×Ö·û´®ĞòÁĞ
-     ¸ñÊ½¹æ¶¨£º×Ó½ÚµãËõ½ø4Î»
+     å¯¹ASTå‰åºéå†ï¼Œå¾—åˆ°å­—ç¬¦ä¸²åºåˆ—
+     æ ¼å¼è§„å®šï¼šå­èŠ‚ç‚¹ç¼©è¿›4ä½
     */
     static list<string> _PreTravelSerialize(string prefix, TreeNodePtr root) {
 
-        /* ÓÃÓÚ¿ØÖÆÏÔÊ¾¸ñÊ½µÄ³£Á¿Öµ */
-        const size_t replaceLength = 4;          // Ìæ»»×Ö·ûµÄ³¤¶È
-        const string replaceLast = "    ";      // Ìæ»»·¢ÉúÊ±£¬¸Ã½ÚµãÃ»ÓĞsubling
-        const string replaceNotLast = " |  ";   // Ìæ»»·¢ÉúÊ±£¬¸Ã½ÚµãÓĞsubling
-        const string childPrefixAdd = " +- ";   // Îª×Ó½ÚµãÔö¼ÓµÄÇ°×º
+        /* ç”¨äºæ§åˆ¶æ˜¾ç¤ºæ ¼å¼çš„å¸¸é‡å€¼ */
+        const size_t replaceLength = 4;          // æ›¿æ¢å­—ç¬¦çš„é•¿åº¦
+        const string replaceLast = "    ";      // æ›¿æ¢å‘ç”Ÿæ—¶ï¼Œè¯¥èŠ‚ç‚¹æ²¡æœ‰subling
+        const string replaceNotLast = " |  ";   // æ›¿æ¢å‘ç”Ÿæ—¶ï¼Œè¯¥èŠ‚ç‚¹æœ‰subling
+        const string childPrefixAdd = " +- ";   // ä¸ºå­èŠ‚ç‚¹å¢åŠ çš„å‰ç¼€
 
         list<string> result;
 
-        /* Ìí¼Ó¸ù½Úµã */
+        /* æ·»åŠ æ ¹èŠ‚ç‚¹ */
         if (root == nullptr) return result;
         result.push_back(prefix + _NodeToString(root));
 
-        /* Éú³É×Ó½ÚµãµÄÇ°×º */
+        /* ç”Ÿæˆå­èŠ‚ç‚¹çš„å‰ç¼€ */
         string childPrefix = prefix;
-        childPrefix.erase(prefix.size() - replaceLength, replaceLength);    // Ìæ»»ºónÎ»
+        childPrefix.erase(prefix.size() - replaceLength, replaceLength);    // æ›¿æ¢ånä½
         childPrefix += (root->Subling.Get() == nullptr) ? replaceLast : replaceNotLast;
         childPrefix += childPrefixAdd;
 
-        /* Ìí¼Ó×Ó½Úµã */
+        /* æ·»åŠ å­èŠ‚ç‚¹ */
         TreeNodePtr child = root->Child.Get();
         while (child != nullptr) {
             auto childResult = _PreTravelSerialize(childPrefix, child);
@@ -62,18 +62,18 @@ protected:
     }
 
     /*
-     ²»Í¬½ÚµãÄÚÈİµÄ³£Á¿Öµ£¬½ÚµãÀàĞÍ²»Í¬£¬Öµ²»Í¬
+     ä¸åŒèŠ‚ç‚¹å†…å®¹çš„å¸¸é‡å€¼ï¼ŒèŠ‚ç‚¹ç±»å‹ä¸åŒï¼Œå€¼ä¸åŒ
     */
     class NodeStrConst {
     public:
 
-        /* Ö÷ÀàĞÍ½ÚµãµÄËµÃ÷Öµ */
+        /* ä¸»ç±»å‹èŠ‚ç‚¹çš„è¯´æ˜å€¼ */
         const map<TreeMainType, string> nodeStr_MainType = {
 
-            /* Default×÷ÎªĞòÁĞ */
+            /* Defaultä½œä¸ºåºåˆ— */
             {TreeMainType::Default, "Sequence"},
 
-            /* Óï·¨½Úµã */
+            /* è¯­æ³•èŠ‚ç‚¹ */
             {TreeMainType::Goal, "Goal"},
             {TreeMainType::ClassDeclaration, "ClassDeclaration"},
             {TreeMainType::MainClass, "MainClass"},
@@ -81,23 +81,23 @@ protected:
             {TreeMainType::VarDeclaration, "VarDeclaration"},
         };
 
-        /* TypeÀàĞÍ½ÚµãµÄËµÃ÷Öµ */
+        /* Typeç±»å‹èŠ‚ç‚¹çš„è¯´æ˜å€¼ */
         const map<TreeSubType_Type, string> nodeStr_Type = {
             
-            /* Type×ÓÀàĞÍ */
+            /* Typeå­ç±»å‹ */
             {TreeSubType_Type::Type_boolean, "type: boolean"},
             {TreeSubType_Type::Type_Identifier, "type: "},
             {TreeSubType_Type::Type_Int, "type: int"},
             {TreeSubType_Type::Type_IntArray, "type: int[]"},
 
-            /* TypeÖ÷ÀàĞÍ */
+            /* Typeä¸»ç±»å‹ */
             {TreeSubType_Type::Default, "type"},
         };
 
-        /* StatementÀàĞÍ½ÚµãµÄËµÃ÷Öµ */
+        /* Statementç±»å‹èŠ‚ç‚¹çš„è¯´æ˜å€¼ */
         const map<TreeSubType_Statement, string> nodeStr_Statement = {
 
-            /* Statement×ÓÀàĞÍ */
+            /* Statementå­ç±»å‹ */
             {TreeSubType_Statement::Statement_arrayAssign, "statement: array assign"},
             {TreeSubType_Statement::Statement_assign, "statement: assign"},
             {TreeSubType_Statement::Statement_if, "statement: if"},
@@ -105,14 +105,14 @@ protected:
             {TreeSubType_Statement::Statement_Sequence, "statement sequence: "},
             {TreeSubType_Statement::Statement_while, "statement: while"},
 
-            /* StatementÖ÷ÀàĞÍ */
+            /* Statementä¸»ç±»å‹ */
             {TreeSubType_Statement::Default, "statement: "},
         };
 
-        /* ExpressionÀàĞÍ½ÚµãµÄËµÃ÷Öµ */
+        /* Expressionç±»å‹èŠ‚ç‚¹çš„è¯´æ˜å€¼ */
         const map<TreeSubType_Expression, string> nodeStr_Expression = {
 
-            /* ·Ç×óµİ¹é²úÉúÊ½ */
+            /* éå·¦é€’å½’äº§ç”Ÿå¼ */
             {TreeSubType_Expression::Exp_Bracket, "expression: (expression)"},
             {TreeSubType_Expression::Exp_False, "expression: false"},
             {TreeSubType_Expression::Exp_Identifier, "expression: Identifier"},
@@ -123,20 +123,20 @@ protected:
             {TreeSubType_Expression::Exp_This, "expression: this"},
             {TreeSubType_Expression::Exp_True, "expression: true"},
 
-            /* ×óµİ¹é²úÉúÊ½ */
+            /* å·¦é€’å½’äº§ç”Ÿå¼ */
             {TreeSubType_Expression::Exp_ArrayExpression, "expression: expression[expression]"},
             {TreeSubType_Expression::Exp_Length, "expression: expression.length"},
             {TreeSubType_Expression::Exp_FunctionCall, "expression: functioncall"},
             {TreeSubType_Expression::Exp_Operate, "expression: operate "},
 
-            /* Ä¬ÈÏÇéĞÎ */
+            /* é»˜è®¤æƒ…å½¢ */
             {TreeSubType_Expression::Default, "expression: "},
         };
 
-        /* ½ÚµãÎª¿ÕµÄÇéĞÎ */
+        /* èŠ‚ç‚¹ä¸ºç©ºçš„æƒ…å½¢ */
         const string nodeStr_Null = "";
 
-        /* ´Ê·¨½ÚµãIntegerLiteralµÄËµÃ÷Öµ */
+        /* è¯æ³•èŠ‚ç‚¹IntegerLiteralçš„è¯´æ˜å€¼ */
         string nodeStr_Integer(int numValue) {
             char temp[256];
             string str = "IntegerLiteral<";
@@ -146,33 +146,33 @@ protected:
             return str;
         }
 
-        /* ´Ê·¨½ÚµãIdentifierµÄËµÃ÷Öµ */
+        /* è¯æ³•èŠ‚ç‚¹Identifierçš„è¯´æ˜å€¼ */
         string nodeStr_Identifier(string strValue) {
             return "Ientifier<" + strValue + ">";
         }
     };
 
     /*
-     ¸ù¾İ½ÚµãÀàĞÍ£¬½«½Úµã×ª»¯Îª×Ö·û´®
+     æ ¹æ®èŠ‚ç‚¹ç±»å‹ï¼Œå°†èŠ‚ç‚¹è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
     */
     static string _NodeToString(TreeNodePtr node) {
 
-        NodeStrConst nodeStrConst;      // ½ÚµãËµÃ÷Öµ³£Á¿ÀàµÄÒıÓÃ
-        const auto treeType = node->Type.Get();     // ½ÚµãµÄÀàĞÍ
-        const auto mainType = treeType.GetMainType();   // Ö÷ÀàĞÍ
+        NodeStrConst nodeStrConst;      // èŠ‚ç‚¹è¯´æ˜å€¼å¸¸é‡ç±»çš„å¼•ç”¨
+        const auto treeType = node->Type.Get();     // èŠ‚ç‚¹çš„ç±»å‹
+        const auto mainType = treeType.GetMainType();   // ä¸»ç±»å‹
         const auto subType_Expression = treeType.GetSubType_Expression();
         const auto subType_Statement = treeType.GetSubType_Statement();
         const auto subType_Type = treeType.GetSubType_Type();
 
-        /* ¼ì²é½ÚµãÊÇ·ñ´æÔÚ */
+        /* æ£€æŸ¥èŠ‚ç‚¹æ˜¯å¦å­˜åœ¨ */
         if (node == nullptr) return nodeStrConst.nodeStr_Null;
 
         string str = "";
 
-        /* ²»Í¬µÄ½ÚµãÀàĞÍ£¬¾ßÓĞ²»Í¬µÄÖµ */
+        /* ä¸åŒçš„èŠ‚ç‚¹ç±»å‹ï¼Œå…·æœ‰ä¸åŒçš„å€¼ */
         switch (node->Type.Get().GetMainType()) {
 
-            /* Ã»ÓĞ×ÓÀàĞÍµÄÓï·¨½Úµã */
+            /* æ²¡æœ‰å­ç±»å‹çš„è¯­æ³•èŠ‚ç‚¹ */
         case TreeMainType::Goal:
         case TreeMainType::ClassDeclaration:
         case TreeMainType::MainClass:
@@ -181,12 +181,12 @@ protected:
             str = nodeStrConst.nodeStr_MainType.at(mainType);
             break;
 
-            /* Default½Úµã£¨ÓÃ×÷¼¯ºÏ£© */
+            /* DefaultèŠ‚ç‚¹ï¼ˆç”¨ä½œé›†åˆï¼‰ */
         case TreeMainType::Default:
             str = nodeStrConst.nodeStr_MainType.at(mainType);
             break;
 
-            /* ´Ê·¨½Úµã */
+            /* è¯æ³•èŠ‚ç‚¹ */
         case TreeMainType::IntegerLeterial:
             str = nodeStrConst.nodeStr_Integer(node->NumValue.Get());
             break;
@@ -194,17 +194,17 @@ protected:
             str = nodeStrConst.nodeStr_Identifier(node->StrValue.Get());
             break;
 
-            /* ¾ßÓĞ×ÓÀàĞÍµÄ½Úµã Type */
+            /* å…·æœ‰å­ç±»å‹çš„èŠ‚ç‚¹ Type */
         case TreeMainType::Type:
             str = nodeStrConst.nodeStr_Type.at(subType_Type);
             break;
 
-            /* ¾ßÓĞ×ÓÀàĞÍµÄ½Úµã Statement */
+            /* å…·æœ‰å­ç±»å‹çš„èŠ‚ç‚¹ Statement */
         case TreeMainType::Statement:
             str = nodeStrConst.nodeStr_Statement.at(subType_Statement);
             break;
 
-            /* ¾ßÓĞ×ÓÀàĞÍµÄ½Úµã Expression */
+            /* å…·æœ‰å­ç±»å‹çš„èŠ‚ç‚¹ Expression */
         case TreeMainType::Expression:
             if (subType_Expression == TreeSubType_Expression::Exp_Operate) {
                 str = nodeStrConst.nodeStr_Expression.at(TreeSubType_Expression::Exp_Operate) + node->StrValue.Get();

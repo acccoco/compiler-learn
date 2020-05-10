@@ -1,4 +1,4 @@
-#include "LexicalDFA.h"
+ï»¿#include "LexicalDFA.h"
 #include "utils.h"
 using namespace std;
 
@@ -6,16 +6,16 @@ shared_ptr<LexicalDFA> LexicalDFA::_instance = NULL;
 
 
 TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
-    // Çå¿ÕĞÅÏ¢
+    // æ¸…ç©ºä¿¡æ¯
     _token = NULL;
     _errStr = "";
 
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     int strLen = rawStr.length();
     StateEnum curState = StateEnum::START;
     string curTokenStr = "";
 
-    // Lambda£º×´Ì¬Á÷×ªµÄ¹ı³Ì
+    // Lambdaï¼šçŠ¶æ€æµè½¬çš„è¿‡ç¨‹
     auto stateTurn = [&curIndex, &curState, &curTokenStr](char curChar, StateEnum state) {
         ++curIndex;
         curTokenStr += curChar;
@@ -26,30 +26,30 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
         char curChar = rawStr[curIndex];
         CharTypeEnum curCharType = JudgeCharType(curChar);
 
-        // Ê×ÏÈÍ³Ò»ÅÅ³ıINVILID´íÎó
+        // é¦–å…ˆç»Ÿä¸€æ’é™¤INVILIDé”™è¯¯
         if (curCharType == CharTypeEnum::INVILID) {
             _errStr = curTokenStr + curChar;
             return TokenErrorType::INVILID_CHAR;
         }
 
-        // ×´Ì¬»ú¹ı³Ì
+        // çŠ¶æ€æœºè¿‡ç¨‹
         switch (curState)
         {
 
-            /********************  ×´Ì¬START  *****************************/
+            /********************  çŠ¶æ€START  *****************************/
         case LexicalDFA::StateEnum::START:
             switch (curCharType)
             {
-            case CharTypeEnum::DIGIT:   // Ê¶±ğÊı×Ö
+            case CharTypeEnum::DIGIT:   // è¯†åˆ«æ•°å­—
                 stateTurn(curChar, StateEnum::NUMBER_1);
                 break;
-            case CharTypeEnum::LETTER:  // Ê¶±ğidentifier
+            case CharTypeEnum::LETTER:  // è¯†åˆ«identifier
                 stateTurn(curChar, StateEnum::IDENTIFIER_1);
                 break;
-            case CharTypeEnum::UNDERLINE:   // ´íÎóµÄ¿ªÊ¼×Ö·û
+            case CharTypeEnum::UNDERLINE:   // é”™è¯¯çš„å¼€å§‹å­—ç¬¦
                 _errStr = "_";
                 return TokenErrorType::UNEXPECTED_CHAR_BEGIN;
-            case CharTypeEnum::SYMBOL:  // Ê¶±ğsymbol£¬ĞèÒªÏêÏ¸ÅĞ¶Ï×Ö·ûÀàĞÍ
+            case CharTypeEnum::SYMBOL:  // è¯†åˆ«symbolï¼Œéœ€è¦è¯¦ç»†åˆ¤æ–­å­—ç¬¦ç±»å‹
                 if (curChar == '&')
                     stateTurn(curChar, StateEnum::SYMBOL_1);
                 else if (curChar == '.')
@@ -57,13 +57,13 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
                 else
                     stateTurn(curChar, StateEnum::SYMBOL_2);
                 break;
-            case CharTypeEnum::SPACE:   // ¿Õ×ª
+            case CharTypeEnum::SPACE:   // ç©ºè½¬
                 ++curIndex;
                 break;
             }
             break;
 
-            /*********************  ×´Ì¬SYMBOL_1  *****************************/
+            /*********************  çŠ¶æ€SYMBOL_1  *****************************/
         case LexicalDFA::StateEnum::SYMBOL_1:
             if (curChar == '&') {
                 stateTurn(curChar, StateEnum::SYMBOL_2);
@@ -74,50 +74,50 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
             }
             break;
 
-            /*********************  ×´Ì¬SYMBOL_2  *****************************/
+            /*********************  çŠ¶æ€SYMBOL_2  *****************************/
         case LexicalDFA::StateEnum::SYMBOL_2:
             _token = shared_ptr<Token>(new Token(TokenTypeEnum::SYMBOL, curTokenStr));
             return TokenErrorType::OK;
 
-            /*********************  ×´Ì¬SYMBOL_3  *****************************/
+            /*********************  çŠ¶æ€SYMBOL_3  *****************************/
         case LexicalDFA::StateEnum::SYMBOL_3:
-            if (curCharType == CharTypeEnum::DIGIT) {   // ¸¡µã´íÎó
+            if (curCharType == CharTypeEnum::DIGIT) {   // æµ®ç‚¹é”™è¯¯
                 _errStr = curTokenStr + curChar;
                 return TokenErrorType::FLOAT_ERROR_SYMB_3;
             }
-            else {      // ½ÓÊÜ
+            else {      // æ¥å—
                 _token = shared_ptr<Token>(new Token(TokenTypeEnum::SYMBOL, curTokenStr));
                 return TokenErrorType::OK;
             }
             break;
 
-            /*********************  ×´Ì¬IDENTIFIER_1  *****************************/
+            /*********************  çŠ¶æ€IDENTIFIER_1  *****************************/
         case LexicalDFA::StateEnum::IDENTIFIER_1:
             switch (curCharType)
             {
-            case CharTypeEnum::DIGIT:       // ×´Ì¬²»±ä
+            case CharTypeEnum::DIGIT:       // çŠ¶æ€ä¸å˜
             case CharTypeEnum::LETTER:
                 stateTurn(curChar, StateEnum::IDENTIFIER_1);
                 break;
-            case CharTypeEnum::UNDERLINE:   // ×´Ì¬Á÷×ª
+            case CharTypeEnum::UNDERLINE:   // çŠ¶æ€æµè½¬
                 stateTurn(curChar, StateEnum::IDENTIFIER_2);
                 break;
-            case CharTypeEnum::SYMBOL:      // ·µ»Ø±êÊ¶·û
+            case CharTypeEnum::SYMBOL:      // è¿”å›æ ‡è¯†ç¬¦
             case CharTypeEnum::SPACE:
                 _token = shared_ptr<Token>(new Token(TokenTypeEnum::IDENTIFIER, curTokenStr));
                 return TokenErrorType::OK;
             }
             break;
 
-            /*********************  ×´Ì¬IDENTIFIER_2  *****************************/
+            /*********************  çŠ¶æ€IDENTIFIER_2  *****************************/
         case LexicalDFA::StateEnum::IDENTIFIER_2:
             switch (curCharType)
             {
-            case CharTypeEnum::DIGIT:       // ×´Ì¬Á÷×ª
+            case CharTypeEnum::DIGIT:       // çŠ¶æ€æµè½¬
             case CharTypeEnum::LETTER:
                 stateTurn(curChar, StateEnum::IDENTIFIER_1);
                 break;
-            case CharTypeEnum::UNDERLINE:   // ´íÎó×Ö·û
+            case CharTypeEnum::UNDERLINE:   // é”™è¯¯å­—ç¬¦
             case CharTypeEnum::SYMBOL:
             case CharTypeEnum::SPACE:
                 _errStr = curTokenStr + curChar;
@@ -125,19 +125,19 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
             }
             break;
 
-            /*********************  ×´Ì¬NUMBER_1  *****************************/
+            /*********************  çŠ¶æ€NUMBER_1  *****************************/
         case LexicalDFA::StateEnum::NUMBER_1:
             switch (curCharType)
             {
-            case CharTypeEnum::DIGIT:   // ×´Ì¬²»±ä
+            case CharTypeEnum::DIGIT:   // çŠ¶æ€ä¸å˜
                 stateTurn(curChar, StateEnum::NUMBER_1);
                 break;
-            case CharTypeEnum::LETTER:      // ´íÎóµÄ×Ö·û
+            case CharTypeEnum::LETTER:      // é”™è¯¯çš„å­—ç¬¦
             case CharTypeEnum::UNDERLINE:
                 _errStr = curTokenStr + curChar;
                 return TokenErrorType::UNEXPECTED_CHAR_NUM1;
             case CharTypeEnum::SYMBOL:
-                if (curChar == '.') {     // ¸¡µã´íÎó
+                if (curChar == '.') {     // æµ®ç‚¹é”™è¯¯
                     _errStr = curTokenStr + curChar;
                     return TokenErrorType::FLOAT_ERROR_NUM1;
                 }
@@ -145,7 +145,7 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
                     _token = shared_ptr<Token>(new Token(TokenTypeEnum::INTEGER, stoi(curTokenStr)));
                     return TokenErrorType::OK;
                 }
-            case CharTypeEnum::SPACE:   // Ê¶±ğÍê³É
+            case CharTypeEnum::SPACE:   // è¯†åˆ«å®Œæˆ
                 _token = shared_ptr<Token>(new Token(TokenTypeEnum::INTEGER, stoi(curTokenStr)));
                 return TokenErrorType::OK;
             }
@@ -154,8 +154,8 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
     }
 
 
-    // µ½´ïÁË×Ö·û´®µÄÄ©Î²
-    switch (curState) { // ¸ù¾İ×´Ì¬ÉèÖÃ_token»ò_errStr£¬²¢·µ»Ø×´Ì¬Âë
+    // åˆ°è¾¾äº†å­—ç¬¦ä¸²çš„æœ«å°¾
+    switch (curState) { // æ ¹æ®çŠ¶æ€è®¾ç½®_tokenæˆ–_errStrï¼Œå¹¶è¿”å›çŠ¶æ€ç 
     case StateEnum::START:
         return TokenErrorType::SPACE;
     case StateEnum::NUMBER_1:
@@ -174,6 +174,6 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
         _token = shared_ptr<Token>(new Token(TokenTypeEnum::SYMBOL, curTokenStr));
         return TokenErrorType::OK;
     default:
-        throw string("²»Ó¦¸Ãµ½´ïÕâ¸öµØ·½");
+        throw string("ä¸åº”è¯¥åˆ°è¾¾è¿™ä¸ªåœ°æ–¹");
     }
 }

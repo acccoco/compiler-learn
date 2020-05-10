@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <memory>
 #include "TreeType.h"
@@ -9,56 +9,56 @@ using namespace std;
 
 
 /*
- Óï·¨Ê÷µÄÊ÷½Úµã
- ÓĞĞÖµÜ½ÚµãµÄ¶ş²æÊ÷£º
- node ¡ú subling
-   ¡ı
+ è¯­æ³•æ ‘çš„æ ‘èŠ‚ç‚¹
+ æœ‰å…„å¼ŸèŠ‚ç‚¹çš„äºŒå‰æ ‘ï¼š
+ node â†’ subling
+   â†“
  child
  
 */
 class TreeNode {
 public:
 
-    /* Óï·¨Ê÷µÄÊ÷½Úµã */
+    /* è¯­æ³•æ ‘çš„æ ‘èŠ‚ç‚¹ */
     typedef std::shared_ptr<TreeNode> Ptr;
 private:
 
-    int _lineNum;               // Ê÷½Úµã¶ÔÓ¦µÄĞĞºÅ
-    TreeType _treeType;         // Ê÷½ÚµãµÄÀàĞÍ
-    int _numValue;              // Êı×ÖÖµ£¬Óë×Ö·û´®Öµ¶şÑ¡Ò»
-    std::string _strValue;      // ×Ö·û´®Öµ£¬ÓëÊı×ÖÖµ¶şÑ¡Ò»
+    int _lineNum;               // æ ‘èŠ‚ç‚¹å¯¹åº”çš„è¡Œå·
+    TreeType _treeType;         // æ ‘èŠ‚ç‚¹çš„ç±»å‹
+    int _numValue;              // æ•°å­—å€¼ï¼Œä¸å­—ç¬¦ä¸²å€¼äºŒé€‰ä¸€
+    std::string _strValue;      // å­—ç¬¦ä¸²å€¼ï¼Œä¸æ•°å­—å€¼äºŒé€‰ä¸€
 
-    Ptr _child;                     // ×Ó½Úµã
-    Ptr _subling;                   // ĞÖµÜ½Úµã
+    Ptr _child;                     // å­èŠ‚ç‚¹
+    Ptr _subling;                   // å…„å¼ŸèŠ‚ç‚¹
 
 public:
 
-#pragma region ÊôĞÔ
+#pragma region å±æ€§
 
-    Property<string> StrValue = Property<string>(_strValue);    // Ê÷½ÚµãµÄ×Ö·û´®Öµ
-    Property<int> NumValue = Property<int>(_numValue);          // Ê÷½ÚµãµÄÊı×ÖÖµ
-    Property<int> LineNum = Property<int>(_lineNum);            // Ê÷½Úµã¶ÔÓ¦µÄĞĞºÅ
-    Property<TreeType> Type = Property<TreeType>(_treeType);    // Ê÷½ÚµãµÄÀàĞÍ
+    Property<string> StrValue = Property<string>(_strValue);    // æ ‘èŠ‚ç‚¹çš„å­—ç¬¦ä¸²å€¼
+    Property<int> NumValue = Property<int>(_numValue);          // æ ‘èŠ‚ç‚¹çš„æ•°å­—å€¼
+    Property<int> LineNum = Property<int>(_lineNum);            // æ ‘èŠ‚ç‚¹å¯¹åº”çš„è¡Œå·
+    Property<TreeType> Type = Property<TreeType>(_treeType);    // æ ‘èŠ‚ç‚¹çš„ç±»å‹
 
-    Property<Ptr> Child = Property<Ptr>(_child);                // Ê÷½ÚµãµÄº¢×Ó
-    Property<Ptr> Subling = Property<Ptr>(_subling);            // Ê÷½ÚµãµÄĞÖµÜ½Úµã
+    Property<Ptr> Child = Property<Ptr>(_child);                // æ ‘èŠ‚ç‚¹çš„å­©å­
+    Property<Ptr> Subling = Property<Ptr>(_subling);            // æ ‘èŠ‚ç‚¹çš„å…„å¼ŸèŠ‚ç‚¹
 
 #pragma endregion
 
-#pragma region ¹¹Ôìº¯Êı
+#pragma region æ„é€ å‡½æ•°
 
     /*
-     ¹¹ÔìÒ»¸öÊ÷½Úµã
-     ĞÖµÜ½ÚµãºÍ×Ó½ÚµãÎª¿Õ
-     ×Ö·û³öÖµÄ¬ÈÏÎª¿Õ´®£¬Êı×ÖÖµÄ¬ÈÏÎª0
+     æ„é€ ä¸€ä¸ªæ ‘èŠ‚ç‚¹
+     å…„å¼ŸèŠ‚ç‚¹å’Œå­èŠ‚ç‚¹ä¸ºç©º
+     å­—ç¬¦å‡ºå€¼é»˜è®¤ä¸ºç©ºä¸²ï¼Œæ•°å­—å€¼é»˜è®¤ä¸º0
     */
     TreeNode(TreeType treeType, int lineNum, string strValue = "", int numValue = 0) noexcept
         : _treeType(treeType), _lineNum(lineNum), _strValue(strValue), _numValue(numValue) {}
 
     /* 
-     ¹¹ÔìÒ»¸öÊ÷½Úµã
-     Ö»ÄÜÊ¹ÓÃIdentifer»òIntegerLiteralµÄtoken¹¹Ôì´Ë¶ÔÏó
-     ²»ÊÇÉÏÊöÀàĞÍ£¬»áÅ×³östringÀàĞÍµÄÒì³£
+     æ„é€ ä¸€ä¸ªæ ‘èŠ‚ç‚¹
+     åªèƒ½ä½¿ç”¨Identiferæˆ–IntegerLiteralçš„tokenæ„é€ æ­¤å¯¹è±¡
+     ä¸æ˜¯ä¸Šè¿°ç±»å‹ï¼Œä¼šæŠ›å‡ºstringç±»å‹çš„å¼‚å¸¸
      */
     TreeNode(ETokenPtr token)
         : _lineNum(token->LineNum.Get()), _strValue(token->StrValue.Get()), _numValue(token->NumValue.Get()) {
@@ -67,11 +67,11 @@ public:
         else if (token->TokenType.Get() == TokenTypeEnum::INTEGER)
             _treeType = TreeType(TreeMainType::IntegerLeterial);
         else
-            throw string("²»ÄÜÊ¹ÓÃIdentifer»òIntegerLiteralµÄtoken¹¹Ôì´Ë¶ÔÏó");
+            throw string("ä¸èƒ½ä½¿ç”¨Identiferæˆ–IntegerLiteralçš„tokenæ„é€ æ­¤å¯¹è±¡");
     }
 #pragma endregion
 
 };
 
-/* Óï·¨·ÖÎöÊ÷µÄÊ÷½Úµã */
+/* è¯­æ³•åˆ†ææ ‘çš„æ ‘èŠ‚ç‚¹ */
 typedef shared_ptr<TreeNode> TreeNodePtr;

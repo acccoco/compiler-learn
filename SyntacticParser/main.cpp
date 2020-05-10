@@ -1,4 +1,4 @@
-#include "../LexicalAnalyzer/Token.h"
+ï»¿#include "../LexicalAnalyzer/Token.h"
 #include "../LexicalAnalyzer/LexicalAnalyzer.h"
 #include "../LexicalAnalyzer/fileReader.h"
 #include "SyntaxWriter.h"
@@ -10,16 +10,16 @@ using namespace std;
 #if true
 int main(int argc, char** argv) {
 
-	bool flagPrintConsole = true;		// ÊÇ·ñ½«½á¹û´òÓ¡µ½¿ØÖÆÌ¨
-	bool flagWrite2File = true;		// ÊÇ·ñ½«½á¹ûÊä³öµ½ÎÄ¼ş
+	bool flagPrintConsole = true;		// æ˜¯å¦å°†ç»“æœæ‰“å°åˆ°æ§åˆ¶å°
+	bool flagWrite2File = true;		// æ˜¯å¦å°†ç»“æœè¾“å‡ºåˆ°æ–‡ä»¶
 
-	/* ¶ÁÈ¡ÃüÁîĞĞ²ÎÊı */
+	/* è¯»å–å‘½ä»¤è¡Œå‚æ•° */
 	if (argc != 3) {
-		cout << "ÃüÁî²ÎÊı´íÎó" << endl;
+		cout << "å‘½ä»¤å‚æ•°é”™è¯¯" << endl;
 		return 0;
 	}
 
-	/* ´ò¿ªÎÄ¼ş£¬¶ÁÈ¡ÎÄ¼ş */
+	/* æ‰“å¼€æ–‡ä»¶ï¼Œè¯»å–æ–‡ä»¶ */
 	string filePathIn, filePathOut;
 	filePathIn = argv[1];
 	filePathOut = argv[2];
@@ -28,28 +28,28 @@ int main(int argc, char** argv) {
 	fileIn.open(filePathIn, ios::in);
 	fileOut.open(filePathOut, ios::out | ios::trunc);
 	if (!fileIn.is_open()) {
-		cout << "´ò¿ªÊäÈëÎÄ¼şÊ§°Ü" << endl;
+		cout << "æ‰“å¼€è¾“å…¥æ–‡ä»¶å¤±è´¥" << endl;
 		return 0;
 	}
 	if (!fileOut.is_open()) {
-		cout << "´ò¿ªÊä³öÎÄ¼şÊ§°Ü" << endl;
+		cout << "æ‰“å¼€è¾“å‡ºæ–‡ä»¶å¤±è´¥" << endl;
 		return 0;
 	}
 	vector<string> rawStrs = FileReader().readFile(fileIn);
 
-	/* ´Ê·¨·ÖÎö */
+	/* è¯æ³•åˆ†æ */
 	LexialAnalyzer lexicalAnalyzer;
 	lexicalAnalyzer.LexicalAnlyze(rawStrs);
 	auto tokens = lexicalAnalyzer.GetResultTokens();
 	auto lexicalErrors = lexicalAnalyzer.GetResultErrors();
 
-	/* ÅĞ¶Ï´Ê·¨·ÖÎöµÄ½á¹û */
+	/* åˆ¤æ–­è¯æ³•åˆ†æçš„ç»“æœ */
 	if (lexicalErrors.size() != 0) {
-		cout << "´Ê·¨·ÖÎöÓĞ´íÎó£¬ÎŞ·¨½øĞĞÓï·¨·ÖÎö" << endl;
+		cout << "è¯æ³•åˆ†ææœ‰é”™è¯¯ï¼Œæ— æ³•è¿›è¡Œè¯­æ³•åˆ†æ" << endl;
 		return 0;
 	}
 
-	/* ½øĞĞÓï·¨·ÖÎö */
+	/* è¿›è¡Œè¯­æ³•åˆ†æ */
 	auto reader = ReaderPtr(new TokenReader(tokens));
 	auto syntaxParser = SyntaxParser(reader);
 	syntaxParser.Parse();
@@ -58,17 +58,17 @@ int main(int argc, char** argv) {
 	auto syntaxErrors = syntaxParser.ErrorList.Get();
 	auto syntaxErrorStrs = syntaxParser.getErrorStrs();
 	
-	/* ´òÓ¡Óï·¨·ÖÎöµÄ½á¹û */
+	/* æ‰“å°è¯­æ³•åˆ†æçš„ç»“æœ */
 	if (flagPrintConsole) {
 
-		/* ´òÓ¡´íÎóµ½¿ØÖÆÌ¨ */
+		/* æ‰“å°é”™è¯¯åˆ°æ§åˆ¶å° */
 		cout << endl << "Syntax Errors: " << endl;
 		for (string syntaxErrorStr : syntaxErrorStrs) {
 			cout << syntaxErrorStr << endl;
 		}
 		cout << endl;
 
-		/* ´òÓ¡Ê÷½Úµãµ½¿ØÖÆÌ¨ */
+		/* æ‰“å°æ ‘èŠ‚ç‚¹åˆ°æ§åˆ¶å° */
 		cout << "Syntax Tree: " << endl;
 		for (string str : syntaxTreeStrs) {
 			cout << str << endl;
@@ -76,20 +76,20 @@ int main(int argc, char** argv) {
 		cout << endl;
 	}
 
-	/* ½á¹ûÊä³öµ½ÎÄ¼ş */
+	/* ç»“æœè¾“å‡ºåˆ°æ–‡ä»¶ */
 	if (flagWrite2File) {
 		FileWriter fileWriter;
 
-		/* Êä³ö´íÎóµ½ÎÄ¼ş */
+		/* è¾“å‡ºé”™è¯¯åˆ°æ–‡ä»¶ */
 		fileWriter.write2File(fileOut, vector<string>{"Syntax Errors:"});
 		fileWriter.write2File(fileOut, syntaxErrorStrs);
 
-		/* Êä³öÊ÷½Úµãµ½ÎÄ¼ş */
+		/* è¾“å‡ºæ ‘èŠ‚ç‚¹åˆ°æ–‡ä»¶ */
 		fileWriter.write2File(fileOut, vector<string>{"Syntax Tree"});
 		fileWriter.write2File(fileOut, syntaxTreeStrs);
 	}
 
-	/* ¹Ø±ÕÎÄ¼ş */
+	/* å…³é—­æ–‡ä»¶ */
 	fileIn.close();
 	fileOut.close();
 

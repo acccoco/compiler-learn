@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "RDCase.h"
 #include "Type.h"
 #include "VarDeclaration.h"
@@ -18,7 +18,7 @@ public:
 protected:
     void _RunException(TreeNodePtr firstNode = nullptr) override {
 
-        /* ÀýÐÐ³õÊ¼»¯ */
+        /* ä¾‹è¡Œåˆå§‹åŒ– */
         _Init(TreeMainType::MethodDeclaration);
 
         /**** "public" ****/
@@ -32,7 +32,7 @@ protected:
         /**** Identifier ****/
         auto identifier1 = _CheckIdentifier();
 
-        /* ×é×°ASTµÄµÚÒ»¸ö×Ó½Úµã */
+        /* ç»„è£…ASTçš„ç¬¬ä¸€ä¸ªå­èŠ‚ç‚¹ */
         identifier1->Child.Set(type1.Root.Get());
         _root->Child.Set(identifier1);
 
@@ -73,19 +73,19 @@ protected:
 
     /* 
      [ Type Identifier { "," Type Identifier } ]
-     ¿ÉÑ¡Ð¡½ÚµÄÆ¥Åä
-     Òì³££º²»»áÅ×³öÒì³£
-     Ê§°ÜÁË»á»Ö¸´readerµÄÖ¸Õë
-     ·µ»ØÒ»¸ösequenceNode£¬Æä×Ó½ÚµãÊÇÒ»ÏµÁÐÐ¡½ÚÆ¥Åä½á¹ûµÄ¼¯ºÏ
+     å¯é€‰å°èŠ‚çš„åŒ¹é…
+     å¼‚å¸¸ï¼šä¸ä¼šæŠ›å‡ºå¼‚å¸¸
+     å¤±è´¥äº†ä¼šæ¢å¤readerçš„æŒ‡é’ˆ
+     è¿”å›žä¸€ä¸ªsequenceNodeï¼Œå…¶å­èŠ‚ç‚¹æ˜¯ä¸€ç³»åˆ—å°èŠ‚åŒ¹é…ç»“æžœçš„é›†åˆ
      */
     TreeNodePtr _MatchOptional1() noexcept{
 
-        /**** ³¢ÊÔÆ¥ÅäµÚÒ»¸öÐ¡½Ú [ Type Identifier ... ] ****/
+        /**** å°è¯•åŒ¹é…ç¬¬ä¸€ä¸ªå°èŠ‚ [ Type Identifier ... ] ****/
         TreeNodePtr paramSeqNode(new TreeNode(TreeMainType::Default, 0));
 
-        bool isSectionMatch = false;    // ±ê¼ÇµÚÒ»¸ö¿ÉÑ¡Ð¡½ÚÊÇ·ñÆ¥Åä³É¹¦
+        bool isSectionMatch = false;    // æ ‡è®°ç¬¬ä¸€ä¸ªå¯é€‰å°èŠ‚æ˜¯å¦åŒ¹é…æˆåŠŸ
         RUN_ONCE() {
-            const int curIndex2 = _reader->Index.Get();     // Ê§°Ü»ØÍËµÄ×¼±¸
+            const int curIndex2 = _reader->Index.Get();     // å¤±è´¥å›žé€€çš„å‡†å¤‡
 
             auto type2 = RDCase_Type(_reader);
             type2.Run();
@@ -97,20 +97,20 @@ protected:
                 break;
             }
 
-            /* Ð¡½ÚÆ¥Åä³É¹¦£¬×é×°½Úµã£¬Á¬½Óµ½ASTÉÏ */
+            /* å°èŠ‚åŒ¹é…æˆåŠŸï¼Œç»„è£…èŠ‚ç‚¹ï¼Œè¿žæŽ¥åˆ°ASTä¸Š */
             isSectionMatch = true;
             paramSeqNode->Child.Set(identifier2);
             identifier2->Child.Set(type2.Root.Get());
         }
 
-        /* Èç¹ûµÚÒ»Ð¡½ÚÆ¥ÅäÊ§°Ü£¬¾Í´Ë·µ»Ø */
+        /* å¦‚æžœç¬¬ä¸€å°èŠ‚åŒ¹é…å¤±è´¥ï¼Œå°±æ­¤è¿”å›ž */
         if (!isSectionMatch) return paramSeqNode;
 
-        /**** ³¢ÊÔÆ¥ÅäÆäËûÐ¡½Ú£º  { "," Type Identifier } ****/
+        /**** å°è¯•åŒ¹é…å…¶ä»–å°èŠ‚ï¼š  { "," Type Identifier } ****/
         TreeNodePtr preNode = paramSeqNode->Child.Get();
 
         while (true) {
-            const int curIndex3 = _reader->Index.Get();     // Ê§°Ü»ØÍËµÄ×¼±¸
+            const int curIndex3 = _reader->Index.Get();     // å¤±è´¥å›žé€€çš„å‡†å¤‡
 
             if (!_MatchSymbol(",")) break;
 
@@ -127,7 +127,7 @@ protected:
                 break;
             }
 
-            /* Ð¡½ÚÆ¥Åä³É¹¦£¬×é×°½Úµã */
+            /* å°èŠ‚åŒ¹é…æˆåŠŸï¼Œç»„è£…èŠ‚ç‚¹ */
             preNode->Subling.Set(identifier3);
             identifier3->Child.Set(type3.Root.Get());
             preNode = identifier3;

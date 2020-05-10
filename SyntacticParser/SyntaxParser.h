@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <memory>
 #include <iostream>
 #include <string>
@@ -6,43 +6,43 @@
 #include "TokenReader.h"
 #include "TreeNode.h"
 #include "SyntaxError.h"
-#include "Goal.h"
+#include "./RDCase/Goal.h"
 #include "TreeSerialize.h"
 
 /*
- Óï·¨·ÖÎöÆ÷µÄÊµÏÖ
- ¸ù¾İÊäÈëµÄtoken£¬Éú»î³éÏóÓï·¨Ê÷£¬µÃµ½Óï·¨´íÎó
- ·ÖÎöÖ®ºó£¬Í¨¹ıÊôĞÔÀ´¶ÁÈ¡·ÖÎö½á¹û
+ è¯­æ³•åˆ†æå™¨çš„å®ç°
+ æ ¹æ®è¾“å…¥çš„tokenï¼Œç”Ÿæ´»æŠ½è±¡è¯­æ³•æ ‘ï¼Œå¾—åˆ°è¯­æ³•é”™è¯¯
+ åˆ†æä¹‹åï¼Œé€šè¿‡å±æ€§æ¥è¯»å–åˆ†æç»“æœ
 */
 class SyntaxParser {
 protected:
     
-    shared_ptr<TokenReader> _reader;                    // tokenµÄ¶ÁÈ¡Æ÷
-    TreeNodePtr _root;                            // ·ÖÎö½á¹û£¬Ê÷¸ù
-    list<shared_ptr<SyntaxError>> _errorList;          // ·ÖÎö½á¹û£¬´íÎóÁ´±í
+    shared_ptr<TokenReader> _reader;                    // tokençš„è¯»å–å™¨
+    TreeNodePtr _root;                            // åˆ†æç»“æœï¼Œæ ‘æ ¹
+    list<shared_ptr<SyntaxError>> _errorList;          // åˆ†æç»“æœï¼Œé”™è¯¯é“¾è¡¨
 
 public:
 
-    /* Óï·¨·ÖÎö½á¹û£º´íÎóÁĞ±í */
+    /* è¯­æ³•åˆ†æç»“æœï¼šé”™è¯¯åˆ—è¡¨ */
     ROProperty<list<shared_ptr<SyntaxError>>> ErrorList = ROProperty<list<shared_ptr<SyntaxError>>>(_errorList);
     
-    /* Óï·¨·ÖÎö½á¹û£ºÓï·¨Ê÷µÄÊ÷¸ù */
+    /* è¯­æ³•åˆ†æç»“æœï¼šè¯­æ³•æ ‘çš„æ ‘æ ¹ */
     ROProperty<TreeNodePtr> Root = ROProperty<TreeNodePtr>(_root);
-#pragma region ¹¹Ôìº¯Êı
+#pragma region æ„é€ å‡½æ•°
 
     /*
-     Í¨¹ıreaderÀ´³õÊ¼»¯Óï·¨·ÖÎöÆ÷
-     Òì³££ºÈç¹ûreaderÎª¿Õ£¬»áÅ×³östringÒì³£
+     é€šè¿‡readeræ¥åˆå§‹åŒ–è¯­æ³•åˆ†æå™¨
+     å¼‚å¸¸ï¼šå¦‚æœreaderä¸ºç©ºï¼Œä¼šæŠ›å‡ºstringå¼‚å¸¸
     */
     SyntaxParser(shared_ptr<TokenReader> reader): _reader(reader) {
         if (reader == nullptr)
-            throw string("readerÎª¿Õ");
+            throw string("readerä¸ºç©º");
     }
 #pragma endregion
 
     /*
-     ½øĞĞµİ¹éÏÂ½µÓï·¨·ÖÎö¹ı³Ì
-     ½á¹û´æ·ÅÔÚ¶ÔÏóµÄÊôĞÔÖĞ
+     è¿›è¡Œé€’å½’ä¸‹é™è¯­æ³•åˆ†æè¿‡ç¨‹
+     ç»“æœå­˜æ”¾åœ¨å¯¹è±¡çš„å±æ€§ä¸­
     */
     void Parse() {
         auto goal = RDCase_Goal(_reader);
@@ -52,8 +52,8 @@ public:
     }
 
     /* 
-     Óï·¨·ÖÎöµÄÊ÷½Úµã×ª»¯Îª×Ö·û´®
-     Òì³££ºÎŞ
+     è¯­æ³•åˆ†æçš„æ ‘èŠ‚ç‚¹è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
+     å¼‚å¸¸ï¼šæ— 
     */
     list<string> getSerialTree() noexcept {
         auto serializer = TreeSerialize();
@@ -61,8 +61,8 @@ public:
     }
 
     /*
-     µÃµ½×Ö·û´®»¯ºóµÄ´íÎó
-     Òì³££ºÎŞ
+     å¾—åˆ°å­—ç¬¦ä¸²åŒ–åçš„é”™è¯¯
+     å¼‚å¸¸ï¼šæ— 
     */
     list<string> getErrorStrs() noexcept {
         list<string> errors;

@@ -1,15 +1,15 @@
-#include <set>
+ï»¿#include <set>
 #include "utils.h"
 using namespace std;
 
 /*
- ¹Ø¼ü×Ö¼¯ºÏ¡£ÌØ±ğ×¢Òâ£º²¢Ã»ÓĞ°üÀ¨"System.out.println"
+ å…³é”®å­—é›†åˆã€‚ç‰¹åˆ«æ³¨æ„ï¼šå¹¶æ²¡æœ‰åŒ…æ‹¬"System.out.println"
  */
 const set<string> keywords = { "class", "public", "static", "void", "main", "String", "extends",
 						"return", "int", "boolean",  "if", "else", "while" ,
 						"length", "true", "false", "this", "new" };
 /*
- ÅĞ¶ÏÒ»¸ö×Ö·û´®ÔÚ²»ÔÚ¹Ø¼ü×Ö¼¯ºÏÀïÃæ
+ åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²åœ¨ä¸åœ¨å…³é”®å­—é›†åˆé‡Œé¢
  */
 bool IsKeyword(const string tokenStr) {
 	return keywords.find(tokenStr) != keywords.end();
@@ -18,13 +18,13 @@ bool IsKeyword(const string tokenStr) {
 
 
 /*
- ·ûºÅ¼¯ºÏ
- ²¢Ã»ÓĞ°üº¬&&£¬¶øÊÇ°üº¬ÁË&
+ ç¬¦å·é›†åˆ
+ å¹¶æ²¡æœ‰åŒ…å«&&ï¼Œè€Œæ˜¯åŒ…å«äº†&
 */
 const set<char> symbols = { '[', ']', '(', ')', '{', '}', ',', ';', '=', '&', '<', '+', '-', '*', '.', '!' };
 
 /*
- ÅĞ¶ÏÒ»¸ö×Ö·ûµÄÀàĞÍ£ºÏÂ»®Ïß£¬×Ö·û£¬·ûºÅ£¬Êı×Ö
+ åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦çš„ç±»å‹ï¼šä¸‹åˆ’çº¿ï¼Œå­—ç¬¦ï¼Œç¬¦å·ï¼Œæ•°å­—
  */
 CharTypeEnum JudgeCharType(const char c) {
 	if (c == '_')

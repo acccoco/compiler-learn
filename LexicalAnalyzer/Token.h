@@ -1,7 +1,7 @@
-/*************************************************
-  TokenÏà¹ØµÄ¶¨Òå£º
-    enum class TokenTypeEnum ¶¨ÒåÁËTokenµÄÀàĞÍ
-    class Token ¶¨ÒåÁËTokenµÄ¸ñÊ½
+ï»¿/*************************************************
+  Tokenç›¸å…³çš„å®šä¹‰ï¼š
+    enum class TokenTypeEnum å®šä¹‰äº†Tokençš„ç±»å‹
+    class Token å®šä¹‰äº†Tokençš„æ ¼å¼
 ***********************************************/
 #pragma once
 #include <string>
@@ -14,7 +14,7 @@ using namespace std;
 
 
 /*
- TokenÀàĞÍÃ¶¾Ù
+ Tokenç±»å‹æšä¸¾
  */
 enum class TokenTypeEnum {
     KEYWORD,
@@ -24,7 +24,7 @@ enum class TokenTypeEnum {
 };
 
 /*
- Token¶ÔÏó
+ Tokenå¯¹è±¡
  */
 struct Token {
 

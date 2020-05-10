@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "RDCase.h"
 #include "MainClass.h"
 #include "ClassDeclaration.h"
@@ -26,7 +26,7 @@ protected:
         /**********************************
          { ClassDeclaration }
         ************************************/
-        list<SyntaxErrorPtr> lastErrors;    // Ê¶±ðClassDeclarationÊ§°ÜµÄ´íÎó£¬EOF»áÓÃµ½
+        list<SyntaxErrorPtr> lastErrors;    // è¯†åˆ«ClassDeclarationå¤±è´¥çš„é”™è¯¯ï¼ŒEOFä¼šç”¨åˆ°
         TreeNodePtr preNode = _root->Child.Get();
         while (true) {
             auto classDeclaration = RDCase_ClassDeclaration(_reader);
@@ -42,7 +42,7 @@ protected:
          EOF
         ************************************/
         if (!_reader->IsEnd()) {
-            string msg = "Ó¦¸Ãµ½´ïÎÄ¼þ½áÎ²";
+            string msg = "åº”è¯¥åˆ°è¾¾æ–‡ä»¶ç»“å°¾";
             auto error = SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
             lastErrors.push_front(error);
             _reader->RecoveryIndex(_curIndex);
