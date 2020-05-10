@@ -5,7 +5,7 @@ using namespace std;
 shared_ptr<LexicalDFA> LexicalDFA::_instance = NULL;
 
 
-TokenErrorType LexicalDFA::Parse(const string rawStr, int& curIndex) {
+TokenErrorType LexicalDFA::Parse(const string rawStr, size_t& curIndex) {
     // 清空信息
     _token = NULL;
     _errStr = "";
@@ -173,9 +173,7 @@ TokenErrorType LexicalDFA::Parse(const string rawStr, int& curIndex) {
     case StateEnum::SYMBOL_3:
         _token = shared_ptr<Token>(new Token(TokenTypeEnum::SYMBOL, curTokenStr));
         return TokenErrorType::OK;
+    default:
+        throw string("不应该到达这个地方");
     }
 }
-
-
-
-

@@ -10,7 +10,7 @@ class RDCase_Expression :public RDCase {
 public:
     RDCase_Expression(shared_ptr<TokenReader> reader)noexcept;
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstNode = nullptr)override;
+    void _RunException(TreeNodePtr firstNode = nullptr)override;
 };
 
 
@@ -22,7 +22,7 @@ public:
     RDCase_Expression_Identifier(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeType(TreeSubType_Expression::Exp_Identifier));
 
         /******************
@@ -31,7 +31,7 @@ protected:
         auto node = _CheckIdentifier();
         _root->Child.Set(node);
 
-        return _root;
+        return;
     }
 };
 
@@ -43,7 +43,7 @@ public:
     RDCase_Expression_IntegerLiteral(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeType(TreeSubType_Expression::Exp_IntegerLiteral));
 
         /******************
@@ -52,7 +52,7 @@ protected:
         auto node = _CheckIntegerLiteral();
         _root->Child.Set(node);
 
-        return _root;
+        return;
     }
 };
 
@@ -64,7 +64,7 @@ public:
     RDCase_Expression_this(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeSubType_Expression::Exp_This);
 
         /******************
@@ -72,7 +72,7 @@ protected:
         ********************/
         _CheckKeyword("this");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -83,7 +83,7 @@ public:
     RDCase_Expression_true(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeSubType_Expression::Exp_True);
 
         /******************
@@ -91,7 +91,7 @@ protected:
         ********************/
         _CheckKeyword("true");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -102,7 +102,7 @@ public:
     RDCase_Expression_false(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeSubType_Expression::Exp_False);
 
         /******************
@@ -110,7 +110,7 @@ protected:
         ********************/
         _CheckKeyword("false");
 
-        return _root;
+        return;
     }
 };
 
@@ -122,8 +122,8 @@ public:
     RDCase_Expression_not(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
-        _Init(TreeType::SubType_Expression::Exp_Not);
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
+        _Init(TreeSubType_Expression::Exp_Not);
 
         /******************
          "!"
@@ -137,7 +137,7 @@ protected:
         _CheckSubTree(&expression);
         _root->Child.Set(expression.Root.Get());
 
-        return _root;
+        return;
     }
 };
 
@@ -149,10 +149,10 @@ public:
     RDCase_Expression_bracket(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)
+    void _RunException(TreeNodePtr firstRoot = nullptr)
     {
 
-        _Init(TreeType::SubType_Expression::Exp_Bracket);
+        _Init(TreeSubType_Expression::Exp_Bracket);
         /******************
          "("
         ********************/
@@ -169,7 +169,7 @@ protected:
         ********************/
         _CheckSymbol(")");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -180,9 +180,9 @@ public:
     RDCase_Expression_newIntArray(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)
+    void _RunException(TreeNodePtr firstRoot = nullptr)
     {
-        _Init(TreeType::SubType_Expression::Exp_NewIntArray);
+        _Init(TreeSubType_Expression::Exp_NewIntArray);
         /******************
          "new" "int" "["
         ********************/
@@ -201,7 +201,7 @@ protected:
         ********************/
         _CheckSymbol("]");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -212,9 +212,9 @@ public:
     RDCase_Expression_newIdentifier(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)
+    void _RunException(TreeNodePtr firstRoot = nullptr)
     {
-        _Init(TreeType::SubType_Expression::Exp_NewIdentifier);
+        _Init(TreeSubType_Expression::Exp_NewIdentifier);
         /******************
          "new"
         ********************/
@@ -230,7 +230,7 @@ protected:
         _CheckSymbol("(");
         _CheckSymbol(")");
 
-        return _root;
+        return;
     }
 };
 
@@ -244,8 +244,8 @@ public:
     RDCase_Expression_arrayExpression(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr) {
-        _InitRecursive(TreeType::SubType_Expression::Exp_ArrayExpression, firstRoot);
+    void _RunException(TreeNodePtr firstRoot = nullptr) {
+        _InitRecursive(TreeSubType_Expression::Exp_ArrayExpression, firstRoot);
         /******************
          Expression
         ********************/
@@ -266,7 +266,7 @@ protected:
         ********************/
         _CheckSymbol("]");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -277,8 +277,8 @@ public:
     RDCase_Expression_operate(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr) {
-        _InitRecursive(TreeType::SubType_Expression::Exp_Operate, firstRoot);
+    void _RunException(TreeNodePtr firstRoot = nullptr) {
+        _InitRecursive(TreeSubType_Expression::Exp_Operate, firstRoot);
         /******************
          Expression
         ********************/
@@ -294,8 +294,9 @@ protected:
             && !_MatchSymbol("-")
             && !_MatchSymbol("*")) {
             string msg = "识别 &&, <, +, -, * 均失败";
-            _reader->Index.Set(_curIndex);
-            throw SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
+            auto error = SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
+            _reader->RecoveryIndex(_curIndex);
+            throw error;
         }
         _root->StrValue.Set(token->StrValue.Get());
         /******************
@@ -306,7 +307,7 @@ protected:
         _CheckSubTree(&expression2);
         _root->Child.Get()->Subling.Set(expression2.Root.Get());
 
-        return _root;
+        return;
     }
 };
 /*
@@ -317,8 +318,8 @@ public:
     RDCase_Expression_length(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr) {
-        _InitRecursive(TreeType::SubType_Expression::Exp_Length, firstRoot);
+    void _RunException(TreeNodePtr firstRoot = nullptr) {
+        _InitRecursive(TreeSubType_Expression::Exp_Length, firstRoot);
         /******************
          Expression
         ********************/
@@ -329,7 +330,7 @@ protected:
         _CheckSymbol(".");
         _CheckKeyword("length");
 
-        return _root;
+        return;
     }
 };
 /*
@@ -340,8 +341,8 @@ public:
     RDCase_Expression_functionCall(shared_ptr<TokenReader> reader) noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr) {
-        _InitRecursive(TreeType::SubType_Expression::Exp_FunctionCall, firstRoot);
+    void _RunException(TreeNodePtr firstRoot = nullptr) {
+        _InitRecursive(TreeSubType_Expression::Exp_FunctionCall, firstRoot);
         /******************
          Expression
         ********************/
@@ -363,7 +364,8 @@ protected:
          [ Expression { "," Expression } ]
         ********************/
         auto expression2 = RDCase_Expression(_reader);
-        if (expression2.Run()) {
+        expression2.Run();
+        if (expression2.Root.Get()) {
 
             // 参数列表节点
             TreeNodePtr paramSequence(new TreeNode(TreeType(), expression2.Root.Get()->LineNum.Get()));
@@ -382,7 +384,7 @@ protected:
                     pre = expression3.Root.Get();
                 }
                 else {  // 这一部分识别失败，回溯
-                    _reader->Index.Set(curIndex);
+                    _reader->RecoveryIndex(curIndex);
                     break;
                 }
             }
@@ -392,7 +394,7 @@ protected:
         ********************/
         _CheckSymbol(")");
 
-        return _root;
+        return;
     }
 };
 #pragma endregion
@@ -402,10 +404,10 @@ protected:
 */
 inline RDCase_Expression::RDCase_Expression(shared_ptr<TokenReader> reader) noexcept :
     RDCase(reader) {}
-inline TreeNodePtr RDCase_Expression::_RunException(TreeNodePtr firstNode) {
+inline void RDCase_Expression::_RunException(TreeNodePtr firstNode) {
     _Init(TreeType(TreeMainType::Expression));
 
-    // 首先使用以终结符开头的产生式进行识别
+    /* 首先使用以终结符开头的产生式进行识别 */
     auto expression_this = RDCase_Expression_this(_reader);
     auto expression_true = RDCase_Expression_true(_reader);
     auto expression_false = RDCase_Expression_false(_reader);
@@ -415,7 +417,6 @@ inline TreeNodePtr RDCase_Expression::_RunException(TreeNodePtr firstNode) {
     auto expression_newIntArray = RDCase_Expression_newIntArray(_reader);
     auto expression_Identifier = RDCase_Expression_Identifier(_reader);
     auto expression_IntegerLiteral = RDCase_Expression_IntegerLiteral(_reader);
-
     RUN_ONCE() {
         if (_root = expression_this.Run()) break;
         if (_root = expression_true.Run()) break;
@@ -427,26 +428,28 @@ inline TreeNodePtr RDCase_Expression::_RunException(TreeNodePtr firstNode) {
         if (_root = expression_Identifier.Run()) break;
         if (_root = expression_IntegerLiteral.Run()) break;
     }
+
+    /* 以非终结符开头的产生式识别失败，抛出异常 */
     if (_root == nullptr) {
-        _reader->Index.Set(_curIndex);
         string msg = "识别Expression错误";
-        throw SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
+        auto error = SyntaxErrorPtr(new SyntaxError(_reader, msg, _treeType));
+        _reader->RecoveryIndex(_curIndex);
+        throw error;
     }
 
-    // 然后尝试以非终结符开头的产生式进行识别，可能会多次匹配
+    /* 非终结符开头产生式成功了，尝试左递归产生式 */
     while (true) {
         TreeNodePtr newRoot;
         auto expression_operate = RDCase_Expression_operate(_reader);
         auto expression_arrayExpression = RDCase_Expression_arrayExpression(_reader);
         auto expression_length = RDCase_Expression_length(_reader);
         auto expression_functionCall = RDCase_Expression_functionCall(_reader);
-
         RUN_ONCE() {
             if (newRoot = expression_operate.Run(_root)) break;
             if (newRoot = expression_arrayExpression.Run(_root)) break;
             if (newRoot = expression_length.Run(_root)) break;
             if (newRoot = expression_functionCall.Run(_root)) break;
-            return _root;
+            return;
         }
         _root = newRoot;
 

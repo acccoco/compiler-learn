@@ -148,28 +148,22 @@
     <ClInclude Include="Statement.h" />
     <ClInclude Include="SyntaxError.h" />
     <ClInclude Include="SyntaxParser.h" />
-    <ClInclude Include="SyntaxWriter.h" />
     <ClInclude Include="TokenReader.h" />
+    <ClInclude Include="TreeSerialize.h" />
     <ClInclude Include="TreeType.h" />
     <ClInclude Include="TreeNode.h" />
     <ClInclude Include="Type.h" />
+    <ClInclude Include="VarDeclaration.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\LexicalAnalyzer\LexicalDFA.cpp" />
     <ClCompile Include="..\LexicalAnalyzer\utils.cpp" />
     <ClCompile Include="MethodDeclaration.h" />
-    <ClCompile Include="SyntaxParser.ClassDeclaration.cpp" />
-    <ClCompile Include="SyntaxParser.Expression.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SyntaxParser.Goal.cpp" />
-    <ClCompile Include="SyntaxParser.MainClass.cpp" />
-    <ClCompile Include="SyntaxParser.MethodDeclaration.cpp" />
-    <ClCompile Include="SyntaxParser.Statement.cpp" />
-    <ClCompile Include="SyntaxParser.Type.cpp" />
-    <ClCompile Include="SyntaxParser.VarDeclaration.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,7 +13,7 @@ public:
     RDCase_MainClass(shared_ptr<TokenReader> reader)noexcept :
         RDCase(reader) {}
 protected:
-    TreeNodePtr _RunException(TreeNodePtr firstRoot = nullptr)override {
+    void _RunException(TreeNodePtr firstRoot = nullptr)override {
         _Init(TreeMainType::MainClass);
         /******************
          "class"
@@ -59,6 +59,6 @@ protected:
         _CheckSymbol("}");
         _CheckSymbol("}");
 
-        return _root;
+        return;
     }
 };

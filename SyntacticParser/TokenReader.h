@@ -29,15 +29,15 @@ public:
     TokenReader(const vector<vector<TokenPtr>>& tokens):
         _curIndex(0) {
         _tokenCount = 0;
-        for (int i = 0; i < tokens.size(); ++i) {
-            for (int j = 0; j < tokens[i].size(); ++j) {
+        for (size_t i = 0; i < tokens.size(); ++i) {
+            for (size_t j = 0; j < tokens[i].size(); ++j) {
                 _tokens.push_back(ETokenPtr(new EToken(tokens[i][j], i + 1, j + 1)));
                 ++_tokenCount;
             }
         }
     }
 
-    Property<int> Index = Property<int>(_curIndex);     // reader当前的指针位置
+    ROProperty<int> Index = ROProperty<int>(_curIndex);     // reader当前的指针位置
     Property<int> TokenCount = Property<int>(_tokenCount);      // reader里面token的总数
 
     /*
@@ -72,30 +72,39 @@ public:
 
     /*
      当前指针指向的tokne的行号
-     如果没有，就返回-1
+     如果没有，就返回0
      异常：无
     */
-    int GetCurLineNum() const noexcept {
+    size_t GetCurLineNum() const noexcept {
         if (_curIndex < _tokenCount) {
             return _tokens[_curIndex]->LineNum.Get();
         }
         else {
-            return -1;
+            return 0;
         }
     }
     /*
      上一个指针指向的tokne的行号
-     如果没有，就返回-1
+     如果没有，就返回0
      异常：无
     */
-    int GetLastLineNum() const  noexcept {
+    size_t GetLastLineNum() const  noexcept {
         auto lastIndex = _curIndex - 1;
         if (0 <= lastIndex && lastIndex < _tokenCount) {
             return _tokens[lastIndex]->LineNum.Get();
         }
         else {
-            return -1;
+            return 0;
         }
+    }
+
+    /*
+     恢复Index指针
+     一般用于出现错误后，将reader回退到错误发生前
+     异常：不会抛出异常
+    */
+    void RecoveryIndex(int index) {
+        _curIndex = index;
     }
 };
 /*

@@ -2,6 +2,8 @@
 #include <string>
 #include <memory>
 #include "TreeType.h"
+#include "Property.h"
+#include "EToken.h"
 
 using namespace std;
 

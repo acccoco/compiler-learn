@@ -27,13 +27,14 @@ protected:
         for (int i = 0; i < 10; ++i) {
             vector<shared_ptr<Token>> tokensRow;
             for (int j = 0; j < 10; ++j) {
-                char* temp = new char[256];
+                char temp[256];
                 string strValue = "acc ";
-                strValue += itoa(i + 1, temp, 10);
+                _itoa_s(i + 1, temp, 10);
+                strValue += temp;
                 strValue += ", ";
-                strValue += itoa(j + 1, temp, 10);
+                _itoa_s(j + 1, temp, 10);
+                strValue += temp;
                 tokensRow.emplace_back(new Token(TokenTypeEnum::IDENTIFIER, strValue));
-                delete[] temp;
             }
             tokens.push_back(tokensRow);
         }
@@ -46,7 +47,7 @@ protected:
 */
 TEST_F(TokenReaderTest, Index) {
     EXPECT_EQ(reader->Index.Get(), 0);     // 初始index为0
-    reader->Index.Set(1);
+    reader->RecoveryIndex(1);
     EXPECT_EQ(reader->Index.Get(), 1);
 }
 
@@ -73,7 +74,7 @@ TEST_F(TokenReaderTest, SeekToken) {
 */
 TEST_F(TokenReaderTest, GetToken) {
     // 进行一次读：
-    reader->Index.Set(26);
+    reader->RecoveryIndex(26);
     auto token = reader->GetToken();
     EXPECT_EQ(token->StrValue.Get(), "acc 3, 7");
     EXPECT_EQ(token->LineNum.Get(), 3);
@@ -95,7 +96,7 @@ TEST_F(TokenReaderTest, Boder) {
     EXPECT_EQ(token->StrValue.Get(), "acc 10, 10");
     EXPECT_EQ(reader->IsEnd(), true);
     EXPECT_EQ(reader->SeekToken(), nullptr);
-    EXPECT_EQ(reader->GetCurLineNum(), -1);
+    EXPECT_EQ(reader->GetCurLineNum(), 0);
     EXPECT_EQ(reader->GetLastLineNum(), 10);
     EXPECT_EQ(reader->Index.Get(), 100);
 }

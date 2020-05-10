@@ -30,7 +30,7 @@ public:
         shared_ptr<LexicalDFA> DFA = LexicalDFA::GetInstance();
 
         // 一行一行地进行词法分析
-        for (int lineNum = 1; lineNum <= rawStrs.size(); ++lineNum) {
+        for (size_t lineNum = 1; lineNum <= rawStrs.size(); ++lineNum) {
             vector<shared_ptr<Token>> lineTokens;
             lexicalAnlyzeOneLine(DFA, lineTokens, _tokenErrors, rawStrs[lineNum - 1], lineNum);
             _tokens.push_back(lineTokens);
@@ -64,8 +64,8 @@ public:
     void lexicalAnlyzeOneLine(shared_ptr<LexicalDFA> DFA, vector<shared_ptr<Token>>& tokens,
         vector<shared_ptr<TokenError>>& tokenErrors, const string rawStr, int lineNum) {
 
-        int index = 0;
-        int lineLength = rawStr.length();
+        size_t index = 0;
+        size_t lineLength = rawStr.length();
         while (index < lineLength) {
             TokenErrorType tokenError = DFA->Parse(rawStr, index);
             shared_ptr<Token> token = DFA->GetToken();
@@ -81,7 +81,7 @@ private:
      从identifier中找出keyword
      需要是IDENTIFIER类型
      */
-    void findKeyword(string rawStr, int& index, shared_ptr<Token> token) {
+    void findKeyword(string rawStr, size_t& index, shared_ptr<Token> token) {
         if (token->type != TokenTypeEnum::IDENTIFIER)
             return;
         if (IsKeyword(token->strValue)) {   // 识别一般关键字
@@ -114,7 +114,7 @@ private:
      移动index指针
      并且将这之间的字符加入到错误信息中
      */
-    void errorHandling(int lineNum, string rawStr, int& index, shared_ptr<LexicalDFA> dfa, TokenErrorType tokenError,
+    void errorHandling(int lineNum, string rawStr, size_t& index, shared_ptr<LexicalDFA> dfa, TokenErrorType tokenError,
         vector<shared_ptr<Token>>& tokens, vector<shared_ptr<TokenError>>& tokenErrors) {
 
         // lambda：走到下一个space或symbol的地方

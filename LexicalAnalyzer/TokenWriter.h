@@ -1,3 +1,4 @@
+#pragma once
 #include "Token.h"
 #include "TokenError.h"
 #include <vector>
@@ -34,7 +35,7 @@ public:
          #line 2
          */
         fileOut << "#Token: " << endl;
-        for (int lineNum = 1; lineNum <= tokens.size(); ++lineNum) {
+        for (size_t lineNum = 1; lineNum <= tokens.size(); ++lineNum) {
             fileOut << "#line " << lineNum << endl;
             for (auto token : tokens[lineNum - 1]) {
                 switch (token->type)

@@ -29,7 +29,10 @@
     <ClInclude Include="TokenWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="fileReader.h">
+    <ClInclude Include="FileReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

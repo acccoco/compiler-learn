@@ -7,6 +7,7 @@
 #include "TreeNode.h"
 #include "SyntaxError.h"
 #include "Goal.h"
+#include "TreeSerialize.h"
 
 /*
  语法分析器的实现
@@ -27,14 +28,14 @@ public:
     
     /* 语法分析结果：语法树的树根 */
     ROProperty<TreeNodePtr> Root = ROProperty<TreeNodePtr>(_root);
-#pragma region 构造函数，析构函数
+#pragma region 构造函数
 
     /*
      通过reader来初始化语法分析器
      异常：如果reader为空，会抛出string异常
     */
     SyntaxParser(shared_ptr<TokenReader> reader): _reader(reader) {
-        if (reader = nullptr)
+        if (reader == nullptr)
             throw string("reader为空");
     }
 #pragma endregion
@@ -48,6 +49,27 @@ public:
         goal.Run();
         _root = goal.Root.Get();
         _errorList = goal.Errors.Get();
+    }
+
+    /* 
+     语法分析的树节点转化为字符串
+     异常：无
+    */
+    list<string> getSerialTree() noexcept {
+        auto serializer = TreeSerialize();
+        return serializer.Serialize(_root);
+    }
+
+    /*
+     得到字符串化后的错误
+     异常：无
+    */
+    list<string> getErrorStrs() noexcept {
+        list<string> errors;
+        for (auto rawError : _errorList) {
+            errors.push_back(rawError->toString());
+        }
+        return errors;
     }
 };
 

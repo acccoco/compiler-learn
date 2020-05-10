@@ -15,9 +15,6 @@
     <Filter Include="头文件\RDCase">
       <UniqueIdentifier>{2f025ff7-8502-4198-9af1-e07c6ef9481f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="废弃">
-      <UniqueIdentifier>{94ca7022-570f-452d-a91f-7e935abd9b8d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EToken.h">
@@ -30,9 +27,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SyntaxError.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Property.h">
@@ -65,6 +59,12 @@
     <ClInclude Include="TreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VarDeclaration.h">
+      <Filter>头文件\RDCase</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeSerialize.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,35 +79,12 @@
     <ClCompile Include="MethodDeclaration.h">
       <Filter>头文件\RDCase</Filter>
     </ClCompile>
-    <ClCompile Include="SyntaxParser.VarDeclaration.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.ClassDeclaration.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Expression.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Goal.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.MainClass.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.MethodDeclaration.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Statement.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxParser.Type.cpp">
-      <Filter>废弃</Filter>
-    </ClCompile>
     <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

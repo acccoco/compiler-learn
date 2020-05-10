@@ -57,7 +57,7 @@ public:
      引用参数：如果有错，curIndex指向错误位置；如果没有错误，curIndex指向下一个将被处理的位置
      返回：返回具体的错误代码
     */
-    TokenErrorType Parse(std::string rawStr, int& curIndex);
+    TokenErrorType Parse(std::string rawStr, size_t& curIndex);
 
 private:
     static shared_ptr<LexicalDFA> _instance;       // 单例实例

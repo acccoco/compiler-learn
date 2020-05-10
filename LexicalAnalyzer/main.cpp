@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 #include "LexicalAnalyzer.h"
-#include "fileReader.h"
+#include "FileReader.h"
 #include "TokenWriter.h"
 
 
