@@ -1,0 +1,14 @@
+Syntax Errors:
+Syntax Tree
+    Goal
+     +- MainClass
+     |   +- Ientifier<MainClass>
+     |   +- Ientifier<argv>
+     |   +- statement: println
+     |       +- expression: Identifier
+     |           +- Ientifier<hellow_world>
+     +- ClassDeclaration
+         +- Ientifier<Test>
+         |   +- Ientifier<MyClass1>
+         +- Sequence
+         +- Sequence

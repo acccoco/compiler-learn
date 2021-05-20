@@ -1,0 +1,26 @@
+Syntax Errors:
+Syntax Tree
+    Goal
+     +- MainClass
+     |   +- Ientifier<MainClass>
+     |   +- Ientifier<argv>
+     |   +- statement: println
+     |       +- expression: Identifier
+     |           +- Ientifier<hellow_world>
+     +- ClassDeclaration
+         +- Ientifier<Test>
+         +- Sequence
+         |   +- VarDeclaration
+         |   |   +- type: int
+         |   |   +- Ientifier<a>
+         |   +- VarDeclaration
+         |   |   +- type: boolean
+         |   |   +- Ientifier<b>
+         |   +- VarDeclaration
+         |   |   +- type: int[]
+         |   |   +- Ientifier<c>
+         |   +- VarDeclaration
+         |       +- type: 
+         |       |   +- Ientifier<MyClass>
+         |       +- Ientifier<d>
+         +- Sequence

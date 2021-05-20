@@ -1,0 +1,66 @@
+class MainClass {
+	public static void main (String[] argv) {
+		System.out.println(hellow_world);
+	}
+}
+
+class Test {
+
+	public int BOOLEAN_TEST() {
+		a = true;
+		a= false;
+		return 0;
+	}
+
+	public int THIS_TEST() {
+		a = this;
+		return 0;
+	}
+	public int INTEGER_TEST() {
+		a = 233;
+		return 0;
+	}
+	public int IDENTIFIER_TEST() {
+		a = var;
+		return 0;
+	}
+	public int NEW_INT_ARRAY_TEST() {
+		a = new int[23];
+		a = new int[key];
+		return 0;
+	}
+	public int NEW_IDENTIFIER_TEST() {
+		a = new MyClass();
+		return 0;
+	}
+	public int NOT_TEST() {
+		a = !!!!!!true;
+		return 0;
+	}
+	public int BRACKET_TEST() {
+		a = ((((((true))))));
+		return 0;
+	}
+	public int LENGTH_TEST() {
+		len = a.length.length.length;
+		return 0;
+	}
+	public int ARRAY_TEST() {
+		a = array[1][2][3][4][5];
+		return 0;
+	}
+	public int FUNCTION_CALL_TEST() {
+		a = a.foo(1, 2, var1, 3, var4);
+		return 0;
+	}
+	public int OPERATER_TEST() {
+		if (((1 + 1) * (1 - 1) < 1) && true) {
+			a = true;
+		}
+		else {
+			a = false;
+		}
+		return 0;
+	}
+}
+

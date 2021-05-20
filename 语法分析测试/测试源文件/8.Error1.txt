@@ -1,0 +1,9 @@
+class MainClass {
+	public static void main (String[] argv) {
+		System.out.println(hellow_world);
+	}
+}
+
+class Test extends MyClass1 {
+    a = 1;
+}

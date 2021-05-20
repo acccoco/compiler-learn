@@ -1,0 +1,4 @@
+Syntax Errors:
+AST(Goal), at line(7, 1), token(class): 应该到达文件结尾
+AST(ClassDeclaration), at line(8, 1), token(a): 匹配符号失败: }
+Syntax Tree

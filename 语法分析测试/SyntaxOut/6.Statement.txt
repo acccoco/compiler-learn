@@ -1,0 +1,87 @@
+Syntax Errors:
+Syntax Tree
+    Goal
+     +- MainClass
+     |   +- Ientifier<MainClass>
+     |   +- Ientifier<argv>
+     |   +- statement: println
+     |       +- expression: Identifier
+     |           +- Ientifier<hellow_world>
+     +- ClassDeclaration
+         +- Ientifier<STATEMENT_TEST>
+         +- Sequence
+         +- Sequence
+             +- MethodDeclaration
+             |   +- Ientifier<IF_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: if
+             |   |       +- expression: true
+             |   |       +- statement sequence: 
+             |   |       |   +- Sequence
+             |   |       |       +- statement: assign
+             |   |       |           +- Ientifier<a>
+             |   |       |           +- expression: true
+             |   |       +- statement sequence: 
+             |   |           +- Sequence
+             |   |               +- statement: assign
+             |   |                   +- Ientifier<a>
+             |   |                   +- expression: false
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<WHILE_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: while
+             |   |       +- expression: true
+             |   |       +- statement sequence: 
+             |   |           +- Sequence
+             |   |               +- statement: assign
+             |   |                   +- Ientifier<a>
+             |   |                   +- expression: true
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<SYSTAM_OUT_PRINTLN_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: println
+             |   |       +- expression: true
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<ASSIGN_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |   |   +- Ientifier<a>
+             |   |   |   +- expression: true
+             |   |   +- statement: assign
+             |   |       +- Ientifier<b>
+             |   |       +- expression: new int[]
+             |   |           +- expression: IntegerLiteral
+             |   |               +- IntegerLiteral<23>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+                 +- Ientifier<ARRAY_ASSIGN_TEST>
+                 |   +- type: int
+                 +- Sequence
+                 +- Sequence
+                 +- Sequence
+                 |   +- statement: array assign
+                 |       +- Ientifier<a>
+                 |       +- expression: IntegerLiteral
+                 |       |   +- IntegerLiteral<23>
+                 |       +- expression: true
+                 +- expression: IntegerLiteral
+                     +- IntegerLiteral<0>

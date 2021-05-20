@@ -1,0 +1,42 @@
+class MainClass {
+	public static void main (String[] argv) {
+		System.out.println(hellow_world);
+	}
+}
+
+class STATEMENT_TEST {
+
+	public int IF_TEST() {
+		if (true) {
+			a = true;
+		}
+		else {
+			a = false;
+		}
+		return 0;
+	}
+
+	public int WHILE_TEST() {
+		while (true) {
+			a = true;
+		}
+		return 0;
+	}
+
+	public int SYSTAM_OUT_PRINTLN_TEST() {
+		System.out.println(true);
+		return 0;
+	}
+
+	public int ASSIGN_TEST() {
+		a = true;
+		b = new int[23];
+		return 0;
+	}
+
+	public int ARRAY_ASSIGN_TEST() {
+		a[23] = true;
+		return 0;
+	}
+}
+

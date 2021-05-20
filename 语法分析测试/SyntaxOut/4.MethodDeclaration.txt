@@ -1,0 +1,60 @@
+Syntax Errors:
+Syntax Tree
+    Goal
+     +- MainClass
+     |   +- Ientifier<MainClass>
+     |   +- Ientifier<argv>
+     |   +- statement: println
+     |       +- expression: Identifier
+     |           +- Ientifier<hellow_world>
+     +- ClassDeclaration
+         +- Ientifier<Test>
+         +- Sequence
+         +- Sequence
+             +- MethodDeclaration
+             |   +- Ientifier<foo1>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   +- expression: true
+             +- MethodDeclaration
+             |   +- Ientifier<foo2>
+             |   |   +- type: int
+             |   +- Sequence
+             |   |   +- Ientifier<a>
+             |   |   |   +- type: int
+             |   |   +- Ientifier<b>
+             |   |       +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- expression: true
+             +- MethodDeclaration
+             |   +- Ientifier<foo3>
+             |   |   +- type: 
+             |   |       +- Ientifier<MyClass>
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   +- expression: true
+             +- MethodDeclaration
+                 +- Ientifier<foo4>
+                 |   +- type: 
+                 |       +- Ientifier<MyClass>
+                 +- Sequence
+                 |   +- Ientifier<a>
+                 |   |   +- type: int
+                 |   +- Ientifier<b>
+                 |   |   +- type: int
+                 |   +- Ientifier<c>
+                 |       +- type: int
+                 +- Sequence
+                 |   +- VarDeclaration
+                 |       +- type: boolean
+                 |       +- Ientifier<d>
+                 +- Sequence
+                 |   +- statement: assign
+                 |       +- Ientifier<d>
+                 |       +- expression: true
+                 +- expression: Identifier
+                     +- Ientifier<d>

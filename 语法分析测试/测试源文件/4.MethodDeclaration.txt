@@ -1,0 +1,23 @@
+class MainClass {
+	public static void main (String[] argv) {
+		System.out.println(hellow_world);
+	}
+}
+
+class Test {
+	public int foo1() {
+		return true;
+	}
+	public int foo2(int a, int b) {
+		return true;
+	}
+	public MyClass foo3() {
+		return true;
+	}
+	public MyClass foo4(int a, int b, int c) {
+		boolean d;
+		d = true;
+		return d;
+	}
+}
+

@@ -1,0 +1,13 @@
+class MainClass {
+	public static void main (String[] argv) {
+		System.out.println(hellow_world);
+	}
+}
+
+class Test {
+	int a;
+	boolean b;
+	int[] c;
+	MyClass d;
+}
+

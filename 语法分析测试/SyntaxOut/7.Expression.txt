@@ -1,0 +1,231 @@
+Syntax Errors:
+Syntax Tree
+    Goal
+     +- MainClass
+     |   +- Ientifier<MainClass>
+     |   +- Ientifier<argv>
+     |   +- statement: println
+     |       +- expression: Identifier
+     |           +- Ientifier<hellow_world>
+     +- ClassDeclaration
+         +- Ientifier<Test>
+         +- Sequence
+         +- Sequence
+             +- MethodDeclaration
+             |   +- Ientifier<BOOLEAN_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |   |   +- Ientifier<a>
+             |   |   |   +- expression: true
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: false
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<THIS_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: this
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<INTEGER_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: IntegerLiteral
+             |   |           +- IntegerLiteral<233>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<IDENTIFIER_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: Identifier
+             |   |           +- Ientifier<var>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<NEW_INT_ARRAY_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |   |   +- Ientifier<a>
+             |   |   |   +- expression: new int[]
+             |   |   |       +- expression: IntegerLiteral
+             |   |   |           +- IntegerLiteral<23>
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: new int[]
+             |   |           +- expression: Identifier
+             |   |               +- Ientifier<key>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<NEW_IDENTIFIER_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: new class
+             |   |           +- Ientifier<MyClass>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<NOT_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: !expression
+             |   |           +- expression: !expression
+             |   |               +- expression: !expression
+             |   |                   +- expression: !expression
+             |   |                       +- expression: !expression
+             |   |                           +- expression: !expression
+             |   |                               +- expression: true
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<BRACKET_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: (expression)
+             |   |           +- expression: (expression)
+             |   |               +- expression: (expression)
+             |   |                   +- expression: (expression)
+             |   |                       +- expression: (expression)
+             |   |                           +- expression: (expression)
+             |   |                               +- expression: true
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<LENGTH_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<len>
+             |   |       +- expression: expression.length
+             |   |           +- expression: expression.length
+             |   |               +- expression: expression.length
+             |   |                   +- expression: Identifier
+             |   |                       +- Ientifier<a>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<ARRAY_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: expression[expression]
+             |   |           +- expression: expression[expression]
+             |   |           |   +- expression: expression[expression]
+             |   |           |   |   +- expression: expression[expression]
+             |   |           |   |   |   +- expression: expression[expression]
+             |   |           |   |   |   |   +- expression: Identifier
+             |   |           |   |   |   |   |   +- Ientifier<array>
+             |   |           |   |   |   |   +- expression: IntegerLiteral
+             |   |           |   |   |   |       +- IntegerLiteral<1>
+             |   |           |   |   |   +- expression: IntegerLiteral
+             |   |           |   |   |       +- IntegerLiteral<2>
+             |   |           |   |   +- expression: IntegerLiteral
+             |   |           |   |       +- IntegerLiteral<3>
+             |   |           |   +- expression: IntegerLiteral
+             |   |           |       +- IntegerLiteral<4>
+             |   |           +- expression: IntegerLiteral
+             |   |               +- IntegerLiteral<5>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+             |   +- Ientifier<FUNCTION_CALL_TEST>
+             |   |   +- type: int
+             |   +- Sequence
+             |   +- Sequence
+             |   +- Sequence
+             |   |   +- statement: assign
+             |   |       +- Ientifier<a>
+             |   |       +- expression: functioncall
+             |   |           +- expression: Identifier
+             |   |           |   +- Ientifier<a>
+             |   |           +- Ientifier<foo>
+             |   |           +- Sequence
+             |   |               +- expression: IntegerLiteral
+             |   |               |   +- IntegerLiteral<1>
+             |   |               +- expression: IntegerLiteral
+             |   |               |   +- IntegerLiteral<2>
+             |   |               +- expression: Identifier
+             |   |               |   +- Ientifier<var1>
+             |   |               +- expression: IntegerLiteral
+             |   |               |   +- IntegerLiteral<3>
+             |   |               +- expression: Identifier
+             |   |                   +- Ientifier<var4>
+             |   +- expression: IntegerLiteral
+             |       +- IntegerLiteral<0>
+             +- MethodDeclaration
+                 +- Ientifier<OPERATER_TEST>
+                 |   +- type: int
+                 +- Sequence
+                 +- Sequence
+                 +- Sequence
+                 |   +- statement: if
+                 |       +- expression: operate &&
+                 |       |   +- expression: (expression)
+                 |       |   |   +- expression: operate *
+                 |       |   |       +- expression: (expression)
+                 |       |   |       |   +- expression: operate +
+                 |       |   |       |       +- expression: IntegerLiteral
+                 |       |   |       |       |   +- IntegerLiteral<1>
+                 |       |   |       |       +- expression: IntegerLiteral
+                 |       |   |       |           +- IntegerLiteral<1>
+                 |       |   |       +- expression: operate <
+                 |       |   |           +- expression: (expression)
+                 |       |   |           |   +- expression: operate -
+                 |       |   |           |       +- expression: IntegerLiteral
+                 |       |   |           |       |   +- IntegerLiteral<1>
+                 |       |   |           |       +- expression: IntegerLiteral
+                 |       |   |           |           +- IntegerLiteral<1>
+                 |       |   |           +- expression: IntegerLiteral
+                 |       |   |               +- IntegerLiteral<1>
+                 |       |   +- expression: true
+                 |       +- statement sequence: 
+                 |       |   +- Sequence
+                 |       |       +- statement: assign
+                 |       |           +- Ientifier<a>
+                 |       |           +- expression: true
+                 |       +- statement sequence: 
+                 |           +- Sequence
+                 |               +- statement: assign
+                 |                   +- Ientifier<a>
+                 |                   +- expression: false
+                 +- expression: IntegerLiteral
+                     +- IntegerLiteral<0>
